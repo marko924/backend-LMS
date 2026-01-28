@@ -2,8 +2,6 @@
 
 # Podela posla
 
-U nastavku je prikazana podela zadataka između Marka i Stefana, sa ciljem da se smanji broj Git konflikata i preklapanja u radu.
-
 ## 📋 Tabela podele posla
 
 | Član tima  | Oblast rada                                  | Zaduženja                                                                                                                                                                                                                                                                                               |
@@ -43,20 +41,9 @@ git switch main
 git pull
 ```
 
-Zatim se vraćate na svoju granu i merge-ujete:
+Zatim se vraćanje na svoju granu i merge-ujete:
 
 ```bash
 git merge main
 ```
 
-### 4. Jasni commit opisi
-
-Primer:
-
-```bash
-git commit -m "Implementirana prijava ispita"
-```
-
----
-
-Ako se budete držali ove podele, rizik od konflikata će biti minimalan, a razvoj brži i pregledniji.
