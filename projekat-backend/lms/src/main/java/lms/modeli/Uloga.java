@@ -1,0 +1,17 @@
+package lms.modeli;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Uloga {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String naziv;     //'ROLE_STUDENT', 'ROLE_NASTAVNIK', 'ROLE_ADMIN', 'ROLE_SLUZBA'
+}
