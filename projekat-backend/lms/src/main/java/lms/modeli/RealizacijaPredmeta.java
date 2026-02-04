@@ -3,9 +3,11 @@ package lms.modeli;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -16,10 +18,12 @@ public class RealizacijaPredmeta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="predmet_id",nullable=false)
     private Predmet predmet;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="nastavni_materijal_id",nullable=false)
     private NastavniMaterijal nastavniMaterijal;
 
     @OneToMany(mappedBy = "realizacija")

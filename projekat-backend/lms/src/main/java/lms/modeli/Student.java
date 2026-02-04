@@ -6,15 +6,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-public class Student extends RegistrovaniKorisnik {
+@PrimaryKeyJoinColumn(name="id")
+public class Student  {
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 	
     @Column
     private String ime;
@@ -30,22 +29,15 @@ public class Student extends RegistrovaniKorisnik {
     
     public Student() {}
 
-	public Student(Long id, String ime, String prezime, String jmbg, List<StudentNaGodini> upisi) {
+	public Student( String ime, String prezime, String jmbg, List<StudentNaGodini> upisi) {
 		super();
-		this.id = id;
 		this.ime = ime;
 		this.prezime = prezime;
 		this.jmbg = jmbg;
 		this.upisi = upisi;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 
 	public String getIme() {
 		return ime;
