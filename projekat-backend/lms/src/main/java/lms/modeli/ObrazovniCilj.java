@@ -11,9 +11,32 @@ public class ObrazovniCilj {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String opis;
 
-    //Ovo uraditi za sve entitete koji su povezani sa ovim
+	public ObrazovniCilj() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public ObrazovniCilj(Long id, String opis) {
+		super();
+		this.id = id;
+		this.opis = opis;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getOpis() {
+		return opis;
+	}
+
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+
     
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "predmet_id", nullable = false)
-    //private Predmet predmet;
 }

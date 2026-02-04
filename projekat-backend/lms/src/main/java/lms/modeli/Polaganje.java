@@ -18,9 +18,50 @@ public class Polaganje {
     @JoinColumn(name = "evaluacija_id", nullable = false)
     private EvaluacijaZnanja evaluacijaZnanja;
 
-    //Ovo uraditi za sve entitete koji su povezani sa ovim
+	public Polaganje() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Polaganje(Long id, Double osvojeniBodovi, String napomena, EvaluacijaZnanja evaluacijaZnanja) {
+		super();
+		this.id = id;
+		this.osvojeniBodovi = osvojeniBodovi;
+		this.napomena = napomena;
+		this.evaluacijaZnanja = evaluacijaZnanja;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Double getOsvojeniBodovi() {
+		return osvojeniBodovi;
+	}
+
+	public void setOsvojeniBodovi(Double osvojeniBodovi) {
+		this.osvojeniBodovi = osvojeniBodovi;
+	}
+
+	public String getNapomena() {
+		return napomena;
+	}
+
+	public void setNapomena(String napomena) {
+		this.napomena = napomena;
+	}
+
+	public EvaluacijaZnanja getEvaluacijaZnanja() {
+		return evaluacijaZnanja;
+	}
+
+	public void setEvaluacijaZnanja(EvaluacijaZnanja evaluacijaZnanja) {
+		this.evaluacijaZnanja = evaluacijaZnanja;
+	}
+
     
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "student_na_godini_id", nullable = false)
-    //private StudentNaGodini studentNaGodini;
 }

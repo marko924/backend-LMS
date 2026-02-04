@@ -15,4 +15,35 @@ public class Forum {
 
     @OneToMany(mappedBy = "forum", cascade = CascadeType.ALL)
     private List<Tema> teme;
+
+	public Forum() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public boolean isJavni() {
+		return javni;
+	}
+
+	public void setJavni(boolean javni) {
+		this.javni = javni;
+	}
+
+	public List<Tema> getTeme() {
+		return teme;
+	}
+
+	public void setTeme(List<Tema> teme) {
+		this.teme = teme;
+	}
+    
+    
 }

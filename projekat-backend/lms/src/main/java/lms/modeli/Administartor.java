@@ -7,4 +7,9 @@ import jakarta.persistence.PrimaryKeyJoinColumn;
 @PrimaryKeyJoinColumn(name = "id")
 public class Administartor extends RegistrovaniKorisnik{
 
+	public Administartor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 }

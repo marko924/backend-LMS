@@ -29,14 +29,88 @@ public class EvaluacijaZnanja {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tip_evaluacije_id", nullable = false)
     private TipEvaluacije tipEvaluacije;
-
-    //Ovo uraditi za svaki entitet koji je spojen za ovaj:
     
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "realizacija_id", nullable = false)
-    //private RealizacijaPredmeta realizacijaPredmeta;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "realizacija_id", nullable = false)
+    private RealizacijaPredmeta realizacijaPredmeta;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "instrument_id", nullable = false)
-    //private InstrumentEvaluacije instrumentEvaluacije;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "instrument_id", nullable = false)
+    private InstrumentEvaluacije instrumentEvaluacije;
+
+	public EvaluacijaZnanja() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public EvaluacijaZnanja(Long id, LocalDateTime vremePocetka, LocalDateTime vremeZavrsetka, Double maksimalniBodovi,
+			TipEvaluacije tipEvaluacije, RealizacijaPredmeta realizacijaPredmeta,
+			InstrumentEvaluacije instrumentEvaluacije) {
+		super();
+		this.id = id;
+		this.vremePocetka = vremePocetka;
+		this.vremeZavrsetka = vremeZavrsetka;
+		this.maksimalniBodovi = maksimalniBodovi;
+		this.tipEvaluacije = tipEvaluacije;
+		this.realizacijaPredmeta = realizacijaPredmeta;
+		this.instrumentEvaluacije = instrumentEvaluacije;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public LocalDateTime getVremePocetka() {
+		return vremePocetka;
+	}
+
+	public void setVremePocetka(LocalDateTime vremePocetka) {
+		this.vremePocetka = vremePocetka;
+	}
+
+	public LocalDateTime getVremeZavrsetka() {
+		return vremeZavrsetka;
+	}
+
+	public void setVremeZavrsetka(LocalDateTime vremeZavrsetka) {
+		this.vremeZavrsetka = vremeZavrsetka;
+	}
+
+	public Double getMaksimalniBodovi() {
+		return maksimalniBodovi;
+	}
+
+	public void setMaksimalniBodovi(Double maksimalniBodovi) {
+		this.maksimalniBodovi = maksimalniBodovi;
+	}
+
+	public TipEvaluacije getTipEvaluacije() {
+		return tipEvaluacije;
+	}
+
+	public void setTipEvaluacije(TipEvaluacije tipEvaluacije) {
+		this.tipEvaluacije = tipEvaluacije;
+	}
+
+	public RealizacijaPredmeta getRealizacijaPredmeta() {
+		return realizacijaPredmeta;
+	}
+
+	public void setRealizacijaPredmeta(RealizacijaPredmeta realizacijaPredmeta) {
+		this.realizacijaPredmeta = realizacijaPredmeta;
+	}
+
+	public InstrumentEvaluacije getInstrumentEvaluacije() {
+		return instrumentEvaluacije;
+	}
+
+	public void setInstrumentEvaluacije(InstrumentEvaluacije instrumentEvaluacije) {
+		this.instrumentEvaluacije = instrumentEvaluacije;
+	}
+    
+    
 }

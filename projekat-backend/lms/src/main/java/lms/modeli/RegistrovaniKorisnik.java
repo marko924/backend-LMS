@@ -43,4 +43,70 @@ public class RegistrovaniKorisnik {
     // Lista svih učešća ovog korisnika na različitim forumima
     @OneToMany(mappedBy = "korisnik", cascade = CascadeType.ALL)
     private List<KorisnikNaForumu> clanstvaNaForumima = new ArrayList<>();
+
+	public RegistrovaniKorisnik() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public RegistrovaniKorisnik(Long id, String korisnickoIme, String lozinka, String email, Set<Uloga> uloge,
+			List<KorisnikNaForumu> clanstvaNaForumima) {
+		super();
+		this.id = id;
+		this.korisnickoIme = korisnickoIme;
+		this.lozinka = lozinka;
+		this.email = email;
+		this.uloge = uloge;
+		this.clanstvaNaForumima = clanstvaNaForumima;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getKorisnickoIme() {
+		return korisnickoIme;
+	}
+
+	public void setKorisnickoIme(String korisnickoIme) {
+		this.korisnickoIme = korisnickoIme;
+	}
+
+	public String getLozinka() {
+		return lozinka;
+	}
+
+	public void setLozinka(String lozinka) {
+		this.lozinka = lozinka;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Set<Uloga> getUloge() {
+		return uloge;
+	}
+
+	public void setUloge(Set<Uloga> uloge) {
+		this.uloge = uloge;
+	}
+
+	public List<KorisnikNaForumu> getClanstvaNaForumima() {
+		return clanstvaNaForumima;
+	}
+
+	public void setClanstvaNaForumima(List<KorisnikNaForumu> clanstvaNaForumima) {
+		this.clanstvaNaForumima = clanstvaNaForumima;
+	}
+    
+    
 }

@@ -32,4 +32,79 @@ public class Poruka {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "poruka_id") // Unidirekciona veza ka fajlovima
     private List<Fajl> fajlovi = new ArrayList<>();
+
+	public Poruka() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Poruka(Long id, String naslov, String sadrzaj, LocalDateTime vremeSlanja, RegistrovaniKorisnik posiljalac,
+			RegistrovaniKorisnik primalac, List<Fajl> fajlovi) {
+		super();
+		this.id = id;
+		this.naslov = naslov;
+		this.sadrzaj = sadrzaj;
+		this.vremeSlanja = vremeSlanja;
+		this.posiljalac = posiljalac;
+		this.primalac = primalac;
+		this.fajlovi = fajlovi;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNaslov() {
+		return naslov;
+	}
+
+	public void setNaslov(String naslov) {
+		this.naslov = naslov;
+	}
+
+	public String getSadrzaj() {
+		return sadrzaj;
+	}
+
+	public void setSadrzaj(String sadrzaj) {
+		this.sadrzaj = sadrzaj;
+	}
+
+	public LocalDateTime getVremeSlanja() {
+		return vremeSlanja;
+	}
+
+	public void setVremeSlanja(LocalDateTime vremeSlanja) {
+		this.vremeSlanja = vremeSlanja;
+	}
+
+	public RegistrovaniKorisnik getPosiljalac() {
+		return posiljalac;
+	}
+
+	public void setPosiljalac(RegistrovaniKorisnik posiljalac) {
+		this.posiljalac = posiljalac;
+	}
+
+	public RegistrovaniKorisnik getPrimalac() {
+		return primalac;
+	}
+
+	public void setPrimalac(RegistrovaniKorisnik primalac) {
+		this.primalac = primalac;
+	}
+
+	public List<Fajl> getFajlovi() {
+		return fajlovi;
+	}
+
+	public void setFajlovi(List<Fajl> fajlovi) {
+		this.fajlovi = fajlovi;
+	}
+    
+    
 }

@@ -29,4 +29,70 @@ public class Objava {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "objava_id") // Unidirekciona veza ka fajlovima
     private List<Fajl> fajlovi = new ArrayList<>();
+
+	public Objava() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Objava(Long id, String sadrzaj, LocalDateTime vremeObjave, Tema tema, KorisnikNaForumu autor,
+			List<Fajl> fajlovi) {
+		super();
+		this.id = id;
+		this.sadrzaj = sadrzaj;
+		this.vremeObjave = vremeObjave;
+		this.tema = tema;
+		this.autor = autor;
+		this.fajlovi = fajlovi;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getSadrzaj() {
+		return sadrzaj;
+	}
+
+	public void setSadrzaj(String sadrzaj) {
+		this.sadrzaj = sadrzaj;
+	}
+
+	public LocalDateTime getVremeObjave() {
+		return vremeObjave;
+	}
+
+	public void setVremeObjave(LocalDateTime vremeObjave) {
+		this.vremeObjave = vremeObjave;
+	}
+
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+
+	public KorisnikNaForumu getAutor() {
+		return autor;
+	}
+
+	public void setAutor(KorisnikNaForumu autor) {
+		this.autor = autor;
+	}
+
+	public List<Fajl> getFajlovi() {
+		return fajlovi;
+	}
+
+	public void setFajlovi(List<Fajl> fajlovi) {
+		this.fajlovi = fajlovi;
+	}
+    
+    
 }

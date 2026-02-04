@@ -24,4 +24,51 @@ public class Adresa {
     @ManyToOne(fetch = FetchType.LAZY) //Mi stavljamo fatchType da je Lazy zbog toga sto ako bi bilo drugacije onda bi program bezveze slao mnogo upita ka bazi bez ikakve potrebe
     @JoinColumn(name = "mesto_id", nullable = false) //A ovako ako nam treba nesto iz entiteta onda cemo to dobiti preko get metode
     private Mesto mesto;
+
+	public Adresa() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Adresa(Long id, String ulica, String broj, Mesto mesto) {
+		super();
+		this.id = id;
+		this.ulica = ulica;
+		this.broj = broj;
+		this.mesto = mesto;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUlica() {
+		return ulica;
+	}
+
+	public void setUlica(String ulica) {
+		this.ulica = ulica;
+	}
+
+	public String getBroj() {
+		return broj;
+	}
+
+	public void setBroj(String broj) {
+		this.broj = broj;
+	}
+
+	public Mesto getMesto() {
+		return mesto;
+	}
+
+	public void setMesto(Mesto mesto) {
+		this.mesto = mesto;
+	}
+    
+    
 }

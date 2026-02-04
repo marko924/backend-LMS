@@ -16,7 +16,43 @@ public class Fajl {
     private String opis;
 
     @Column(nullable = false)
-    private String url; 
+    private String url;
+
+	public Fajl() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Fajl(Long id, String opis, String url) {
+		super();
+		this.id = id;
+		this.opis = opis;
+		this.url = url;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getOpis() {
+		return opis;
+	}
+
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	} 
     
     //Bilo gde se ovaj Entitet koristi onda u tom entitetu napisati nesto poput ovoga:
     
@@ -25,4 +61,6 @@ public class Fajl {
     //private List<Fajl> fajlovi = new ArrayList<>();
     
     //Sa ovim samo entitet koji je povezan sa fajlom njega moze da vidi ali ne i obrnuto
+    
+    
 }

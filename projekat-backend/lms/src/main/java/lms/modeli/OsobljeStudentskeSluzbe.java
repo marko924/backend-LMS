@@ -12,4 +12,37 @@ public class OsobljeStudentskeSluzbe extends RegistrovaniKorisnik{
 
     @Column(nullable = false, length = 50)
     private String prezime;
+    
+  //Ovde trab napraviti vezu sa studentima i studenti na godini i jos nekim stvarima
+    
+    
+
+	public OsobljeStudentskeSluzbe() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public OsobljeStudentskeSluzbe(String ime, String prezime) {
+		super();
+		this.ime = ime;
+		this.prezime = prezime;
+	}
+
+	public String getIme() {
+		return ime;
+	}
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
+
+	public String getPrezime() {
+		return prezime;
+	}
+
+	public void setPrezime(String prezime) {
+		this.prezime = prezime;
+	}
+    
+    
 }
