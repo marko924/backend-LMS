@@ -10,7 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class NastavnikNaRealizaciji {
+public class NastavnikNaRealizaciji extends LogickoBrisanje{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

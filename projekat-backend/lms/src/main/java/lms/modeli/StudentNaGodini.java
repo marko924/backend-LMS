@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class StudentNaGodini {
+public class StudentNaGodini extends LogickoBrisanje{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

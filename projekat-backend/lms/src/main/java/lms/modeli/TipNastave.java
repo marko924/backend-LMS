@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class TipNastave {
+public class TipNastave extends LogickoBrisanje{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

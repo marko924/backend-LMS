@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class RealizacijaPredmeta {
+public class RealizacijaPredmeta extends LogickoBrisanje{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

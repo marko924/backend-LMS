@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class StudijskiProgram {
+public class StudijskiProgram extends LogickoBrisanje{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

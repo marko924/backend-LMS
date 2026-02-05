@@ -6,7 +6,7 @@ import java.util.Set;
 import jakarta.persistence.*;
 
 @Entity
-public class Ishod {
+public class Ishod extends LogickoBrisanje {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

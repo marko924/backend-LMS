@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Drzava {
+public class Drzava extends LogickoBrisanje{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

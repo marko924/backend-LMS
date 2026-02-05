@@ -3,7 +3,7 @@ package lms.modeli;
 import jakarta.persistence.*;
 
 @Entity
-public class KorisnikNaForumu {
+public class KorisnikNaForumu extends LogickoBrisanje {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

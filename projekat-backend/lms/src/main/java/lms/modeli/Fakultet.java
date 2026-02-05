@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Fakultet {
+public class Fakultet extends LogickoBrisanje{
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

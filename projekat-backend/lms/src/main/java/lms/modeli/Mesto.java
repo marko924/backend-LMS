@@ -10,7 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Mesto {
+public class Mesto extends LogickoBrisanje{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
