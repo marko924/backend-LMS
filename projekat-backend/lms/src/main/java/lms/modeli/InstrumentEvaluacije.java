@@ -15,7 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class InstrumentEvaluacije {
+public class InstrumentEvaluacije extends LogickoBrisanje{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

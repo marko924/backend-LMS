@@ -10,7 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class PohadjanjePredmeta {
+public class PohadjanjePredmeta extends LogickoBrisanje {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

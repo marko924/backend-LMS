@@ -5,7 +5,7 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-public class Forum {
+public class Forum extends LogickoBrisanje {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

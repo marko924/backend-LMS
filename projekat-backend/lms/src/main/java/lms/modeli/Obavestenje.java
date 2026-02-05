@@ -7,7 +7,7 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-public class Obavestenje {
+public class Obavestenje extends LogickoBrisanje {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

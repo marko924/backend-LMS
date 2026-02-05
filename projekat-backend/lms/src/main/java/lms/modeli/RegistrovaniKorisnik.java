@@ -18,7 +18,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class RegistrovaniKorisnik {
+public class RegistrovaniKorisnik extends LogickoBrisanje{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
