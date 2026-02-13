@@ -6,8 +6,7 @@
 
 | Član tima  | Oblast rada                                  | Zaduženja                                                                                                                                                                                                                                                                                               |
 | ---------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Stefan** | Prikaz javnog sadržaja i funkcionalnosti nastavnika i studenta | - Prijava ispita<br>- Prijava korisnika (login)<br>- Pregled ostvarenih rezultata studenta- Unos ocena (profesor)<br>- Stranica univerziteta (podaci o univerzitetu)<br>- Stranice fakulteta<br>- Studijski programi i predmeti<br> - Silabusi i nastavni
-materijali                                                             |
+| **Stefan** | Prikaz javnog sadržaja i funkcionalnosti nastavnika i studenta | - Prijava ispita<br>- Prijava korisnika (login)<br>- Pregled ostvarenih rezultata studenta- Unos ocena (profesor)<br>- Stranica univerziteta (podaci o univerzitetu)<br>- Stranice fakulteta<br>- Studijski programi i predmeti<br> - Silabusi i nastavni materijali                                                             |
 | **Marko**  | Autentifikacija i funkcionalnosti administratora i osoblja studentske službe               | - Registracija korisnika (bcrypt, JWT, auth middleware)<br>- Prijava korisnika (login)<br>- Zaštita ruta (role: student, profesor, služba)<br>- Upis studenata na godinu/fakultet/program<br>- Zakazivanje ispitnih rokova i ispita |
 
 ---
@@ -21,8 +20,7 @@ Da bi se izbegli konflikti:
 * Stefan je zadužen za entitete: Student, StudentNaGodini, Nastavnik, NastavnikNaRealizaciji, Zvanje, NaucnaOblast, TipZvanja, 
                                  StudijskiProgram, GodinaStudija, Predmet, RealizacijaPredmeta, PohadjanjePredmeta, TerminNastave, TipNastave, NastavniMaterijal, Fakultet, Univerzitet.
 
-* Marko je zadužen za entitete: RegistrovaniKorisnik, OsobljeStudentskeSluzbe, Administrator, Uloga, Adresa, Mesto, Drzava,   
-                                Polaganje, EvaluacijaZnanja, TipEvaluacije, Ishod, ObrazovniCilj, Fajl, InstrumentEvaluacije, Obavestenje, Poruka, KorisnikNaForumu, Tema, Forum, Objava.
+* Marko je zadužen za entitete: RegistrovaniKorisnik, OsobljeStudentskeSluzbe, Administrator, Uloga, Adresa, Mesto, Drzava, Polaganje, EvaluacijaZnanja, TipEvaluacije, Ishod, ObrazovniCilj, Fajl, InstrumentEvaluacije, Obavestenje, Poruka, KorisnikNaForumu, Tema, Forum, Objava.
 
 ### 2. Rad na posebnim granama
 
