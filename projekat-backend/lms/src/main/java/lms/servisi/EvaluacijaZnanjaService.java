@@ -1,0 +1,92 @@
+package lms.servisi;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.EntityNotFoundException;
+import lms.dtos.EvaluacijaZnanjaDTO;
+import lms.modeli.EvaluacijaZnanja;
+import lms.modeli.InstrumentEvaluacije;
+import lms.modeli.RealizacijaPredmeta;
+import lms.modeli.TipEvaluacije;
+import lms.repozitorijumi.EvaluacijaZnanjaRepository;
+import lms.repozitorijumi.InstrumentEvaluacijeRepository;
+import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
+import lms.repozitorijumi.RealizacijaPredmetaRepository;
+import lms.repozitorijumi.TipEvaluacijeRepository;
+
+@Service
+@Transactional(readOnly = true)
+public class EvaluacijaZnanjaService extends AbstractCrusService<EvaluacijaZnanjaDTO, EvaluacijaZnanja, Long>{
+	
+	private final EvaluacijaZnanjaRepository evaluacijaZnanjaRepository;
+	private final TipEvaluacijeRepository tipEvaluacijeRepository;
+	private final RealizacijaPredmetaRepository realizacijaPredmetaRepository;
+	private final InstrumentEvaluacijeRepository instrumentEvaluacijeRepository;
+
+	public EvaluacijaZnanjaService(EvaluacijaZnanjaRepository evaluacijaZnanjaRepository,
+			TipEvaluacijeRepository tipEvaluacijeRepository,
+			RealizacijaPredmetaRepository realizacijaPredmetaRepository,
+			InstrumentEvaluacijeRepository instrumentEvaluacijeRepository) {
+		this.evaluacijaZnanjaRepository = evaluacijaZnanjaRepository;
+		this.tipEvaluacijeRepository = tipEvaluacijeRepository;
+		this.realizacijaPredmetaRepository = realizacijaPredmetaRepository;
+		this.instrumentEvaluacijeRepository = instrumentEvaluacijeRepository;
+	}
+
+	@Override
+	protected LogickoBrisanjeRepozitorijum<EvaluacijaZnanja, Long> getRepository() {
+		return evaluacijaZnanjaRepository;
+	}
+
+	@Override
+	protected EvaluacijaZnanjaDTO toDTO(EvaluacijaZnanja entity) {
+		EvaluacijaZnanjaDTO dto = new EvaluacijaZnanjaDTO();
+		dto.setId(entity.getId());
+		dto.setVremePocetka(entity.getVremePocetka());
+		dto.setVremeZavrsetka(entity.getVremeZavrsetka());
+		dto.setMaksimalniBodovi(entity.getMaksimalniBodovi());
+		if(entity.getTipEvaluacije() != null) {
+			dto.setTipEvaluacijeId(entity.getTipEvaluacije().getId());
+		}
+		if(entity.getRealizacijaPredmeta() != null) {
+			dto.setRealizacijaPredmetaId(entity.getRealizacijaPredmeta().getId());
+		}
+		if(entity.getInstrumentEvaluacije() != null) {
+			dto.setInstrumentEvaluacijeId(entity.getInstrumentEvaluacije().getId());
+		}
+		return dto;
+	}
+
+	@Override
+	protected EvaluacijaZnanja toEntity(EvaluacijaZnanjaDTO dto) {
+		EvaluacijaZnanja evaluacijaZnanja = new EvaluacijaZnanja();
+		updateEntity(evaluacijaZnanja, dto);
+		return evaluacijaZnanja;
+	}
+
+	@Override
+	protected void updateEntity(EvaluacijaZnanja entity, EvaluacijaZnanjaDTO dto) {
+		entity.setId(dto.getId());
+		entity.setVremePocetka(dto.getVremePocetka());
+		entity.setVremeZavrsetka(dto.getVremeZavrsetka());
+		entity.setMaksimalniBodovi(dto.getMaksimalniBodovi());
+		if(dto.getTipEvaluacijeId() != null) {
+			TipEvaluacije tipEvaluacije = tipEvaluacijeRepository.findById(dto.getTipEvaluacijeId())
+					.orElseThrow(() -> new EntityNotFoundException("Tip evaluacije nije pronađeno"));
+			entity.setTipEvaluacije(tipEvaluacije);
+		}
+		if(dto.getRealizacijaPredmetaId() != null) {
+			RealizacijaPredmeta realizacijaPredmeta = realizacijaPredmetaRepository.findById(dto.getRealizacijaPredmetaId())
+					.orElseThrow(() -> new EntityNotFoundException("Realizacija predmeta nije pronađena"));
+			entity.setRealizacijaPredmeta(realizacijaPredmeta);
+		}
+		if(dto.getInstrumentEvaluacijeId() != null) {
+			InstrumentEvaluacije instrumentEvaluacije = instrumentEvaluacijeRepository.findById(dto.getInstrumentEvaluacijeId())
+					.orElseThrow(() -> new EntityNotFoundException("Instrument realizacije nije pronađen"));
+			entity.setInstrumentEvaluacije(instrumentEvaluacije);
+		}
+		
+	}
+
+}

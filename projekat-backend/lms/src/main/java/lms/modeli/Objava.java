@@ -7,7 +7,7 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-public class Objava {
+public class Objava extends LogickoBrisanje{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
