@@ -1,0 +1,97 @@
+package lms.servisi;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.EntityNotFoundException;
+import lms.dtos.NastavnikNaRealizacijiDTO;
+import lms.modeli.Nastavnik;
+import lms.modeli.NastavnikNaRealizaciji;
+import lms.modeli.RealizacijaPredmeta;
+import lms.modeli.TipNastave;
+import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
+import lms.repozitorijumi.NastavnikNaRealizacijiRepository;
+import lms.repozitorijumi.NastavnikRepository;
+import lms.repozitorijumi.RealizacijaPredmetaRepository;
+import lms.repozitorijumi.TipNastaveRepository;
+
+@Service
+@Transactional(readOnly = true)
+public class NastavnikNaRealizacijiService
+        extends AbstractCrusService<NastavnikNaRealizacijiDTO, NastavnikNaRealizaciji, Long> {
+
+    private final NastavnikNaRealizacijiRepository angazovanjeRepository;
+    private final NastavnikRepository nastavnikRepository;
+    private final RealizacijaPredmetaRepository realizacijaRepository;
+    private final TipNastaveRepository tipNastaveRepository;
+
+    public NastavnikNaRealizacijiService(NastavnikNaRealizacijiRepository angazovanjeRepository,
+                                        NastavnikRepository nastavnikRepository,
+                                        RealizacijaPredmetaRepository realizacijaRepository,
+                                        TipNastaveRepository tipNastaveRepository) {
+        this.angazovanjeRepository = angazovanjeRepository;
+        this.nastavnikRepository = nastavnikRepository;
+        this.realizacijaRepository = realizacijaRepository;
+        this.tipNastaveRepository = tipNastaveRepository;
+    }
+
+    @Override
+    protected LogickoBrisanjeRepozitorijum<NastavnikNaRealizaciji, Long> getRepository() {
+        return angazovanjeRepository;
+    }
+
+   
+    @Override
+    protected NastavnikNaRealizacijiDTO toDTO(NastavnikNaRealizaciji entity) {
+        NastavnikNaRealizacijiDTO dto = new NastavnikNaRealizacijiDTO();
+
+        dto.setId(entity.getId());
+        dto.setBrojCasova(entity.getBrojCasova());
+
+        if (entity.getNastavnik() != null)
+            dto.setNastavnikId(entity.getNastavnik().getId());
+
+        if (entity.getRealizacija() != null)
+            dto.setRealizacijaId(entity.getRealizacija().getId());
+
+        if (entity.getTipNastave() != null)
+            dto.setTipNastaveId(entity.getTipNastave().getId());
+
+        return dto;
+    }
+
+    @Override
+    protected NastavnikNaRealizaciji toEntity(NastavnikNaRealizacijiDTO dto) {
+        NastavnikNaRealizaciji entity = new NastavnikNaRealizaciji();
+        updateEntity(entity, dto);
+        return entity;
+    }
+
+    
+    @Override
+    protected void updateEntity(NastavnikNaRealizaciji entity, NastavnikNaRealizacijiDTO dto) {
+
+        entity.setId(dto.getId());
+        entity.setBrojCasova(dto.getBrojCasova());
+
+        if (dto.getNastavnikId() != null) {
+            Nastavnik nastavnik = nastavnikRepository.findById(dto.getNastavnikId())
+                .orElseThrow(() -> new EntityNotFoundException("Nastavnik nije pronađen"));
+            entity.setNastavnik(nastavnik);
+        }
+
+        
+        if (dto.getRealizacijaId() != null) {
+            RealizacijaPredmeta realizacija = realizacijaRepository.findById(dto.getRealizacijaId())
+                .orElseThrow(() -> new EntityNotFoundException("Realizacija predmeta nije pronađena"));
+            entity.setRealizacija(realizacija);
+        }
+
+        
+        if (dto.getTipNastaveId() != null) {
+            TipNastave tip = tipNastaveRepository.findById(dto.getTipNastaveId())
+                .orElseThrow(() -> new EntityNotFoundException("Tip nastave nije pronađen"));
+            entity.setTipNastave(tip);
+        }
+    }
+}

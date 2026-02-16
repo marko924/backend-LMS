@@ -13,7 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class NastavniMaterijal extends LogickoBrisanje{
+public class NastavniMaterijal extends LogickoBrisanje {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,42 +24,55 @@ public class NastavniMaterijal extends LogickoBrisanje{
 
     @Column
     private String opis;
-    
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="nastavni_materijal_id")
-    private List<Fajl> fajlovi= new ArrayList<>();
-    
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "nastavni_materijal_id")
+    private List<Fajl> fajlovi = new ArrayList<>();
+
     public NastavniMaterijal() {}
 
-	public NastavniMaterijal(Long id, String naziv, String opis) {
-		super();
-		this.id = id;
-		this.naziv = naziv;
-		this.opis = opis;
-	}
+    public NastavniMaterijal(Long id, String naziv, String opis) {
+        this.id = id;
+        this.naziv = naziv;
+        this.opis = opis;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public NastavniMaterijal(Long id, String naziv, String opis, List<Fajl> fajlovi) {
+        this.id = id;
+        this.naziv = naziv;
+        this.opis = opis;
+        this.fajlovi = fajlovi;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getNaziv() {
-		return naziv;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
-	}
+    public String getNaziv() {
+        return naziv;
+    }
 
-	public String getOpis() {
-		return opis;
-	}
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
 
-	public void setOpis(String opis) {
-		this.opis = opis;
-	}
-    
+    public String getOpis() {
+        return opis;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
+
+    public List<Fajl> getFajlovi() {
+        return fajlovi;
+    }
+
+    public void setFajlovi(List<Fajl> fajlovi) {
+        this.fajlovi = fajlovi;
+    }
 }

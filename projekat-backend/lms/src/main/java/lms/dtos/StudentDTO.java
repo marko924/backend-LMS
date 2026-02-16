@@ -9,17 +9,23 @@ public class StudentDTO {
     private String prezime;
     private String jmbg;
     private Long adresaId; 
-    private List<Long> upisiId; 
+    private List<Long> upisiId;
+    private String korisnickoIme;
+    private String lozinka;
+    private String email;
 
     public StudentDTO() {}
 
-    public StudentDTO(Long id, String ime, String prezime, String jmbg, Long adresaId, List<Long> upisiId) {
+    public StudentDTO(Long id, String ime, String prezime, String jmbg, Long adresaId, List<Long> upisiId,String korisnickoIme, String lozinka, String email) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.jmbg = jmbg;
         this.adresaId = adresaId;
         this.upisiId = upisiId;
+        this.korisnickoIme = korisnickoIme;
+		this.lozinka = lozinka;
+		this.email = email;
     }
 
     public Long getId() {
@@ -69,4 +75,28 @@ public class StudentDTO {
     public void setUpisiId(List<Long> upisiId) {
         this.upisiId = upisiId;
     }
+    
+    public String getKorisnickoIme() {
+		return korisnickoIme;
+	}
+
+	public void setKorisnickoIme(String korisnickoIme) {
+		this.korisnickoIme = korisnickoIme;
+	}
+
+	public String getLozinka() {
+		return lozinka;
+	}
+
+	public void setLozinka(String lozinka) {
+		this.lozinka = lozinka;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }

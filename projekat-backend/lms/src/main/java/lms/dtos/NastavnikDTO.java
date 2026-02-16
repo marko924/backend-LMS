@@ -11,12 +11,15 @@ public class NastavnikDTO {
     private String biografija;
     private Long adresaId;          
     private List<Long> zvanjaId;  
-    private List<Long> angazovanjaId; 
+    private List<Long> angazovanjaId;
+    private String korisnickoIme;
+    private String lozinka;
+    private String email;
 
     public NastavnikDTO() {}
 
     public NastavnikDTO(Long id, String ime, String prezime, String biografija,
-                        Long adresaId, List<Long> zvanjaId, List<Long> angazovanjaId) {
+                        Long adresaId, List<Long> zvanjaId, List<Long> angazovanjaId,String korisnickoIme, String lozinka, String email) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
@@ -24,6 +27,9 @@ public class NastavnikDTO {
         this.adresaId = adresaId;
         this.zvanjaId = zvanjaId;
         this.angazovanjaId = angazovanjaId;
+        this.korisnickoIme = korisnickoIme;
+		this.lozinka = lozinka;
+		this.email = email;
     }
 
     public Long getId() {
@@ -78,8 +84,32 @@ public class NastavnikDTO {
         return angazovanjaId;
     }
 
-    public void setAngazovanjaIds(List<Long> angazovanjaId) {
+    public void setAngazovanjaId(List<Long> angazovanjaId) {
         this.angazovanjaId = angazovanjaId;
     }
+    
+    public String getKorisnickoIme() {
+		return korisnickoIme;
+	}
+
+	public void setKorisnickoIme(String korisnickoIme) {
+		this.korisnickoIme = korisnickoIme;
+	}
+
+	public String getLozinka() {
+		return lozinka;
+	}
+
+	public void setLozinka(String lozinka) {
+		this.lozinka = lozinka;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
 
