@@ -1,5 +1,8 @@
 package lms.kontroleri;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +24,12 @@ public class RegistrovaniKorisnikController extends AbstractCrudController<Regis
 	protected CrudService<RegistrovaniKorisnikDTO, Long> getService() {
 		return service;
 	}
+	
+	@GetMapping("/username/{username}")
+    public ResponseEntity<RegistrovaniKorisnikDTO> getByUsername(@PathVariable String username) {
+        // Pozivamo servisnu metodu koju smo prethodno kreirali
+        RegistrovaniKorisnikDTO dto = service.findDTOByKorisnickoIme(username);
+        return ResponseEntity.ok(dto);
+    }
 
 }

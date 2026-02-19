@@ -90,5 +90,15 @@ public class RegistrovaniKorisnikService extends AbstractCrusService<Registrovan
 		}
 		
 	}
+	
+	public RegistrovaniKorisnik findByKorisnickoIme(String korisnickoIme) {
+	    return registrovaniKorisnikRepository.findByKorisnickoImeAndObrisanFalse(korisnickoIme)
+	            .orElseThrow(() -> new EntityNotFoundException("Korisnik sa imenom '" + korisnickoIme + "' nije pronađen ili je obrisan."));
+	}
+	
+	public RegistrovaniKorisnikDTO findDTOByKorisnickoIme(String korisnickoIme) {
+	    RegistrovaniKorisnik korisnik = findByKorisnickoIme(korisnickoIme);
+	    return toDTO(korisnik);
+	}
 
 }
