@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @Service
 public class JwtUtil {
 
-    // 1. Ključ mora biti duži (barem 256 bita) i konvertovan u SecretKey objekat
     private final String SECRET_STRING = "moj_vrlo_dugacki_tajni_kljuc_koji_ima_vise_od_32_karaktera";
     private final SecretKey KEY = Keys.hmacShaKeyFor(SECRET_STRING.getBytes(StandardCharsets.UTF_8));
 
@@ -33,13 +32,12 @@ public class JwtUtil {
         return claimsResolver.apply(claims);
     }
 
-    // ISPRAVLJENO: Nova sintaksa za parser
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .verifyWith(KEY) // Umesto setSigningKey
+                .verifyWith(KEY)
                 .build()
-                .parseSignedClaims(token) // Umesto parseClaimsJws
-                .getPayload(); // Umesto getBody
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     public Boolean isTokenExpired(String token) {
@@ -55,14 +53,13 @@ public class JwtUtil {
         return createToken(claims, userDetails.getUsername());
     }
 
-    // ISPRAVLJENO: Nova sintaksa za builder
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .claims(claims) // Umesto setClaims
-                .subject(subject) // Umesto setSubject
+                .claims(claims) 
+                .subject(subject) 
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // Umesto setExpiration
-                .signWith(KEY) // Umesto signWith(Algorithm, String)
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) 
+                .signWith(KEY)
                 .compact();
     }
 
