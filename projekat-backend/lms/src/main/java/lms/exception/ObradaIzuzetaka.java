@@ -21,7 +21,7 @@ public class ObradaIzuzetaka {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
- // 2. NOVO: Hvatanje greške "Zabranjen pristup" (403 Forbidden)
+    // 2. NOVO: Hvatanje greške "Zabranjen pristup" (403 Forbidden)
     // Ovo se aktivira kada @PreAuthorize vrati 'false'
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<OdgovrNaGresku> handleAccessDeniedException(AccessDeniedException ex) {

@@ -48,12 +48,17 @@ public abstract class AbstractCrusService <DTO, Entity extends LogickoBrisanje, 
 	    return entitiesPage.map(this::toDTO); 
 	}
 
-	@Transactional // Ovo nadjačava readOnly i dozvoljava pisanje u bazu
+	@Transactional
     @Override
     public DTO save(DTO dto) {
         Entity entity = toEntity(dto);
         entity = getRepository().save(entity);
         return toDTO(entity);
+    }
+	
+	@Transactional
+    public Entity saveEntity(Entity entity) {
+        return getRepository().save(entity);
     }
 
     @Transactional
@@ -71,8 +76,6 @@ public abstract class AbstractCrusService <DTO, Entity extends LogickoBrisanje, 
         Entity entity = getRepository().findById(id).filter(e -> !e.isDeleted())
                 .orElseThrow(() -> new EntityNotFoundException("Not found with id: " + id));
         entity.setDeleted(true);
-        // Sa @Transactional, getRepository().save(entity) tehnički nije ni potreban 
-        // jer Hibernate automatski radi "flush" promena pre kraja transakcije
         getRepository().save(entity);
     }
     

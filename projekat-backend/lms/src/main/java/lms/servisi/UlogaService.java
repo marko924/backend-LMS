@@ -3,6 +3,7 @@ package lms.servisi;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.UlogaDTO;
 import lms.modeli.Uloga;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
@@ -44,5 +45,14 @@ public class UlogaService extends AbstractCrusService<UlogaDTO, Uloga, Long>{
 		entity.setNaziv(dto.getNaziv());
 		
 	}
-
+	
+	public Uloga findByNaziv(String naziv) {
+	    return ulogaRepository.findByNaziv(naziv)
+	    		.orElseThrow(() -> new EntityNotFoundException("Greška: Uloga " + naziv + " nije pronađena."));
+	}
+	
+	public UlogaDTO findDTOByNaziv(String naziv) {
+		Uloga uloga = findByNaziv(naziv);
+	    return toDTO(uloga);
+	}
 }
