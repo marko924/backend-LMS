@@ -7,14 +7,14 @@ import jakarta.persistence.MappedSuperclass;
 public abstract class LogickoBrisanje {
 
     @Column(nullable = false)
-    protected boolean deleted = false;
+    protected boolean obrisan = false;
 
-    public boolean isDeleted() {
-        return deleted;
+    public boolean isObrisan() {
+        return obrisan;
     }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void setObrisan(boolean obrisan) {
+        this.obrisan = obrisan;
     }
     
 }

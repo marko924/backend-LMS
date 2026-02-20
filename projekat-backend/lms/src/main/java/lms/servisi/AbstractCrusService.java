@@ -25,7 +25,7 @@ public abstract class AbstractCrusService <DTO, Entity extends LogickoBrisanje, 
 	
 	@Override
 	public DTO findById(ID id) {
-		Entity entity = getRepository().findById(id).filter(e -> !e.isDeleted()) 
+		Entity entity = getRepository().findById(id).filter(e -> !e.isObrisan()) 
 				.orElseThrow(() -> new EntityNotFoundException("Not found with id: " + id));
 		return toDTO(entity);
 	}
@@ -64,7 +64,7 @@ public abstract class AbstractCrusService <DTO, Entity extends LogickoBrisanje, 
     @Transactional
     @Override
     public DTO update(ID id, DTO dto) {
-        Entity entity = getRepository().findById(id).filter(e -> !e.isDeleted())
+        Entity entity = getRepository().findById(id).filter(e -> !e.isObrisan())
                 .orElseThrow(() -> new EntityNotFoundException("Not found with id: " + id));
         updateEntity(entity, dto);
         return toDTO(getRepository().save(entity));
@@ -73,9 +73,9 @@ public abstract class AbstractCrusService <DTO, Entity extends LogickoBrisanje, 
     @Transactional
     @Override
     public void delete(ID id) {
-        Entity entity = getRepository().findById(id).filter(e -> !e.isDeleted())
+        Entity entity = getRepository().findById(id).filter(e -> !e.isObrisan())
                 .orElseThrow(() -> new EntityNotFoundException("Not found with id: " + id));
-        entity.setDeleted(true);
+        entity.setObrisan(true);
         getRepository().save(entity);
     }
     
