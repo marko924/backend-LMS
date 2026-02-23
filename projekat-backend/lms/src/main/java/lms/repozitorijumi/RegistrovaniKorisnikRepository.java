@@ -10,4 +10,6 @@ import lms.modeli.RegistrovaniKorisnik;
 public interface RegistrovaniKorisnikRepository extends LogickoBrisanjeRepozitorijum<RegistrovaniKorisnik, Long>{
 
 	Optional<RegistrovaniKorisnik> findByKorisnickoImeAndObrisanFalse(String korisnickoIme);
+	
+	boolean existsByKorisnickoImeAndObrisanFalse(String korisnickoIme);
 }

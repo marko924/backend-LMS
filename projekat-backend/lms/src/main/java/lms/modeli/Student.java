@@ -27,8 +27,8 @@ public class Student extends RegistrovaniKorisnik{
     @OneToMany(mappedBy = "student")
     private List<StudentNaGodini> upisi;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "adresa_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "adresa_id", nullable = true)
     private Adresa adresa;
     
     public Student() {}

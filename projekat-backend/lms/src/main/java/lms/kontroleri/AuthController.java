@@ -54,24 +54,20 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequest authRequest) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequest authRequest) {
         try {
-            // 1. Spring Security proverava da li su username i password tačni
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
         } catch (BadCredentialsException e) {
-            throw new Exception("Neispravno korisničko ime ili lozinka", e);
+            // Vrati 401 Unauthorized - to je ispravan način za pogrešnu lozinku
+            return ResponseEntity.status(401).body("Neispravno korisničko ime ili lozinka");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Došlo je do serverske greške");
         }
 
-        // 2. Ako je kredo tačan, izvlačimo podatke o korisniku (uključujući uloge)
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authRequest.getUsername());
-
-        // 3. Generišemo JWT token
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);
-
-        // 4. Vraćamo token klijentu (Angularu)
         return ResponseEntity.ok(new AuthResponse(jwt));
     }
 
@@ -80,7 +76,7 @@ public class AuthController {
     @Transactional
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
         // 1. Provera da li korisničko ime već postoji
-        if (korisnikService.findByKorisnickoIme(request.getKorisnickoIme()) != null) {
+    	if (korisnikService.proveriPostojanje(request.getKorisnickoIme())) {
             return ResponseEntity.badRequest().body("Greška: Korisničko ime je zauzeto!");
         }
 
@@ -89,7 +85,7 @@ public class AuthController {
         String nazivUloge;
 
         switch (request.getUloga().toUpperCase()) {
-            case "STUDENT":
+            case "ROLE_STUDENT":
                 Student student = new Student();
                 student.setIme(request.getIme());
                 student.setPrezime(request.getPrezime());
@@ -98,7 +94,7 @@ public class AuthController {
                 nazivUloge = "ROLE_STUDENT";
                 break;
             
-            case "NASTAVNIK":
+            case "ROLE_NASTAVNIK":
                 Nastavnik nastavnik = new Nastavnik();
                 nastavnik.setIme(request.getIme());
                 nastavnik.setPrezime(request.getPrezime());
@@ -107,7 +103,7 @@ public class AuthController {
                 nazivUloge = "ROLE_NASTAVNIK";
                 break;
 
-            case "SLUZBA":
+            case "ROLE_SLUZBA":
             	OsobljeStudentskeSluzbe sluzba = new OsobljeStudentskeSluzbe();
             	sluzba.setIme(request.getIme());
             	sluzba.setPrezime(request.getPrezime());
@@ -115,7 +111,7 @@ public class AuthController {
             	nazivUloge = "ROLE_SLUZBA";
             	break;
 
-            case "ADMIN":
+            case "ROLE_ADMIN":
             	Administartor admin = new Administartor();
             	korisnik = admin;
             	nazivUloge = "ROLE_ADMIN";
