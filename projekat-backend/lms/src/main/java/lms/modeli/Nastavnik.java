@@ -29,8 +29,8 @@ public class Nastavnik extends RegistrovaniKorisnik{
     @OneToMany(mappedBy = "nastavnik")
     private List<NastavnikNaRealizaciji> angazovanja;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "adresa_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "adresa_id", nullable = true)
     private Adresa adresa;
     
     public Nastavnik () {
