@@ -53,6 +53,7 @@ public class FakultetService extends AbstractCrusService<FakultetDTO, Fakultet, 
         FakultetDTO dto = new FakultetDTO();
         dto.setId(entity.getId());
         dto.setNaziv(entity.getNaziv());
+        dto.setOpis(entity.getOpis());
         dto.setUniverzitetId(entity.getUniverzitet() != null ? entity.getUniverzitet().getId() : null);
         dto.setDekanId(entity.getDekan() != null ? entity.getDekan().getId() : null);
         dto.setProgramId(entity.getProgrami() != null
@@ -76,6 +77,7 @@ public class FakultetService extends AbstractCrusService<FakultetDTO, Fakultet, 
     protected void updateEntity(Fakultet entity, FakultetDTO dto) {
         entity.setId(dto.getId());
         entity.setNaziv(dto.getNaziv());
+        entity.setOpis(dto.getOpis());
 
        
         if (dto.getUniverzitetId() != null) {

@@ -50,6 +50,7 @@ public class StudijskiProgramService extends AbstractCrusService<StudijskiProgra
         StudijskiProgramDTO dto = new StudijskiProgramDTO();
         dto.setId(entity.getId());
         dto.setNaziv(entity.getNaziv());
+        dto.setOpis(entity.getOpis());
 
         if (entity.getFakultet() != null) {
             dto.setFakultetId(entity.getFakultet().getId());
@@ -81,6 +82,7 @@ public class StudijskiProgramService extends AbstractCrusService<StudijskiProgra
     protected void updateEntity(StudijskiProgram entity, StudijskiProgramDTO dto) {
         entity.setId(dto.getId());
         entity.setNaziv(dto.getNaziv());
+        entity.setOpis(dto.getOpis());
 
        
         if (dto.getFakultetId() != null) {

@@ -7,15 +7,17 @@ public class PredmetDTO {
 
     private Long id;
     private String naziv;
+    private String opis;
     private Integer espb;
     private Long studijskiProgramId; 
     private List<Long> realizacijeId; 
 
     public PredmetDTO() {}
 
-    public PredmetDTO(Long id, String naziv, Integer espb, Long studijskiProgramId, List<Long> realizacijeId) {
+    public PredmetDTO(Long id, String naziv,String opis, Integer espb, Long studijskiProgramId, List<Long> realizacijeId) {
         this.id = id;
         this.naziv = naziv;
+        this.opis= opis;
         this.espb = espb;
         this.studijskiProgramId = studijskiProgramId;
         this.realizacijeId = realizacijeId;
@@ -36,6 +38,15 @@ public class PredmetDTO {
     public void setNaziv(String naziv) {
         this.naziv = naziv;
     }
+    
+    public String getOpis() {
+		return opis;
+	}
+	
+	public void setOpis(String opis) {
+		this.opis= opis;
+	}
+
 
     public Integer getEspb() {
         return espb;

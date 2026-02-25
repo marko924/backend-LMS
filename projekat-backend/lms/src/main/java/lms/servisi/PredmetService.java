@@ -43,6 +43,7 @@ public class PredmetService extends AbstractCrusService<PredmetDTO, Predmet, Lon
         PredmetDTO dto = new PredmetDTO();
         dto.setId(entity.getId());
         dto.setNaziv(entity.getNaziv());
+        dto.setOpis(entity.getOpis());
         dto.setEspb(entity.getEspb());
 
         if (entity.getStudijskiProgram() != null) {
@@ -71,6 +72,7 @@ public class PredmetService extends AbstractCrusService<PredmetDTO, Predmet, Lon
     protected void updateEntity(Predmet entity, PredmetDTO dto) {
         entity.setId(dto.getId());
         entity.setNaziv(dto.getNaziv());
+        entity.setOpis(dto.getOpis());
         entity.setEspb(dto.getEspb());
 
        

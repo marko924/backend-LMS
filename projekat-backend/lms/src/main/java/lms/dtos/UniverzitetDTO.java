@@ -8,16 +8,18 @@ public class UniverzitetDTO {
     private Long id;
     private String naziv;
     private LocalDate datumOsnivanja;
+    private String opis;
     private Long rektorId;
     private List<Long> fakultetId;
     private Long adresaId;
 
     public UniverzitetDTO() {}
 
-    public UniverzitetDTO(Long id, String naziv, LocalDate datumOsnivanja, Long rektorId, List<Long> fakultetId, Long adresaId) {
+    public UniverzitetDTO(Long id, String naziv, LocalDate datumOsnivanja,String opis, Long rektorId, List<Long> fakultetId, Long adresaId) {
         this.id = id;
         this.naziv = naziv;
         this.datumOsnivanja = datumOsnivanja;
+        this.opis=opis;
         this.rektorId = rektorId;
         this.fakultetId = fakultetId;
         this.adresaId = adresaId;
@@ -46,6 +48,15 @@ public class UniverzitetDTO {
     public void setDatumOsnivanja(LocalDate datumOsnivanja) {
         this.datumOsnivanja = datumOsnivanja;
     }
+    
+    public String getOpis() {
+		return opis;
+	}
+	
+	public void setOpis(String opis) {
+		this.opis= opis;
+	}
+
 
     public Long getRektorId() {
         return rektorId;

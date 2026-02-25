@@ -6,6 +6,7 @@ public class FakultetDTO {
 
     private Long id;
     private String naziv;
+    private String opis;
     private Long univerzitetId;
     private Long dekanId;
     private List<Long> studentskiProgramId;
@@ -13,9 +14,10 @@ public class FakultetDTO {
 
     public FakultetDTO() {}
 
-    public FakultetDTO(Long id, String naziv, Long univerzitetId, Long dekanId, List<Long> studentskiProgramId, Long adresaId) {
+    public FakultetDTO(Long id, String naziv,String opis, Long univerzitetId, Long dekanId, List<Long> studentskiProgramId, Long adresaId) {
         this.id = id;
         this.naziv = naziv;
+        this.opis=opis;
         this.univerzitetId = univerzitetId;
         this.dekanId = dekanId;
         this.studentskiProgramId = studentskiProgramId;
@@ -37,6 +39,15 @@ public class FakultetDTO {
     public void setNaziv(String naziv) {
         this.naziv = naziv;
     }
+    
+    public String getOpis() {
+		return opis;
+	}
+	
+	public void setOpis(String opis) {
+		this.opis= opis;
+	}
+
 
     public Long getUniverzitetId() {
         return univerzitetId;

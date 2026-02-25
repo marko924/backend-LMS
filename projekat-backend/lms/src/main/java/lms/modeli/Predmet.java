@@ -21,6 +21,9 @@ public class Predmet extends LogickoBrisanje{
 
     @Column
     private String naziv;
+    
+    @Column
+    private String opis;
 
     @Column
     private Integer espb;
@@ -34,11 +37,12 @@ public class Predmet extends LogickoBrisanje{
     
     public Predmet() {}
 
-	public Predmet(Long id, String naziv, Integer espb, StudijskiProgram studijskiProgram,
+	public Predmet(Long id, String naziv,String opis, Integer espb, StudijskiProgram studijskiProgram,
 			List<RealizacijaPredmeta> realizacije) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
+		this.opis= opis;
 		this.espb = espb;
 		this.studijskiProgram = studijskiProgram;
 		this.realizacije = realizacije;
@@ -59,6 +63,15 @@ public class Predmet extends LogickoBrisanje{
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
+	
+	public String getOpis() {
+		return opis;
+	}
+	
+	public void setOpis(String opis) {
+		this.opis= opis;
+	}
+
 
 	public Integer getEspb() {
 		return espb;

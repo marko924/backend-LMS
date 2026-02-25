@@ -21,6 +21,9 @@ public class StudijskiProgram extends LogickoBrisanje{
 
     @Column
     private String naziv;
+    
+    @Column
+    private String opis;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="fakultet_id",nullable=false)
@@ -35,10 +38,11 @@ public class StudijskiProgram extends LogickoBrisanje{
     
     public StudijskiProgram() {}
     
-	public StudijskiProgram(Long id, String naziv, Fakultet fakultet, Nastavnik rukovodilac, List<Predmet> predmeti) {
+	public StudijskiProgram(Long id, String naziv,String opis, Fakultet fakultet, Nastavnik rukovodilac, List<Predmet> predmeti) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
+		this.opis=opis;
 		this.fakultet = fakultet;
 		this.rukovodilac = rukovodilac;
 		this.predmeti = predmeti;
@@ -59,6 +63,15 @@ public class StudijskiProgram extends LogickoBrisanje{
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
+	
+	public String getOpis() {
+		return opis;
+	}
+	
+	public void setOpis(String opis) {
+		this.opis= opis;
+	}
+
 
 	public Fakultet getFakultet() {
 		return fakultet;

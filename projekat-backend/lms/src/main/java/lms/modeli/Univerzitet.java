@@ -25,6 +25,9 @@ public class Univerzitet extends LogickoBrisanje{
 
     @Column
     private LocalDate datumOsnivanja;
+    
+    @Column
+    private String opis;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="nastavnik_id",nullable=false)
@@ -41,12 +44,13 @@ public class Univerzitet extends LogickoBrisanje{
     	super();
     }
 
-	public Univerzitet(Long id, String naziv, LocalDate datumOsnivanja, Nastavnik rektor, List<Fakultet> fakulteti,
+	public Univerzitet(Long id, String naziv, LocalDate datumOsnivanja,String opis, Nastavnik rektor, List<Fakultet> fakulteti,
 			Adresa adresa) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
 		this.datumOsnivanja = datumOsnivanja;
+		this.opis= opis;
 		this.rektor = rektor;
 		this.fakulteti = fakulteti;
 		this.adresa = adresa;
@@ -70,6 +74,14 @@ public class Univerzitet extends LogickoBrisanje{
 
 	public LocalDate getDatumOsnivanja() {
 		return datumOsnivanja;
+	}
+	
+	public String getOpis() {
+		return opis;
+	}
+	
+	public void setOpis(String opis) {
+		this.opis= opis;
 	}
 
 	public void setDatumOsnivanja(LocalDate datumOsnivanja) {
