@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,8 @@ import lms.servisi.PorukaService;
 @RequestMapping("/api/poruke")
 public class PorukaController extends AbstractCrudController<PorukaDTO, Long>{
 	
-	private final PorukaService service;
-
-	public PorukaController(PorukaService service) {
-		this.service = service;
-	}
+	@Autowired
+	private PorukaService service;
 
 	@Override
 	protected CrudService<PorukaDTO, Long> getService() {

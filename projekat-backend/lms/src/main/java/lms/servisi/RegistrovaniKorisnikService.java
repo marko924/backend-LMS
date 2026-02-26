@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,15 +22,14 @@ import lms.repozitorijumi.UlogaRepository;
 @Transactional(readOnly = true)
 public class RegistrovaniKorisnikService extends AbstractCrusService<RegistrovaniKorisnikDTO, RegistrovaniKorisnik, Long>{
 	
-	private final RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
-	private final KorisnikNaForumuRepository korisnikNaForumuRepository;
-	private final UlogaRepository ulogaRepository;
-
-	public RegistrovaniKorisnikService(RegistrovaniKorisnikRepository registrovaniKorisnikRepository, KorisnikNaForumuRepository korisnikNaForumuRepository, UlogaRepository ulogaRepository) {
-		this.registrovaniKorisnikRepository = registrovaniKorisnikRepository;
-		this.korisnikNaForumuRepository = korisnikNaForumuRepository;
-		this.ulogaRepository = ulogaRepository;
-	}
+	@Autowired
+	private RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
+	
+	@Autowired
+	private KorisnikNaForumuRepository korisnikNaForumuRepository;
+	
+	@Autowired
+	private UlogaRepository ulogaRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<RegistrovaniKorisnik, Long> getRepository() {

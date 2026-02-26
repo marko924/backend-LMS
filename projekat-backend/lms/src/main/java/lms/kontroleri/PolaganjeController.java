@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,8 @@ import lms.servisi.PolaganjeService;
 @RequestMapping("/api/polaganja")
 public class PolaganjeController extends AbstractCrudController<PolaganjeDTO, Long>{
 	
-	private final PolaganjeService service;
-
-	public PolaganjeController(PolaganjeService service) {
-		this.service = service;
-	}
+	@Autowired
+	private PolaganjeService service;
 
 	@Override
 	protected CrudService<PolaganjeDTO, Long> getService() {

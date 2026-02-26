@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,8 @@ import lms.servisi.TemaService;
 @RequestMapping("/api/teme")
 public class TemaController extends AbstractCrudController<TemaDTO, Long>{
 	
-	private final TemaService service;
-
-	public TemaController(TemaService service) {
-		this.service = service;
-	}
+	@Autowired
+	private TemaService service;
 
 	@Override
 	protected CrudService<TemaDTO, Long> getService() {

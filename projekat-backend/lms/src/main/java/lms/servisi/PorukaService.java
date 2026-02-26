@@ -3,6 +3,7 @@ package lms.servisi;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,16 +21,14 @@ import lms.repozitorijumi.RegistrovaniKorisnikRepository;
 @Transactional(readOnly = true)
 public class PorukaService extends AbstractCrusService<PorukaDTO, Poruka, Long>{
 	
-	private final PorukaRepository porukaRepository;
-	private final RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
-	private final FajlRepository fajlRepository;
-
-	public PorukaService(PorukaRepository porukaRepository,
-			RegistrovaniKorisnikRepository registrovaniKorisnikRepository, FajlRepository fajlRepository) {
-		this.porukaRepository = porukaRepository;
-		this.registrovaniKorisnikRepository = registrovaniKorisnikRepository;
-		this.fajlRepository = fajlRepository;
-	}
+	@Autowired
+	private PorukaRepository porukaRepository;
+	
+	@Autowired
+	private RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
+	
+	@Autowired
+	private FajlRepository fajlRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<Poruka, Long> getRepository() {

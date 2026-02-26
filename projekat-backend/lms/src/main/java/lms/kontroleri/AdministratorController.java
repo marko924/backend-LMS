@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,8 @@ import lms.servisi.CrudService;
 @RequestMapping("/api/adminisratori")
 public class AdministratorController extends AbstractCrudController<AdministratorDTO, Long>{
 	
-	private final AdministartorService service;
-
-	public AdministratorController(AdministartorService service) {
-		this.service = service;
-	}
+	@Autowired
+	private AdministartorService service;
 
 	@Override
 	protected CrudService<AdministratorDTO, Long> getService() {

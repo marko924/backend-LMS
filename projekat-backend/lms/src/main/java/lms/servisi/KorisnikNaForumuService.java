@@ -1,5 +1,6 @@
 package lms.servisi;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,19 +20,17 @@ import lms.repozitorijumi.UlogaRepository;
 @Transactional(readOnly = true)
 public class KorisnikNaForumuService extends AbstractCrusService<KorisnikNaForumuDTO, KorisnikNaForumu, Long>{
 	
-	private final KorisnikNaForumuRepository korisnikNaForumuRepository;
-	private final RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
-	private final ForumRepository forumRepository;
-	private final UlogaRepository ulogaRepository;
-
-	public KorisnikNaForumuService(KorisnikNaForumuRepository korisnikNaForumuRepository,
-			RegistrovaniKorisnikRepository registrovaniKorisnikRepository, ForumRepository forumRepository,
-			UlogaRepository ulogaRepository) {
-		this.korisnikNaForumuRepository = korisnikNaForumuRepository;
-		this.registrovaniKorisnikRepository = registrovaniKorisnikRepository;
-		this.forumRepository = forumRepository;
-		this.ulogaRepository = ulogaRepository;
-	}
+	@Autowired
+	private KorisnikNaForumuRepository korisnikNaForumuRepository;
+	
+	@Autowired
+	private RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
+	
+	@Autowired
+	private ForumRepository forumRepository;
+	
+	@Autowired
+	private UlogaRepository ulogaRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<KorisnikNaForumu, Long> getRepository() {

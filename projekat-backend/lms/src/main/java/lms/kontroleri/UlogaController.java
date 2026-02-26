@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +15,8 @@ import lms.servisi.UlogaService;
 @RequestMapping("/api/uloge")
 public class UlogaController extends AbstractCrudController<UlogaDTO, Long>{
 	
-	private final UlogaService service;
-
-	public UlogaController(UlogaService service) {
-		this.service = service;
-	}
+	@Autowired
+	private UlogaService service;
 
 	@Override
 	protected CrudService<UlogaDTO, Long> getService() {

@@ -1,5 +1,6 @@
 package lms.servisi;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,15 +16,11 @@ import lms.repozitorijumi.PolaganjeRepository;
 @Transactional(readOnly = true)
 public class PolaganjeService extends AbstractCrusService<PolaganjeDTO, Polaganje, Long>{
 	
-	private final PolaganjeRepository polaganjeRepository;
-	private final EvaluacijaZnanjaRepository evaluacijaZnanjaRepository;
-
-	public PolaganjeService(PolaganjeRepository polaganjeRepository,
-			EvaluacijaZnanjaRepository evaluacijaZnanjaRepository) {
-		super();
-		this.polaganjeRepository = polaganjeRepository;
-		this.evaluacijaZnanjaRepository = evaluacijaZnanjaRepository;
-	}
+	@Autowired
+	private PolaganjeRepository polaganjeRepository;
+	
+	@Autowired
+	private EvaluacijaZnanjaRepository evaluacijaZnanjaRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<Polaganje, Long> getRepository() {
