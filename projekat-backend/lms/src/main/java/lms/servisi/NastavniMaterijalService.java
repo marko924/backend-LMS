@@ -2,6 +2,7 @@ package lms.servisi;
 
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,14 +18,13 @@ import lms.repozitorijumi.NastavniMaterijalRepository;
 @Transactional(readOnly = true)
 public class NastavniMaterijalService extends AbstractCrusService<NastavniMaterijalDTO, NastavniMaterijal, Long> {
 
-    private final NastavniMaterijalRepository nastavniMaterijalRepository;
-    private final FajlRepository fajlRepository;
+    @Autowired
+	NastavniMaterijalRepository nastavniMaterijalRepository;
+    
+    @Autowired
+    FajlRepository fajlRepository;
 
-    public NastavniMaterijalService(NastavniMaterijalRepository nastavniMaterijalRepository,
-                                    FajlRepository fajlRepository) {
-        this.nastavniMaterijalRepository = nastavniMaterijalRepository;
-        this.fajlRepository = fajlRepository;
-    }
+    
 
     @Override
     protected LogickoBrisanjeRepozitorijum<NastavniMaterijal, Long> getRepository() {

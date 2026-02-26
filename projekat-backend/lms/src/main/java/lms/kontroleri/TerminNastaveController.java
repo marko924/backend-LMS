@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,10 @@ import lms.servisi.TerminNastaveService;
 @RequestMapping("/api/termini-nastave")
 public class TerminNastaveController extends AbstractCrudController<TerminNastaveDTO, Long> {
 
-    private final TerminNastaveService service;
+	@Autowired
+	TerminNastaveService service;
 
-    public TerminNastaveController(TerminNastaveService service) {
-        this.service = service;
-    }
+    
 
     @Override
     protected CrudService<TerminNastaveDTO, Long> getService() {

@@ -3,11 +3,13 @@ package lms.servisi;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.NastavnikDTO;
+
 import lms.modeli.Adresa;
 import lms.modeli.Nastavnik;
 import lms.modeli.NastavnikNaRealizaciji;
@@ -21,21 +23,20 @@ import lms.repozitorijumi.ZvanjeRepository;
 @Service
 @Transactional(readOnly = true)
 public class NastavnikService extends AbstractCrusService<NastavnikDTO, Nastavnik, Long> {
+	
+	@Autowired
+	NastavnikRepository nastavnikRepository;
+    
+	@Autowired
+	AdresaRepository adresaRepository;
+    
+	@Autowired
+	ZvanjeRepository zvanjeRepository;
+    
+	@Autowired
+	NastavnikNaRealizacijiRepository angazovanjeRepository;
 
-    private final NastavnikRepository nastavnikRepository;
-    private final AdresaRepository adresaRepository;
-    private final ZvanjeRepository zvanjeRepository;
-    private final NastavnikNaRealizacijiRepository angazovanjeRepository;
-
-    public NastavnikService(NastavnikRepository nastavnikRepository,
-                            AdresaRepository adresaRepository,
-                            ZvanjeRepository zvanjeRepository,
-                            NastavnikNaRealizacijiRepository angazovanjeRepository) {
-        this.nastavnikRepository = nastavnikRepository;
-        this.adresaRepository = adresaRepository;
-        this.zvanjeRepository = zvanjeRepository;
-        this.angazovanjeRepository = angazovanjeRepository;
-    }
+    
 
     @Override
     protected LogickoBrisanjeRepozitorijum<Nastavnik, Long> getRepository() {

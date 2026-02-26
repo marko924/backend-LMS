@@ -1,5 +1,6 @@
 package lms.servisi;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,21 +19,20 @@ import lms.repozitorijumi.ZvanjeRepository;
 @Service
 @Transactional(readOnly = true)
 public class ZvanjeService extends AbstractCrusService<ZvanjeDTO, Zvanje, Long> {
+	
+	@Autowired
+    ZvanjeRepository zvanjeRepository;
+    
+	@Autowired
+	NastavnikRepository nastavnikRepository;
+    
+	@Autowired
+	TipZvanjaRepository tipZvanjaRepository;
+    
+	@Autowired
+	NaucnaOblastRepository naucnaOblastRepository;
 
-    private final ZvanjeRepository zvanjeRepository;
-    private final NastavnikRepository nastavnikRepository;
-    private final TipZvanjaRepository tipZvanjaRepository;
-    private final NaucnaOblastRepository naucnaOblastRepository;
-
-    public ZvanjeService(ZvanjeRepository zvanjeRepository,
-                         NastavnikRepository nastavnikRepository,
-                         TipZvanjaRepository tipZvanjaRepository,
-                         NaucnaOblastRepository naucnaOblastRepository) {
-        this.zvanjeRepository = zvanjeRepository;
-        this.nastavnikRepository = nastavnikRepository;
-        this.tipZvanjaRepository = tipZvanjaRepository;
-        this.naucnaOblastRepository = naucnaOblastRepository;
-    }
+    
 
     @Override
     protected LogickoBrisanjeRepozitorijum<Zvanje, Long> getRepository() {

@@ -3,6 +3,7 @@ package lms.servisi;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,30 +29,28 @@ import lms.repozitorijumi.PohadjanjePredmetaRepository;
 @Transactional(readOnly = true)
 public class RealizacijaPredmetaService extends AbstractCrusService<RealizacijaPredmetaDTO, RealizacijaPredmeta, Long> {
 
-    private final RealizacijaPredmetaRepository realizacijaPredmetaRepository;
-    private final PredmetRepository predmetRepository;
-    private final NastavniMaterijalRepository nastavniMaterijalRepository;
-    private final TerminNastaveRepository terminNastaveRepository;
-    private final NastavnikRepository nastavnikRepository;
+    @Autowired
+	RealizacijaPredmetaRepository realizacijaPredmetaRepository;
+    
+    @Autowired
+    PredmetRepository predmetRepository;
+    
+    @Autowired
+    NastavniMaterijalRepository nastavniMaterijalRepository;
+    
+    @Autowired
+    TerminNastaveRepository terminNastaveRepository;
+    
+    @Autowired
+    NastavnikRepository nastavnikRepository;
+    
+    @Autowired
+    NastavnikNaRealizacijiRepository nastavnikNaRealizacijiRepository;
 
-    private final PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
+    @Autowired
+    PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
 
-    public RealizacijaPredmetaService(
-            RealizacijaPredmetaRepository realizacijaPredmetaRepository,
-            PredmetRepository predmetRepository,
-            NastavniMaterijalRepository nastavniMaterijalRepository,
-            TerminNastaveRepository terminNastaveRepository,
-            NastavnikRepository nastavnikRepository,
-            NastavnikNaRealizacijiRepository nastavnikNaRealizacijiRepository,
-            PohadjanjePredmetaRepository pohadjanjePredmetaRepository
-    ) {
-        this.realizacijaPredmetaRepository = realizacijaPredmetaRepository;
-        this.predmetRepository = predmetRepository;
-        this.nastavniMaterijalRepository = nastavniMaterijalRepository;
-        this.terminNastaveRepository = terminNastaveRepository;
-        this.nastavnikRepository = nastavnikRepository;
-        this.pohadjanjePredmetaRepository = pohadjanjePredmetaRepository;
-    }
+    
 
     @Override
     protected LogickoBrisanjeRepozitorijum<RealizacijaPredmeta, Long> getRepository() {

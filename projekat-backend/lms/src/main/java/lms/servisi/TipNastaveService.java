@@ -1,5 +1,6 @@
 package lms.servisi;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +13,10 @@ import lms.repozitorijumi.TipNastaveRepository;
 @Transactional(readOnly = true)
 public class TipNastaveService extends AbstractCrusService<TipNastaveDTO, TipNastave, Long> {
 
-    private final TipNastaveRepository tipNastaveRepository;
+    @Autowired
+	TipNastaveRepository tipNastaveRepository;
 
-    public TipNastaveService(TipNastaveRepository tipNastaveRepository) {
-        this.tipNastaveRepository = tipNastaveRepository;
-    }
+    
 
     @Override
     protected LogickoBrisanjeRepozitorijum<TipNastave, Long> getRepository() {

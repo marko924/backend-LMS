@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,10 @@ import lms.servisi.NastavnikService;
 @RequestMapping("/api/nastavnici")
 public class NastavnikController extends AbstractCrudController<NastavnikDTO, Long> {
 
-    private final NastavnikService service;
+    @Autowired
+	NastavnikService service;
 
-    public NastavnikController(NastavnikService service) {
-        this.service = service;
-    }
+    
 
     @Override
     protected CrudService<NastavnikDTO, Long> getService() {

@@ -3,6 +3,7 @@ package lms.servisi;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,18 +20,15 @@ import lms.repozitorijumi.StudentRepository;
 @Service
 @Transactional(readOnly = true)
 public class StudentService extends AbstractCrusService<StudentDTO, Student, Long> {
+	
+	@Autowired
+    StudentRepository studentRepository;
+    @Autowired
+    AdresaRepository adresaRepository;
+    @Autowired 
+    StudentNaGodiniRepository studentNaGodiniRepository;
 
-    private final StudentRepository studentRepository;
-    private final AdresaRepository adresaRepository;
-    private final StudentNaGodiniRepository studentNaGodiniRepository;
-
-    public StudentService(StudentRepository studentRepository,
-                          AdresaRepository adresaRepository,
-                          StudentNaGodiniRepository studentNaGodiniRepository) {
-        this.studentRepository = studentRepository;
-        this.adresaRepository = adresaRepository;
-        this.studentNaGodiniRepository = studentNaGodiniRepository;
-    }
+    
 
     @Override
     protected LogickoBrisanjeRepozitorijum<Student, Long> getRepository() {

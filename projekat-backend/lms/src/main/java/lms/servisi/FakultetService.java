@@ -3,6 +3,7 @@ package lms.servisi;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,23 +25,22 @@ import lms.repozitorijumi.UniverzitetRepository;
 @Transactional(readOnly = true)
 public class FakultetService extends AbstractCrusService<FakultetDTO, Fakultet, Long> {
 
-    private final FakultetRepository fakultetRepository;
-    private final UniverzitetRepository univerzitetRepository;
-    private final NastavnikRepository nastavnikRepository;
-    private final StudijskiProgramRepository studijskiProgramRepository;
-    private final AdresaRepository adresaRepository;
+	@Autowired
+	FakultetRepository fakultetRepository;
+    
+	@Autowired
+	UniverzitetRepository univerzitetRepository;
+    
+	@Autowired
+	NastavnikRepository nastavnikRepository;
+    
+	@Autowired
+	StudijskiProgramRepository studijskiProgramRepository;
+    
+	@Autowired
+	AdresaRepository adresaRepository;
 
-    public FakultetService(FakultetRepository fakultetRepository,
-                           UniverzitetRepository univerzitetRepository,
-                           NastavnikRepository nastavnikRepository,
-                           StudijskiProgramRepository studijskiProgramRepository,
-                           AdresaRepository adresaRepository) {
-        this.fakultetRepository = fakultetRepository;
-        this.univerzitetRepository = univerzitetRepository;
-        this.nastavnikRepository = nastavnikRepository;
-        this.studijskiProgramRepository = studijskiProgramRepository;
-        this.adresaRepository = adresaRepository;
-    }
+    
 
     @Override
     protected LogickoBrisanjeRepozitorijum<Fakultet, Long> getRepository() {

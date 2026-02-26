@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,12 +12,10 @@ import lms.servisi.PredmetService;
 @RequestMapping("/api/predmeti")
 public class PredmetController extends AbstractCrudController<PredmetDTO, Long> {
 
-    private final PredmetService service;
+	@Autowired
+	PredmetService service;
 
-    public PredmetController(PredmetService service) {
-        this.service = service;
-    }
-
+    
     @Override
     protected CrudService<PredmetDTO, Long> getService() {
         return service;

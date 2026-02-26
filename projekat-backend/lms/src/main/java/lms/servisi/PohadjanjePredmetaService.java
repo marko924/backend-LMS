@@ -1,5 +1,6 @@
 package lms.servisi;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,17 +18,16 @@ import lms.repozitorijumi.StudentNaGodiniRepository;
 @Transactional(readOnly = true)
 public class PohadjanjePredmetaService extends AbstractCrusService<PohadjanjePredmetaDTO, PohadjanjePredmeta, Long> {
 
-    private final PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
-    private final StudentNaGodiniRepository studentNaGodiniRepository;
-    private final RealizacijaPredmetaRepository realizacijaPredmetaRepository;
+	@Autowired
+	PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
+    
+	@Autowired
+	StudentNaGodiniRepository studentNaGodiniRepository;
+    
+	@Autowired
+	RealizacijaPredmetaRepository realizacijaPredmetaRepository;
 
-    public PohadjanjePredmetaService(PohadjanjePredmetaRepository pohadjanjePredmetaRepository,
-                                     StudentNaGodiniRepository studentNaGodiniRepository,
-                                     RealizacijaPredmetaRepository realizacijaPredmetaRepository) {
-        this.pohadjanjePredmetaRepository = pohadjanjePredmetaRepository;
-        this.studentNaGodiniRepository = studentNaGodiniRepository;
-        this.realizacijaPredmetaRepository = realizacijaPredmetaRepository;
-    }
+    
 
     @Override
     protected LogickoBrisanjeRepozitorijum<PohadjanjePredmeta, Long> getRepository() {

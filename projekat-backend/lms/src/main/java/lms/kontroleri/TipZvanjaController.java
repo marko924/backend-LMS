@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,10 @@ import lms.servisi.TipZvanjaService;
 @RequestMapping("/api/tipovi-zvanja")
 public class TipZvanjaController extends AbstractCrudController<TipZvanjaDTO, Long> {
 
-    private final TipZvanjaService service;
+	@Autowired
+	TipZvanjaService service;
 
-    public TipZvanjaController(TipZvanjaService service) {
-        this.service = service;
-    }
+   
 
     @Override
     protected CrudService<TipZvanjaDTO, Long> getService() {
