@@ -17,7 +17,6 @@ import lms.modeli.NastavniMaterijal;
 import lms.modeli.TerminNastave;
 import lms.modeli.PohadjanjePredmeta;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
-import lms.repozitorijumi.NastavnikNaRealizacijiRepository;
 import lms.repozitorijumi.NastavnikRepository;
 import lms.repozitorijumi.PredmetRepository;
 import lms.repozitorijumi.RealizacijaPredmetaRepository;
@@ -44,8 +43,6 @@ public class RealizacijaPredmetaService extends AbstractCrusService<RealizacijaP
     @Autowired
     private NastavnikRepository nastavnikRepository;
     
-    @Autowired
-    private NastavnikNaRealizacijiRepository nastavnikNaRealizacijiRepository;
 
     @Autowired
     private PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
