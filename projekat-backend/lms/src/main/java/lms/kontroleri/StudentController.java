@@ -13,7 +13,7 @@ import lms.servisi.StudentService;
 public class StudentController extends AbstractCrudController<StudentDTO, Long> {
 	
 	@Autowired
-    StudentService studentService;
+    private StudentService studentService;
 
     
     @Override

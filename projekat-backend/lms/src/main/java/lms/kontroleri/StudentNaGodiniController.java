@@ -13,7 +13,7 @@ import lms.servisi.StudentNaGodiniService;
 public class StudentNaGodiniController extends AbstractCrudController<StudentNaGodiniDTO, Long> {
 	
 	@Autowired
-    StudentNaGodiniService service;
+	private StudentNaGodiniService service;
 
    
 

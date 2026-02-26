@@ -14,7 +14,7 @@ import lms.repozitorijumi.TipNastaveRepository;
 public class TipNastaveService extends AbstractCrusService<TipNastaveDTO, TipNastave, Long> {
 
     @Autowired
-	TipNastaveRepository tipNastaveRepository;
+    private TipNastaveRepository tipNastaveRepository;
 
     
 

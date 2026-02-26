@@ -14,7 +14,7 @@ import lms.repozitorijumi.TipZvanjaRepository;
 public class TipZvanjaService extends AbstractCrusService<TipZvanjaDTO, TipZvanja, Long> {
 
     @Autowired
-	TipZvanjaRepository tipZvanjaRepository;
+    private TipZvanjaRepository tipZvanjaRepository;
 
     
 

@@ -19,13 +19,13 @@ import lms.repozitorijumi.TipNastaveRepository;
 public class TerminNastaveService extends AbstractCrusService<TerminNastaveDTO, TerminNastave, Long> {
 	
 	@Autowired
-    TerminNastaveRepository terminNastaveRepository;
+	private TerminNastaveRepository terminNastaveRepository;
     
 	@Autowired
-	RealizacijaPredmetaRepository realizacijaPredmetaRepository;
+	private RealizacijaPredmetaRepository realizacijaPredmetaRepository;
     
 	@Autowired
-	TipNastaveRepository tipNastaveRepository;
+	private TipNastaveRepository tipNastaveRepository;
 
     
 

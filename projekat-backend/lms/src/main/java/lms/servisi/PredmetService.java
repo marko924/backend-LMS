@@ -22,13 +22,13 @@ import lms.repozitorijumi.RealizacijaPredmetaRepository;
 public class PredmetService extends AbstractCrusService<PredmetDTO, Predmet, Long> {
 
 	@Autowired
-	PredmetRepository predmetRepository;
+	private PredmetRepository predmetRepository;
     
 	@Autowired
-	StudijskiProgramRepository studijskiProgramRepository;
+	private StudijskiProgramRepository studijskiProgramRepository;
     
 	@Autowired
-	RealizacijaPredmetaRepository realizacijaPredmetaRepository;
+	private RealizacijaPredmetaRepository realizacijaPredmetaRepository;
 
    
     @Override

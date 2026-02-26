@@ -13,7 +13,7 @@ import lms.servisi.FakultetService;
 public class FakultetController extends AbstractCrudController<FakultetDTO, Long> {
 
 	@Autowired
-	FakultetService service;
+	private FakultetService service;
 
    
 

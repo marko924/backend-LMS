@@ -13,7 +13,7 @@ import lms.servisi.PredmetService;
 public class PredmetController extends AbstractCrudController<PredmetDTO, Long> {
 
 	@Autowired
-	PredmetService service;
+	private PredmetService service;
 
     
     @Override

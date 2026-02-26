@@ -24,16 +24,16 @@ import lms.repozitorijumi.StudijskiProgramRepository;
 public class StudijskiProgramService extends AbstractCrusService<StudijskiProgramDTO, StudijskiProgram, Long> {
 	
 	 @Autowired
-     StudijskiProgramRepository studijskiProgramRepository;
+	 private StudijskiProgramRepository studijskiProgramRepository;
      
 	 @Autowired
-	 FakultetRepository fakultetRepository;
+	 private FakultetRepository fakultetRepository;
      
 	 @Autowired
-	 NastavnikRepository nastavnikRepository;
+	 private NastavnikRepository nastavnikRepository;
      
 	 @Autowired
-	 PredmetRepository predmetRepository;
+	 private PredmetRepository predmetRepository;
 
     
 

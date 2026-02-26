@@ -13,7 +13,7 @@ import lms.servisi.UniverzitetService;
 public class UniverzitetController extends AbstractCrudController<UniverzitetDTO, Long> {
 
 	@Autowired
-	UniverzitetService service;
+	private UniverzitetService service;
 
     
 

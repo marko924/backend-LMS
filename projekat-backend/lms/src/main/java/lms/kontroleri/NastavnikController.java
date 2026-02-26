@@ -13,7 +13,7 @@ import lms.servisi.NastavnikService;
 public class NastavnikController extends AbstractCrudController<NastavnikDTO, Long> {
 
     @Autowired
-	NastavnikService service;
+    private NastavnikService service;
 
     
 

@@ -13,7 +13,7 @@ import lms.servisi.TipZvanjaService;
 public class TipZvanjaController extends AbstractCrudController<TipZvanjaDTO, Long> {
 
 	@Autowired
-	TipZvanjaService service;
+	private TipZvanjaService service;
 
    
 

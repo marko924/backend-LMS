@@ -19,13 +19,13 @@ import lms.repozitorijumi.StudentNaGodiniRepository;
 public class PohadjanjePredmetaService extends AbstractCrusService<PohadjanjePredmetaDTO, PohadjanjePredmeta, Long> {
 
 	@Autowired
-	PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
+	private PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
     
 	@Autowired
-	StudentNaGodiniRepository studentNaGodiniRepository;
+	private StudentNaGodiniRepository studentNaGodiniRepository;
     
 	@Autowired
-	RealizacijaPredmetaRepository realizacijaPredmetaRepository;
+	private RealizacijaPredmetaRepository realizacijaPredmetaRepository;
 
     
 

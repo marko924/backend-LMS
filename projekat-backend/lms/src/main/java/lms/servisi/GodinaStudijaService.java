@@ -15,7 +15,7 @@ import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 public class GodinaStudijaService extends AbstractCrusService<GodinaStudijaDTO, GodinaStudija, Long> {
 
 	@Autowired
-	GodinaStudijaRepository godinaStudijaRepository;
+	private GodinaStudijaRepository godinaStudijaRepository;
 
     
 

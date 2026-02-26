@@ -21,16 +21,16 @@ import lms.repozitorijumi.ZvanjeRepository;
 public class ZvanjeService extends AbstractCrusService<ZvanjeDTO, Zvanje, Long> {
 	
 	@Autowired
-    ZvanjeRepository zvanjeRepository;
+	private ZvanjeRepository zvanjeRepository;
     
 	@Autowired
-	NastavnikRepository nastavnikRepository;
+	private NastavnikRepository nastavnikRepository;
     
 	@Autowired
-	TipZvanjaRepository tipZvanjaRepository;
+	private TipZvanjaRepository tipZvanjaRepository;
     
 	@Autowired
-	NaucnaOblastRepository naucnaOblastRepository;
+	private NaucnaOblastRepository naucnaOblastRepository;
 
     
 

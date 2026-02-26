@@ -14,7 +14,7 @@ import lms.repozitorijumi.NaucnaOblastRepository;
 public class NaucnaOblastService extends AbstractCrusService<NaucnaOblastDTO, NaucnaOblast, Long> {
 	
 	@Autowired
-    NaucnaOblastRepository naucnaOblastRepository;
+	private NaucnaOblastRepository naucnaOblastRepository;
 
     
 

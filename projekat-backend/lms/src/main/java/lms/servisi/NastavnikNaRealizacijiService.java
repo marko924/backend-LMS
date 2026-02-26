@@ -22,16 +22,16 @@ public class NastavnikNaRealizacijiService
         extends AbstractCrusService<NastavnikNaRealizacijiDTO, NastavnikNaRealizaciji, Long> {
 	 
 	 @Autowired
-     NastavnikNaRealizacijiRepository angazovanjeRepository;
+	 private NastavnikNaRealizacijiRepository angazovanjeRepository;
      
 	 @Autowired
-	 NastavnikRepository nastavnikRepository;
+	 private NastavnikRepository nastavnikRepository;
      
 	 @Autowired
-	 RealizacijaPredmetaRepository realizacijaRepository;
+	 private RealizacijaPredmetaRepository realizacijaRepository;
      
 	 @Autowired
-	 TipNastaveRepository tipNastaveRepository;
+	 private TipNastaveRepository tipNastaveRepository;
 
     
 

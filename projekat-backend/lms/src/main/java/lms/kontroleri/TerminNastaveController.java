@@ -13,7 +13,7 @@ import lms.servisi.TerminNastaveService;
 public class TerminNastaveController extends AbstractCrudController<TerminNastaveDTO, Long> {
 
 	@Autowired
-	TerminNastaveService service;
+	private TerminNastaveService service;
 
     
 

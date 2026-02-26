@@ -24,16 +24,16 @@ import lms.repozitorijumi.UniverzitetRepository;
 public class UniverzitetService extends AbstractCrusService<UniverzitetDTO, Univerzitet, Long> {
 
     @Autowired
-	UniverzitetRepository univerzitetRepository;
+    private UniverzitetRepository univerzitetRepository;
     
     @Autowired
-    NastavnikRepository nastavnikRepository;
+    private NastavnikRepository nastavnikRepository;
     
     @Autowired
-    FakultetRepository fakultetRepository;
+    private FakultetRepository fakultetRepository;
     
     @Autowired
-    AdresaRepository adresaRepository;
+    private AdresaRepository adresaRepository;
 
     
 

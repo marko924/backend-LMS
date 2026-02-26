@@ -19,10 +19,10 @@ import lms.repozitorijumi.NastavniMaterijalRepository;
 public class NastavniMaterijalService extends AbstractCrusService<NastavniMaterijalDTO, NastavniMaterijal, Long> {
 
     @Autowired
-	NastavniMaterijalRepository nastavniMaterijalRepository;
+    private NastavniMaterijalRepository nastavniMaterijalRepository;
     
     @Autowired
-    FajlRepository fajlRepository;
+    private FajlRepository fajlRepository;
 
     
 

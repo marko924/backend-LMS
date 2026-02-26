@@ -30,25 +30,25 @@ import lms.repozitorijumi.PohadjanjePredmetaRepository;
 public class RealizacijaPredmetaService extends AbstractCrusService<RealizacijaPredmetaDTO, RealizacijaPredmeta, Long> {
 
     @Autowired
-	RealizacijaPredmetaRepository realizacijaPredmetaRepository;
+    private RealizacijaPredmetaRepository realizacijaPredmetaRepository;
     
     @Autowired
-    PredmetRepository predmetRepository;
+    private PredmetRepository predmetRepository;
     
     @Autowired
-    NastavniMaterijalRepository nastavniMaterijalRepository;
+    private NastavniMaterijalRepository nastavniMaterijalRepository;
     
     @Autowired
-    TerminNastaveRepository terminNastaveRepository;
+    private TerminNastaveRepository terminNastaveRepository;
     
     @Autowired
-    NastavnikRepository nastavnikRepository;
+    private NastavnikRepository nastavnikRepository;
     
     @Autowired
-    NastavnikNaRealizacijiRepository nastavnikNaRealizacijiRepository;
+    private NastavnikNaRealizacijiRepository nastavnikNaRealizacijiRepository;
 
     @Autowired
-    PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
+    private PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
 
     
 

@@ -13,7 +13,7 @@ import lms.servisi.NastavniMaterijalService;
 public class NastavniMaterijalController extends AbstractCrudController<NastavniMaterijalDTO, Long> {
 
 	@Autowired
-	NastavniMaterijalService service;
+	private NastavniMaterijalService service;
 
     
 

@@ -13,7 +13,7 @@ import lms.servisi.RealizacijaPredmetaService;
 public class RealizacijaPredmetaController extends AbstractCrudController<RealizacijaPredmetaDTO, Long> {
 
 	@Autowired
-	RealizacijaPredmetaService service;
+	private RealizacijaPredmetaService service;
 
    
 

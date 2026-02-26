@@ -13,7 +13,7 @@ import lms.servisi.ZvanjeService;
 public class ZvanjeController extends AbstractCrudController<ZvanjeDTO, Long> {
 
     @Autowired
-	ZvanjeService service;
+    private ZvanjeService service;
 
     
 

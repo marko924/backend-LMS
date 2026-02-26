@@ -22,11 +22,11 @@ import lms.repozitorijumi.StudentRepository;
 public class StudentService extends AbstractCrusService<StudentDTO, Student, Long> {
 	
 	@Autowired
-    StudentRepository studentRepository;
+	private StudentRepository studentRepository;
     @Autowired
-    AdresaRepository adresaRepository;
+    private AdresaRepository adresaRepository;
     @Autowired 
-    StudentNaGodiniRepository studentNaGodiniRepository;
+    private StudentNaGodiniRepository studentNaGodiniRepository;
 
     
 

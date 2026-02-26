@@ -25,16 +25,16 @@ public class StudentNaGodiniService
         extends AbstractCrusService<StudentNaGodiniDTO, StudentNaGodini, Long> {
 	
 	@Autowired
-    StudentNaGodiniRepository repository;
+	private StudentNaGodiniRepository repository;
     
 	@Autowired
-	StudentRepository studentRepository;
+	private StudentRepository studentRepository;
     
 	@Autowired
-	GodinaStudijaRepository godinaRepository;
+	private GodinaStudijaRepository godinaRepository;
     
 	@Autowired
-	PohadjanjePredmetaRepository pohadjanjeRepository;
+	private PohadjanjePredmetaRepository pohadjanjeRepository;
 
     
 

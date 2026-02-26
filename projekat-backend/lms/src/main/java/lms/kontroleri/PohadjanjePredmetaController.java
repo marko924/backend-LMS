@@ -13,7 +13,7 @@ import lms.servisi.PohadjanjePredmetaService;
 public class PohadjanjePredmetaController extends AbstractCrudController<PohadjanjePredmetaDTO, Long> {
 
 	@Autowired
-	PohadjanjePredmetaService service;
+	private PohadjanjePredmetaService service;
 
     
 

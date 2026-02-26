@@ -13,7 +13,7 @@ import lms.servisi.GodinaStudijaService;
 public class GodinaStudijaController extends AbstractCrudController<GodinaStudijaDTO, Long> {
 
 	@Autowired
-	GodinaStudijaService service;
+	private GodinaStudijaService service;
 
     
 

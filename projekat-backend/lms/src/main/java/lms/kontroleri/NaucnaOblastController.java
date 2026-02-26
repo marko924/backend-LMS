@@ -13,7 +13,7 @@ import lms.servisi.NaucnaOblastService;
 public class NaucnaOblastController extends AbstractCrudController<NaucnaOblastDTO, Long> {
 
     @Autowired
-	NaucnaOblastService service;
+    private NaucnaOblastService service;
 
     
 

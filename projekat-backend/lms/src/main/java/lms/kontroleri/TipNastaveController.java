@@ -13,7 +13,7 @@ import lms.servisi.TipNastaveService;
 public class TipNastaveController extends AbstractCrudController<TipNastaveDTO, Long> {
 
 	@Autowired
-	TipNastaveService service;
+	private TipNastaveService service;
 
     
 

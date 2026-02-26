@@ -13,7 +13,7 @@ import lms.servisi.StudijskiProgramService;
 public class StudijskiProgramController extends AbstractCrudController<StudijskiProgramDTO, Long> {
 
 	@Autowired
-	StudijskiProgramService service;
+	private StudijskiProgramService service;
 
     
     @Override
