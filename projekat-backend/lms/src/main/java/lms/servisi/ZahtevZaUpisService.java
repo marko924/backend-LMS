@@ -126,7 +126,7 @@ public class ZahtevZaUpisService extends AbstractCrusService<ZahtevZaUpisDTO, Za
     }
     
     @Transactional
-    public void odbijZahtev(Long zahtevId) {
+    public void odbijZahtev(Long zahtevId, String napomena) {
         ZahtevZaUpis zahtev = zahtevRepository.findById(zahtevId)
                 .filter(e -> !e.isObrisan())
                 .orElseThrow(() -> new EntityNotFoundException("Zahtev sa ID: " + zahtevId + " nije pronadjen"));
@@ -136,6 +136,7 @@ public class ZahtevZaUpisService extends AbstractCrusService<ZahtevZaUpisDTO, Za
         }
 
         zahtev.setStatus(StatusZahteva.ODBIJEN);
+        zahtev.setNapomena(napomena);
         zahtevRepository.save(zahtev);
     }
 }

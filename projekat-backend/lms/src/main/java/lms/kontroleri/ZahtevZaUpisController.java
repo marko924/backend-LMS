@@ -27,8 +27,8 @@ public class ZahtevZaUpisController extends AbstractCrudController<ZahtevZaUpisD
     }
     
     @PutMapping("/{id}/odbij")
-    public ResponseEntity<Void> odbij(@PathVariable Long id) {
-    	service.odbijZahtev(id);
+    public ResponseEntity<Void> odbij(@PathVariable Long id, @RequestBody String napomena) {
+    	service.odbijZahtev(id, napomena);
         return ResponseEntity.ok().build();
     }
 }
