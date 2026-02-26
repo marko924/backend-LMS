@@ -1,5 +1,6 @@
 package lms.servisi;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,12 +13,8 @@ import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 @Transactional(readOnly = true)
 public class FajlService extends AbstractCrusService<FajlDTO, Fajl, Long>{
 	
-	private final FajlRepository fajlRepository;
-
-	public FajlService(FajlRepository fajlRepository) {
-		super();
-		this.fajlRepository = fajlRepository;
-	}
+	@Autowired
+	private FajlRepository fajlRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<Fajl, Long> getRepository() {

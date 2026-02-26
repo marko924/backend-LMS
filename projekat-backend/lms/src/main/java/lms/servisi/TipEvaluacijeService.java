@@ -1,5 +1,6 @@
 package lms.servisi;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +13,8 @@ import lms.repozitorijumi.TipEvaluacijeRepository;
 @Transactional(readOnly = true)
 public class TipEvaluacijeService extends AbstractCrusService<TipEvaluacijeDTO, TipEvaluacije, Long>{
 	
-	private final TipEvaluacijeRepository tipEvaluacijeRepository;
-
-	public TipEvaluacijeService(TipEvaluacijeRepository tipEvaluacijeRepository) {
-		this.tipEvaluacijeRepository = tipEvaluacijeRepository;
-	}
+	@Autowired
+	private TipEvaluacijeRepository tipEvaluacijeRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<TipEvaluacije, Long> getRepository() {

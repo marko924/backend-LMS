@@ -3,6 +3,7 @@ package lms.servisi;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +19,11 @@ import lms.repozitorijumi.TemaRepository;
 @Transactional(readOnly = true)
 public class ForumService extends AbstractCrusService<ForumDTO, Forum, Long>{
 	
-	private final ForumRepository forumRepository;
-	private final TemaRepository temaRepository;
+	@Autowired
+	private ForumRepository forumRepository;
+	
+	@Autowired
+	private TemaRepository temaRepository;
 
 	public ForumService(ForumRepository forumRepository, TemaRepository temaRepository) {
 		this.forumRepository = forumRepository;

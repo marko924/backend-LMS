@@ -3,6 +3,7 @@ package lms.servisi;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,18 +23,17 @@ import lms.repozitorijumi.TemaRepository;
 @Transactional(readOnly = true)
 public class TemaService extends AbstractCrusService<TemaDTO, Tema, Long>{
 	
-	private final TemaRepository temaRepository;
-	private final ForumRepository forumRepository;
-	private final KorisnikNaForumuRepository korisnikNaForumuRepository;
-	private final ObjavaRepository objavaRepository;
-
-	public TemaService(TemaRepository temaRepository, ForumRepository forumRepository,
-			KorisnikNaForumuRepository korisnikNaForumuRepository, ObjavaRepository objavaRepository) {
-		this.temaRepository = temaRepository;
-		this.forumRepository = forumRepository;
-		this.korisnikNaForumuRepository = korisnikNaForumuRepository;
-		this.objavaRepository = objavaRepository;
-	}
+	@Autowired
+	private TemaRepository temaRepository;
+	
+	@Autowired
+	private ForumRepository forumRepository;
+	
+	@Autowired
+	private KorisnikNaForumuRepository korisnikNaForumuRepository;
+	
+	@Autowired
+	private ObjavaRepository objavaRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<Tema, Long> getRepository() {

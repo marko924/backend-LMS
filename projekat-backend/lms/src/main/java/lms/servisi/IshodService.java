@@ -3,6 +3,7 @@ package lms.servisi;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,25 +21,20 @@ import lms.repozitorijumi.PredmetRepository;
 @Transactional(readOnly = true)
 public class IshodService extends AbstractCrusService<IshodDTO, Ishod, Long>{
 	
-	private final IshodRepository ishodRepository;
-    private final PredmetRepository predmetRepository;
-    private final ObrazovniCiljRepository obrazovniCiljRepository;
+	@Autowired
+	private IshodRepository ishodRepository;
+	
+	@Autowired
+    private PredmetRepository predmetRepository;
 
-    // Konstruktor za Dependency Injection svih potrebnih repozitorijuma
-    public IshodService(IshodRepository ishodRepository, 
-                        PredmetRepository predmetRepository, 
-                        ObrazovniCiljRepository obrazovniCiljRepository) {
-        this.ishodRepository = ishodRepository;
-        this.predmetRepository = predmetRepository;
-        this.obrazovniCiljRepository = obrazovniCiljRepository;
-    }
+	@Autowired
+    private ObrazovniCiljRepository obrazovniCiljRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<Ishod, Long> getRepository() {
 		return ishodRepository;
 	}
 
-	// --- Mapiranje: Entitet u DTO ---
     @Override
     protected IshodDTO toDTO(Ishod entity) {
     	IshodDTO dto = new IshodDTO();
@@ -58,7 +54,6 @@ public class IshodService extends AbstractCrusService<IshodDTO, Ishod, Long>{
         return dto;
     }
 
-    // --- Mapiranje: DTO u novi Entitet ---
     @Override
     protected Ishod toEntity(IshodDTO dto) {
         Ishod entity = new Ishod();

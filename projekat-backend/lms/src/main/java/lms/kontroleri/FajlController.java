@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,8 @@ import lms.servisi.FajlService;
 @RequestMapping("/api/fajlovi")
 public class FajlController extends AbstractCrudController<FajlDTO, Long>{
 	
-	private final FajlService service;
-
-	public FajlController(FajlService service) {
-		this.service = service;
-	}
+	@Autowired
+	private FajlService service;
 
 	@Override
 	protected CrudService<FajlDTO, Long> getService() {

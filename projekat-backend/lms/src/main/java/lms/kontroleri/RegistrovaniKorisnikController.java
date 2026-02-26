@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +15,8 @@ import lms.servisi.RegistrovaniKorisnikService;
 @RequestMapping("/api/registrovaniKorisnici")
 public class RegistrovaniKorisnikController extends AbstractCrudController<RegistrovaniKorisnikDTO, Long>{
 	
-	private final RegistrovaniKorisnikService service;
-
-	public RegistrovaniKorisnikController(RegistrovaniKorisnikService service) {
-		this.service = service;
-	}
+	@Autowired
+	private RegistrovaniKorisnikService service;
 
 	@Override
 	protected CrudService<RegistrovaniKorisnikDTO, Long> getService() {

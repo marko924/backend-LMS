@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,8 @@ import lms.servisi.ObjavaService;
 @RequestMapping("/api/objave")
 public class ObjavaController extends AbstractCrudController<ObjavaDTO, Long>{
 	
-	private final ObjavaService service;
-
-	public ObjavaController(ObjavaService service) {
-		this.service = service;
-	}
+	@Autowired
+	private ObjavaService service;
 
 	@Override
 	protected CrudService<ObjavaDTO, Long> getService() {

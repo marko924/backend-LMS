@@ -3,6 +3,7 @@ package lms.servisi;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,16 +21,14 @@ import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 @Transactional(readOnly = true)
 public class InstrumentEvaluacijeService extends AbstractCrusService<InstrumentEvaluacijeDTO, InstrumentEvaluacije, Long>{
 	
-	private final InstrumentEvaluacijeRepository instrumentEvaluacijeRepository;
-	private final EvaluacijaZnanjaRepository evaluacijaZnanjaRepository;
-	private final FajlRepository fajlRepository;
-
-	public InstrumentEvaluacijeService(InstrumentEvaluacijeRepository instrumentEvaluacijeRepository,
-			EvaluacijaZnanjaRepository evaluacijaZnanjaRepository, FajlRepository fajlRepository) {
-		this.instrumentEvaluacijeRepository = instrumentEvaluacijeRepository;
-		this.evaluacijaZnanjaRepository = evaluacijaZnanjaRepository;
-		this.fajlRepository = fajlRepository;
-	}
+	@Autowired
+	private InstrumentEvaluacijeRepository instrumentEvaluacijeRepository;
+	
+	@Autowired
+	private EvaluacijaZnanjaRepository evaluacijaZnanjaRepository;
+	
+	@Autowired
+	private FajlRepository fajlRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<InstrumentEvaluacije, Long> getRepository() {

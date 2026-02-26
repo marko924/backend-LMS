@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,8 @@ import lms.servisi.DrzavaService;
 @RequestMapping("/api/drzave")
 public class DrzavaController extends AbstractCrudController<DrzavaDTO, Long>{
 	
-	private final DrzavaService service;
-
-	public DrzavaController(DrzavaService service) {
-		this.service = service;
-	}
+	@Autowired
+	private DrzavaService service;
 
 	@Override
 	protected CrudService<DrzavaDTO, Long> getService() {

@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,8 @@ import lms.servisi.ForumService;
 @RequestMapping("/api/forumi")
 public class ForumController extends AbstractCrudController<ForumDTO, Long>{
 	
-	private final ForumService service;
-
-	public ForumController(ForumService service) {
-		this.service = service;
-	}
+	@Autowired
+	private ForumService service;
 
 	@Override
 	protected CrudService<ForumDTO, Long> getService() {

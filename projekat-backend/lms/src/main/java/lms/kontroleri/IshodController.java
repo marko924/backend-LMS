@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,8 @@ import lms.servisi.IshodService;
 @RequestMapping("/api/ishodi")
 public class IshodController extends AbstractCrudController<IshodDTO, Long>{
 	
-	private final IshodService service;
-
-	public IshodController(IshodService service) {
-		this.service = service;
-	}
+	@Autowired
+	private IshodService service;
 
 	@Override
 	protected CrudService<IshodDTO, Long> getService() {

@@ -1,5 +1,6 @@
 package lms.servisi;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,14 +16,11 @@ import lms.repozitorijumi.MestoRepository;
 @Transactional(readOnly = true)
 public class MestoService extends AbstractCrusService<MestoDTO, Mesto, Long>{
 	
-	private final MestoRepository mestoRepository;
-	private final DrzavaRepository drzavaRepository;
-
-	public MestoService(MestoRepository mestoRepository, DrzavaRepository drzavaRepository) {
-		super();
-		this.mestoRepository = mestoRepository;
-		this.drzavaRepository = drzavaRepository;
-	}
+	@Autowired
+	private MestoRepository mestoRepository;
+	
+	@Autowired
+	private DrzavaRepository drzavaRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<Mesto, Long> getRepository() {

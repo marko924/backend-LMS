@@ -1,5 +1,6 @@
 package lms.kontroleri;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,8 @@ import lms.servisi.MestoService;
 @RequestMapping("/api/mesta")
 public class MestoController extends AbstractCrudController<MestoDTO, Long>{
 	
-	private final MestoService service;
-
-	public MestoController(MestoService service) {
-		this.service = service;
-	}
+	@Autowired
+	private MestoService service;
 
 	@Override
 	protected CrudService<MestoDTO, Long> getService() {

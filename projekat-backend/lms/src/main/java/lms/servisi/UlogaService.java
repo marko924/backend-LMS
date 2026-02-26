@@ -1,5 +1,6 @@
 package lms.servisi;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +14,8 @@ import lms.repozitorijumi.UlogaRepository;
 @Transactional(readOnly = true)
 public class UlogaService extends AbstractCrusService<UlogaDTO, Uloga, Long>{
 	
-	private final UlogaRepository ulogaRepository;
-
-	public UlogaService(UlogaRepository ulogaRepository) {
-		this.ulogaRepository = ulogaRepository;
-	}
+	@Autowired
+	private UlogaRepository ulogaRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<Uloga, Long> getRepository() {
