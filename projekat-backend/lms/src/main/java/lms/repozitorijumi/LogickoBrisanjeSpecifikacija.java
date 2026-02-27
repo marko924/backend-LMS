@@ -9,6 +9,6 @@ public class LogickoBrisanjeSpecifikacija {
     @SuppressWarnings("unused")
 	public static <T extends LogickoBrisanje> Specification<T> notDeleted() {
         return (root, query, criteriaBuilder) ->
-            criteriaBuilder.isFalse(root.get("deleted"));
+            criteriaBuilder.isFalse(root.get("obrisan"));
     }
 }

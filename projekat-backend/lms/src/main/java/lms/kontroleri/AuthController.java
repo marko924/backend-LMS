@@ -33,15 +33,15 @@ import lms.util.MyUserDetailsService;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-	
-	@Autowired
+    
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
     private JwtUtil jwtUtil;
 
     @Autowired
-    private MyUserDetailsService userDetailsService; //Klasa koja vuče korisnika iz baze
+    private MyUserDetailsService userDetailsService;
 
     @Autowired
     private RegistrovaniKorisnikService korisnikService;
@@ -52,7 +52,6 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequest authRequest) {
         try {
@@ -60,27 +59,34 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
         } catch (BadCredentialsException e) {
-            // Vrati 401 Unauthorized - to je ispravan način za pogrešnu lozinku
             return ResponseEntity.status(401).body("Neispravno korisničko ime ili lozinka");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Došlo je do serverske greške");
         }
 
+        // 1. Učitavamo UserDetails (potrebno za JwtUtil i uloge)
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
-        final String jwt = jwtUtil.generateToken(userDetails);
+
+        // 2. KLJUČNI KORAK: Pronalazimo entitet korisnika u bazi da izvučemo ID
+        RegistrovaniKorisnik korisnik = korisnikService.findByKorisnickoIme(authRequest.getUsername());
+
+        if (korisnik == null) {
+            return ResponseEntity.status(404).body("Korisnik nije pronađen u bazi podataka.");
+        }
+
+        // 3. Generišemo token sa UserDetails i ID-em korisnika
+        final String jwt = jwtUtil.generateToken(userDetails, korisnik.getId());
+
         return ResponseEntity.ok(new AuthResponse(jwt));
     }
 
-    //Poboljsana metoda za registraciju sa automatskom dodelom uloge ako ona nije poslata iz frontenda
     @PostMapping("/register")
     @Transactional
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
-        // 1. Provera da li korisničko ime već postoji
-    	if (korisnikService.proveriPostojanje(request.getKorisnickoIme())) {
+        if (korisnikService.proveriPostojanje(request.getKorisnickoIme())) {
             return ResponseEntity.badRequest().body("Greška: Korisničko ime je zauzeto!");
         }
 
-        // 2. Kreiranje adekvatnog objekta na osnovu uloge
         RegistrovaniKorisnik korisnik;
         String nazivUloge;
 
@@ -104,41 +110,34 @@ public class AuthController {
                 break;
 
             case "ROLE_SLUZBA":
-            	OsobljeStudentskeSluzbe sluzba = new OsobljeStudentskeSluzbe();
-            	sluzba.setIme(request.getIme());
-            	sluzba.setPrezime(request.getPrezime());
-            	korisnik = sluzba;
-            	nazivUloge = "ROLE_SLUZBA";
-            	break;
+                OsobljeStudentskeSluzbe sluzba = new OsobljeStudentskeSluzbe();
+                sluzba.setIme(request.getIme());
+                sluzba.setPrezime(request.getPrezime());
+                korisnik = sluzba;
+                nazivUloge = "ROLE_SLUZBA";
+                break;
 
             case "ROLE_ADMIN":
-            	Administartor admin = new Administartor();
-            	korisnik = admin;
-            	nazivUloge = "ROLE_ADMIN";
-            	break;
+                Administartor admin = new Administartor();
+                korisnik = admin;
+                nazivUloge = "ROLE_ADMIN";
+                break;
 
             default:
-            	return ResponseEntity.badRequest().body("Greška: Nepoznata uloga.");
+                return ResponseEntity.badRequest().body("Greška: Nepoznata uloga.");
         }
 
-        // 3. Postavljanje zajedničkih polja
         korisnik.setKorisnickoIme(request.getKorisnickoIme());
         korisnik.setEmail(request.getEmail());
         korisnik.setLozinka(passwordEncoder.encode(request.getLozinka()));
 
-        // 4. Dodela uloge iz baze
         Uloga uloga = ulogaService.findByNaziv(nazivUloge);
-    
         Set<Uloga> uloge = new HashSet<>();
         uloge.add(uloga);
         korisnik.setUloge(uloge);
 
-        // 5. Čuvanje u bazu
-        // Zahvaljujući polimorfizmu, Spring Data JPA će prepoznati o kom entitetu je reč
-        // i popuniti i osnovnu tabelu i specifičnu tabelu (ako je JOINED strategija)
         korisnikService.saveEntity(korisnik);
 
         return ResponseEntity.ok("Korisnik tipa " + request.getUloga() + " uspešno registrovan!");
     }
 }
-
