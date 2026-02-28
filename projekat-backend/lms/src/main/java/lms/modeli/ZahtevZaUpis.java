@@ -27,7 +27,11 @@ public class ZahtevZaUpis extends LogickoBrisanje {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
-
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "studijski_program_id", nullable = false) 
+    private StudijskiProgram studijskiProgram;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "godina_studija_id", nullable = false)
     private GodinaStudija godinaStudija;
@@ -48,12 +52,13 @@ public class ZahtevZaUpis extends LogickoBrisanje {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ZahtevZaUpis(Long id, Fakultet fakultet, Student student, GodinaStudija godinaStudija, StatusZahteva status,
+	public ZahtevZaUpis(Long id, Fakultet fakultet, Student student,StudijskiProgram studijskiProgram, GodinaStudija godinaStudija, StatusZahteva status,
 			LocalDateTime vremePodnosenja, String napomena) {
 		super();
 		this.id = id;
 		this.fakultet = fakultet;
 		this.student = student;
+		this.studijskiProgram= studijskiProgram;
 		this.godinaStudija = godinaStudija;
 		this.status = status;
 		this.vremePodnosenja = vremePodnosenja;
@@ -75,7 +80,15 @@ public class ZahtevZaUpis extends LogickoBrisanje {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-
+	
+	public StudijskiProgram getStudijskiProgram() {
+		return studijskiProgram;
+	}
+	
+	public void setStudijskiProgram(StudijskiProgram studijskiProgram) {
+		this.studijskiProgram= studijskiProgram;
+	}
+	
 	public GodinaStudija getGodinaStudija() {
 		return godinaStudija;
 	}
