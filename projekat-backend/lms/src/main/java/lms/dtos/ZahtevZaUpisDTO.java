@@ -9,6 +9,7 @@ public class ZahtevZaUpisDTO {
 	private Long id;
 	private Long fakultetId;
     private Long studentId;
+    private Long studijskiProgramId;
     private Long godinaStudijaId;
     private StatusZahteva status;
     private LocalDateTime vremePodnosenja;
@@ -19,12 +20,13 @@ public class ZahtevZaUpisDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ZahtevZaUpisDTO(Long id, Long fakultetId, Long studentId, Long godinaStudijaId, StatusZahteva status,
+	public ZahtevZaUpisDTO(Long id, Long fakultetId, Long studentId,Long studijskiProgramId, Long godinaStudijaId, StatusZahteva status,
 			LocalDateTime vremePodnosenja, String napomena) {
 		super();
 		this.id = id;
 		this.fakultetId = fakultetId;
 		this.studentId = studentId;
+		this.studijskiProgramId= studijskiProgramId;
 		this.godinaStudijaId = godinaStudijaId;
 		this.status = status;
 		this.vremePodnosenja = vremePodnosenja;
@@ -53,6 +55,14 @@ public class ZahtevZaUpisDTO {
 
 	public void setStudentId(Long studentId) {
 		this.studentId = studentId;
+	}
+	
+	public Long getStudijskiProgramId() {
+		return  studijskiProgramId;
+	}
+	
+	public void setStudijskiProgramId(Long studijskiProgramId) {
+		this.studijskiProgramId= studijskiProgramId;
 	}
 
 	public Long getGodinaStudijaId() {
