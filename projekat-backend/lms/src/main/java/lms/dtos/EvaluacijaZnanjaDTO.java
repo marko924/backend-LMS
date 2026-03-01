@@ -10,6 +10,7 @@ public class EvaluacijaZnanjaDTO {
 	private Long tipEvaluacijeId;
 	private Long realizacijaPredmetaId;
 	private Long instrumentEvaluacijeId;
+	private Long ispitniRokId;
 	
 	public EvaluacijaZnanjaDTO() {
 		super();
@@ -17,7 +18,8 @@ public class EvaluacijaZnanjaDTO {
 	}
 	
 	public EvaluacijaZnanjaDTO(Long id, LocalDateTime vremePocetka, LocalDateTime vremeZavrsetka,
-			Double maksimalniBodovi, Long tipEvaluacijeId, Long realizacijaPredmetaId, Long instrumentEvaluacijeId) {
+			Double maksimalniBodovi, Long tipEvaluacijeId, Long realizacijaPredmetaId, Long instrumentEvaluacijeId,
+			Long ispitniRokId) {
 		super();
 		this.id = id;
 		this.vremePocetka = vremePocetka;
@@ -26,8 +28,9 @@ public class EvaluacijaZnanjaDTO {
 		this.tipEvaluacijeId = tipEvaluacijeId;
 		this.realizacijaPredmetaId = realizacijaPredmetaId;
 		this.instrumentEvaluacijeId = instrumentEvaluacijeId;
+		this.ispitniRokId = ispitniRokId;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -70,6 +73,13 @@ public class EvaluacijaZnanjaDTO {
 	public void setInstrumentEvaluacijeId(Long instrumentEvaluacijeId) {
 		this.instrumentEvaluacijeId = instrumentEvaluacijeId;
 	}
-	
+
+	public Long getIspitniRokId() {
+		return ispitniRokId;
+	}
+
+	public void setIspitniRokId(Long ispitniRokId) {
+		this.ispitniRokId = ispitniRokId;
+	}
 	
 }

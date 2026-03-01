@@ -37,6 +37,10 @@ public class EvaluacijaZnanja extends LogickoBrisanje {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "instrument_id", nullable = false)
     private InstrumentEvaluacije instrumentEvaluacije;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ispitni_rok_id", nullable = true)
+    private IspitniRok ispitniRok;
 
 	public EvaluacijaZnanja() {
 		super();
@@ -45,7 +49,7 @@ public class EvaluacijaZnanja extends LogickoBrisanje {
 
 	public EvaluacijaZnanja(Long id, LocalDateTime vremePocetka, LocalDateTime vremeZavrsetka, Double maksimalniBodovi,
 			TipEvaluacije tipEvaluacije, RealizacijaPredmeta realizacijaPredmeta,
-			InstrumentEvaluacije instrumentEvaluacije) {
+			InstrumentEvaluacije instrumentEvaluacije, IspitniRok ispitniRok) {
 		super();
 		this.id = id;
 		this.vremePocetka = vremePocetka;
@@ -54,6 +58,7 @@ public class EvaluacijaZnanja extends LogickoBrisanje {
 		this.tipEvaluacije = tipEvaluacije;
 		this.realizacijaPredmeta = realizacijaPredmeta;
 		this.instrumentEvaluacije = instrumentEvaluacije;
+		this.ispitniRok = ispitniRok;
 	}
 
 	public Long getId() {
@@ -111,6 +116,13 @@ public class EvaluacijaZnanja extends LogickoBrisanje {
 	public void setInstrumentEvaluacije(InstrumentEvaluacije instrumentEvaluacije) {
 		this.instrumentEvaluacije = instrumentEvaluacije;
 	}
-    
+
+	public IspitniRok getIspitniRok() {
+		return ispitniRok;
+	}
+
+	public void setIspitniRok(IspitniRok ispitniRok) {
+		this.ispitniRok = ispitniRok;
+	}
     
 }

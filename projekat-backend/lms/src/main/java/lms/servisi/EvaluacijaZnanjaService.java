@@ -8,10 +8,12 @@ import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.EvaluacijaZnanjaDTO;
 import lms.modeli.EvaluacijaZnanja;
 import lms.modeli.InstrumentEvaluacije;
+import lms.modeli.IspitniRok;
 import lms.modeli.RealizacijaPredmeta;
 import lms.modeli.TipEvaluacije;
 import lms.repozitorijumi.EvaluacijaZnanjaRepository;
 import lms.repozitorijumi.InstrumentEvaluacijeRepository;
+import lms.repozitorijumi.IspitniRokRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.RealizacijaPredmetaRepository;
 import lms.repozitorijumi.TipEvaluacijeRepository;
@@ -31,6 +33,9 @@ public class EvaluacijaZnanjaService extends AbstractCrusService<EvaluacijaZnanj
 	
 	@Autowired
 	private InstrumentEvaluacijeRepository instrumentEvaluacijeRepository;
+	
+	@Autowired
+	private IspitniRokRepository ispitniRokRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<EvaluacijaZnanja, Long> getRepository() {
@@ -86,5 +91,26 @@ public class EvaluacijaZnanjaService extends AbstractCrusService<EvaluacijaZnanj
 		}
 		
 	}
+	
+	public EvaluacijaZnanja zakaziIspit(EvaluacijaZnanjaDTO dto) {
+		
+		TipEvaluacije tipEvaluacije = tipEvaluacijeRepository.findById(dto.getTipEvaluacijeId())
+				.orElseThrow(() -> new EntityNotFoundException("Tip evaluacije nije pronađeno"));
+		
+		if (tipEvaluacije.getNaziv().toLowerCase().equals("ispit")) {
+			throw new IllegalArgumentException("Ova metoda služi isključivo za zakazivanje ISPITA!");
+		}
+		
+        IspitniRok rok = ispitniRokRepository.findById(dto.getIspitniRokId())
+            .orElseThrow(() -> new EntityNotFoundException("Ispitni rok ne postoji!"));
+
+        if (dto.getVremePocetka().isBefore(rok.getDatumPocetka()) || 
+            dto.getVremeZavrsetka().isAfter(rok.getDatumZavrsetka())) {
+            throw new IllegalArgumentException("Vreme ispita mora biti unutar datuma ispitnog roka!");
+        }
+
+        EvaluacijaZnanja novaEvaluacija = toEntity(dto);
+        return evaluacijaZnanjaRepository.save(novaEvaluacija);
+    }
 
 }

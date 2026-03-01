@@ -25,7 +25,6 @@ public class RegistrovaniKorisnikController extends AbstractCrudController<Regis
 	
 	@GetMapping("/username/{username}")
     public ResponseEntity<RegistrovaniKorisnikDTO> getByUsername(@PathVariable String username) {
-        // Pozivamo servisnu metodu koju smo prethodno kreirali
         RegistrovaniKorisnikDTO dto = service.findDTOByKorisnickoIme(username);
         return ResponseEntity.ok(dto);
     }
