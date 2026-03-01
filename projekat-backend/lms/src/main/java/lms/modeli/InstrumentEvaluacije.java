@@ -27,7 +27,7 @@ public class InstrumentEvaluacije extends LogickoBrisanje{
     private String opis;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "evaluacija_id", nullable = false)
+    @JoinColumn(name = "evaluacija_id", nullable = true)
     private EvaluacijaZnanja evaluacijaZnanja;
     
     @OneToMany(cascade = CascadeType.ALL)

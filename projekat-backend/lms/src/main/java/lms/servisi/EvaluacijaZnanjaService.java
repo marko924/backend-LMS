@@ -97,7 +97,7 @@ public class EvaluacijaZnanjaService extends AbstractCrusService<EvaluacijaZnanj
 		TipEvaluacije tipEvaluacije = tipEvaluacijeRepository.findById(dto.getTipEvaluacijeId())
 				.orElseThrow(() -> new EntityNotFoundException("Tip evaluacije nije pronađeno"));
 		
-		if (tipEvaluacije.getNaziv().toLowerCase().equals("ispit")) {
+		if (!tipEvaluacije.getNaziv().toLowerCase().equals("ispit")) {
 			throw new IllegalArgumentException("Ova metoda služi isključivo za zakazivanje ISPITA!");
 		}
 		
