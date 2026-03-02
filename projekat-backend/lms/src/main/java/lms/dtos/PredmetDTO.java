@@ -2,6 +2,7 @@ package lms.dtos;
 
 
 import java.util.List;
+import java.util.Set;
 
 public class PredmetDTO {
 
@@ -9,17 +10,17 @@ public class PredmetDTO {
     private String naziv;
     private String opis;
     private Integer espb;
-    private Long studijskiProgramId; 
+    private Set<Long> studijskiProgramiId; 
     private List<Long> realizacijeId; 
 
     public PredmetDTO() {}
 
-    public PredmetDTO(Long id, String naziv,String opis, Integer espb, Long studijskiProgramId, List<Long> realizacijeId) {
+    public PredmetDTO(Long id, String naziv,String opis, Integer espb, Set<Long> studijskiProgramiId, List<Long> realizacijeId) {
         this.id = id;
         this.naziv = naziv;
         this.opis= opis;
         this.espb = espb;
-        this.studijskiProgramId = studijskiProgramId;
+        this.studijskiProgramiId = studijskiProgramiId;
         this.realizacijeId = realizacijeId;
     }
 
@@ -56,15 +57,15 @@ public class PredmetDTO {
         this.espb = espb;
     }
 
-    public Long getStudijskiProgramId() {
-        return studijskiProgramId;
-    }
+    public Set<Long> getStudijskiProgramiId() {
+		return studijskiProgramiId;
+	}
 
-    public void setStudijskiProgramId(Long studijskiProgramId) {
-        this.studijskiProgramId = studijskiProgramId;
-    }
+	public void setStudijskiProgramiId(Set<Long> studijskiProgramiId) {
+		this.studijskiProgramiId = studijskiProgramiId;
+	}
 
-    public List<Long> getRealizacijeId() {
+	public List<Long> getRealizacijeId() {
         return realizacijeId;
     }
 

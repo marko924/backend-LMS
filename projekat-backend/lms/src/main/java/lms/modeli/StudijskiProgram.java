@@ -1,6 +1,8 @@
 package lms.modeli;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -33,16 +36,17 @@ public class StudijskiProgram extends LogickoBrisanje{
     @JoinColumn(name="nastavnik_id",nullable=false)
     private Nastavnik rukovodilac;
 
-    @OneToMany(mappedBy = "studijskiProgram")
-    private List<Predmet> predmeti;
+    @ManyToMany(mappedBy = "studijskiProgrami")
+    private Set<Predmet> predmeti = new HashSet<>();
     
     public StudijskiProgram() {}
-    
-	public StudijskiProgram(Long id, String naziv,String opis, Fakultet fakultet, Nastavnik rukovodilac, List<Predmet> predmeti) {
+
+	public StudijskiProgram(Long id, String naziv, String opis, Fakultet fakultet, Nastavnik rukovodilac,
+			Set<Predmet> predmeti) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
-		this.opis=opis;
+		this.opis = opis;
 		this.fakultet = fakultet;
 		this.rukovodilac = rukovodilac;
 		this.predmeti = predmeti;
@@ -89,13 +93,12 @@ public class StudijskiProgram extends LogickoBrisanje{
 		this.rukovodilac = rukovodilac;
 	}
 
-	public List<Predmet> getPredmeti() {
+	public Set<Predmet> getPredmeti() {
 		return predmeti;
 	}
 
-	public void setPredmeti(List<Predmet> predmeti) {
+	public void setPredmeti(Set<Predmet> predmeti) {
 		this.predmeti = predmeti;
 	}
-    
     
 }

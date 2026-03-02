@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.EvaluacijaZnanjaDTO;
-import lms.modeli.EvaluacijaZnanja;
 import lms.servisi.CrudService;
 import lms.servisi.EvaluacijaZnanjaService;
 
@@ -29,13 +28,14 @@ public class EvaluacijaZnanjaController extends AbstractCrudController<Evaluacij
 	@PostMapping("/zakazi-ispit")
     public ResponseEntity<?> zakaziIspit(@RequestBody EvaluacijaZnanjaDTO dto) {
         try {
-            EvaluacijaZnanja sacuvanaEvaluacija = service.zakaziIspit(dto);
-            return new ResponseEntity<>(sacuvanaEvaluacija, HttpStatus.CREATED);
+        	EvaluacijaZnanjaDTO sacuvanaEvaluacijaDto = service.zakaziIspit(dto);
+            return new ResponseEntity<>(sacuvanaEvaluacijaDto, HttpStatus.CREATED);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
+        	e.printStackTrace(); 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Došlo je do greške na serveru.");
         }
     }

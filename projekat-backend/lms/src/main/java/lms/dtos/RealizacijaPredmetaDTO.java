@@ -1,23 +1,24 @@
 package lms.dtos;
 
 import java.util.List;
+import java.util.Set;
 
 public class RealizacijaPredmetaDTO {
 
     private Long id;
     private Long predmetId;
-    private Long nastavniMaterijalId;
+    private Set<Long> nastavniMaterijaliId;
     private List<Long> terminiId;
     private List<Long> nastavniciId;
     private List<Long> pohadjanjaId;
 
     public RealizacijaPredmetaDTO() {}
 
-    public RealizacijaPredmetaDTO(Long id, Long predmetId, Long nastavniMaterijalId,
+    public RealizacijaPredmetaDTO(Long id, Long predmetId, Set<Long> nastavniMaterijaliId,
                                   List<Long> terminiId, List<Long> nastavniciId, List<Long> pohadjanjaId) {
         this.id = id;
         this.predmetId = predmetId;
-        this.nastavniMaterijalId = nastavniMaterijalId;
+        this.nastavniMaterijaliId = nastavniMaterijaliId;
         this.terminiId = terminiId;
         this.nastavniciId = nastavniciId;
         this.pohadjanjaId = pohadjanjaId;
@@ -39,15 +40,15 @@ public class RealizacijaPredmetaDTO {
         this.predmetId = predmetId;
     }
 
-    public Long getNastavniMaterijalId() {
-        return nastavniMaterijalId;
-    }
+    public Set<Long> getNastavniMaterijaliId() {
+		return nastavniMaterijaliId;
+	}
 
-    public void setNastavniMaterijalId(Long nastavniMaterijalId) {
-        this.nastavniMaterijalId = nastavniMaterijalId;
-    }
+	public void setNastavniMaterijaliId(Set<Long> nastavniMaterijaliId) {
+		this.nastavniMaterijaliId = nastavniMaterijaliId;
+	}
 
-    public List<Long> getTerminiId() {
+	public List<Long> getTerminiId() {
         return terminiId;
     }
 

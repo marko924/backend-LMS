@@ -1,6 +1,7 @@
 package lms.servisi;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,10 @@ public class PredmetService extends AbstractCrusService<PredmetDTO, Predmet, Lon
         dto.setOpis(entity.getOpis());
         dto.setEspb(entity.getEspb());
 
-        if (entity.getStudijskiProgram() != null) {
-            dto.setStudijskiProgramId(entity.getStudijskiProgram().getId());
+        if (entity.getStudijskiProgrami() != null) {
+            dto.setStudijskiProgramiId(entity.getStudijskiProgrami().stream()
+            		.map(StudijskiProgram::getId)
+            		.collect(Collectors.toSet()));
         }
 
         if (entity.getRealizacije() != null) {
@@ -75,10 +78,12 @@ public class PredmetService extends AbstractCrusService<PredmetDTO, Predmet, Lon
         entity.setEspb(dto.getEspb());
 
        
-        if (dto.getStudijskiProgramId() != null) {
-            StudijskiProgram studijskiProgram = studijskiProgramRepository.findById(dto.getStudijskiProgramId())
-                    .orElseThrow(() -> new EntityNotFoundException("Studijski program nije pronađen"));
-            entity.setStudijskiProgram(studijskiProgram);
+        if (dto.getStudijskiProgramiId() != null) {
+            Set<StudijskiProgram> programi = dto.getStudijskiProgramiId().stream()
+            		.map(id -> studijskiProgramRepository.findById(id)
+            				.orElseThrow(() -> new EntityNotFoundException("Studijski program ID: " + id + " nije pronađen")))
+            		.collect(Collectors.toSet());
+            entity.setStudijskiProgrami(programi);
         }
 
        
