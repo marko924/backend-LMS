@@ -3,15 +3,15 @@ package lms.dtos;
 public class PrijaviIspitDTO {
 
     private Long id;
-    private Long studentId;
-    private Long predmetId;
+    private Long studentNaGodiniId;
+    private Long evaluacijaZnanjaId;
 
     public PrijaviIspitDTO() {}
 
-    public PrijaviIspitDTO(Long id, Long studentId, Long predmetId) {
+    public PrijaviIspitDTO(Long id, Long studentNaGodiniId, Long evaluacijaZnanjaId) {
         this.id = id;
-        this.studentId = studentId;
-        this.predmetId = predmetId;
+        this.studentNaGodiniId = studentNaGodiniId;
+        this.evaluacijaZnanjaId = evaluacijaZnanjaId;
     }
 
     public Long getId() {
@@ -22,19 +22,19 @@ public class PrijaviIspitDTO {
         this.id = id;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public Long getStudentNaGodiniId() {
+        return studentNaGodiniId;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public void setStudentNaGodiniId(Long studentNaGodiniId) {
+        this.studentNaGodiniId = studentNaGodiniId;
     }
 
-    public Long getPredmetId() {
-        return predmetId;
+    public Long getEvaluacijaZnanjaId() {
+        return evaluacijaZnanjaId;
     }
 
-    public void setPredmetId(Long predmetId) {
-        this.predmetId = predmetId;
+    public void setEvaluacijaZnanjaId(Long evaluacijaZnanjaId) {
+        this.evaluacijaZnanjaId = evaluacijaZnanjaId;
     }
 }

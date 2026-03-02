@@ -6,11 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.PrijaviIspitDTO;
 import lms.modeli.PrijaviIspit;
-import lms.modeli.Predmet;
-import lms.modeli.Student;
+import lms.modeli.EvaluacijaZnanja;
+import lms.modeli.StudentNaGodini;
 import lms.repozitorijumi.PrijaviIspitRepository;
-import lms.repozitorijumi.PredmetRepository;
-import lms.repozitorijumi.StudentRepository;
+import lms.repozitorijumi.EvaluacijaZnanjaRepository;
+import lms.repozitorijumi.StudentNaGodiniRepository;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,30 +23,33 @@ public class PrijaviIspitService extends AbstractCrusService<PrijaviIspitDTO, Pr
     private PrijaviIspitRepository prijaviIspitRepository;
 
     @Autowired
-    private StudentRepository studentRepository;
+    private StudentNaGodiniRepository studentNaGodiniRepository;
 
     @Autowired
-    private PredmetRepository predmetRepository;
+    private EvaluacijaZnanjaRepository evaluacijaZnanjaRepository;
 
     @Override
     protected PrijaviIspitRepository getRepository() {
         return prijaviIspitRepository;
     }
 
-    public List<PrijaviIspitDTO> getDostupniZaStudenta(Long studentId) {
-        List<Predmet> sviPredmeti = predmetRepository.findAll();
+    public List<PrijaviIspitDTO> getDostupniZaStudenta(Long studentNaGodiniId) {
+       
+        List<EvaluacijaZnanja> sveEvaluacije = evaluacijaZnanjaRepository.findAll();
 
-        Set<Long> prijavljeniPredmetiIds = prijaviIspitRepository.findAll().stream()
-                .filter(p -> p.getStudent() != null && p.getStudent().getId().equals(studentId))
-                .map(p -> p.getPredmet().getId())
+        
+        Set<Long> vecPrijavljeneIds = prijaviIspitRepository.findAll().stream()
+                .filter(p -> p.getStudentNaGodini() != null && p.getStudentNaGodini().getId().equals(studentNaGodiniId))
+                .map(p -> p.getEvaluacijaZnanja().getId())
                 .collect(Collectors.toSet());
 
-        return sviPredmeti.stream()
-                .filter(p -> !prijavljeniPredmetiIds.contains(p.getId()))
-                .map(p -> {
+        
+        return sveEvaluacije.stream()
+                .filter(e -> !vecPrijavljeneIds.contains(e.getId()))
+                .map(e -> {
                     PrijaviIspitDTO dto = new PrijaviIspitDTO();
-                    dto.setId(p.getId());
-                    dto.setPredmetId(p.getId());
+                    dto.setEvaluacijaZnanjaId(e.getId());
+                    dto.setStudentNaGodiniId(studentNaGodiniId);
                     return dto;
                 })
                 .collect(Collectors.toList());
@@ -56,8 +59,12 @@ public class PrijaviIspitService extends AbstractCrusService<PrijaviIspitDTO, Pr
     protected PrijaviIspitDTO toDTO(PrijaviIspit entity) {
         PrijaviIspitDTO dto = new PrijaviIspitDTO();
         dto.setId(entity.getId());
-        if (entity.getStudent() != null) dto.setStudentId(entity.getStudent().getId());
-        if (entity.getPredmet() != null) dto.setPredmetId(entity.getPredmet().getId());
+        if (entity.getStudentNaGodini() != null) {
+            dto.setStudentNaGodiniId(entity.getStudentNaGodini().getId());
+        }
+        if (entity.getEvaluacijaZnanja() != null) {
+            dto.setEvaluacijaZnanjaId(entity.getEvaluacijaZnanja().getId());
+        }
         return dto;
     }
 
@@ -70,21 +77,15 @@ public class PrijaviIspitService extends AbstractCrusService<PrijaviIspitDTO, Pr
 
     @Override
     protected void updateEntity(PrijaviIspit entity, PrijaviIspitDTO dto) {
-        if (dto.getStudentId() != null) {
-            Student student = studentRepository.findById(dto.getStudentId())
-                    .orElseThrow(() -> new EntityNotFoundException("Student nije pronađen"));
-            entity.setStudent(student);
+        if (dto.getStudentNaGodiniId() != null) {
+            StudentNaGodini sng = studentNaGodiniRepository.findById(dto.getStudentNaGodiniId())
+                    .orElseThrow(() -> new EntityNotFoundException("Student na godini nije pronađen"));
+            entity.setStudentNaGodini(sng);
         }
-        if (dto.getPredmetId() != null) {
-            Predmet predmet = predmetRepository.findById(dto.getPredmetId())
-                    .orElseThrow(() -> new EntityNotFoundException("Predmet nije pronađen"));
-            entity.setPredmet(predmet);
+        if (dto.getEvaluacijaZnanjaId() != null) {
+            EvaluacijaZnanja ev = evaluacijaZnanjaRepository.findById(dto.getEvaluacijaZnanjaId())
+                    .orElseThrow(() -> new EntityNotFoundException("Evaluacija znanja nije pronađena"));
+            entity.setEvaluacijaZnanja(ev);
         }
-    }
-    
-    @Transactional
-    public PrijaviIspit prijaviIspit(PrijaviIspitDTO dto) {
-        PrijaviIspit prijava = toEntity(dto);
-        return prijaviIspitRepository.save(prijava);
     }
 }

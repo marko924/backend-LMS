@@ -15,21 +15,23 @@ public class PrijaviIspit extends LogickoBrisanje {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
-    private Student student;
+    @JoinColumn(name = "student_na_godini_id", nullable = false)
+    private StudentNaGodini studentNaGodini;
 
+    
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "predmet_id", nullable = false)
-    private Predmet predmet;
+    @JoinColumn(name = "evaluacija_znanja_id", nullable = false)
+    private EvaluacijaZnanja evaluacijaZnanja;
 
     public PrijaviIspit() {}
 
-    public PrijaviIspit(Long id, Student student, Predmet predmet) {
+    public PrijaviIspit(Long id, StudentNaGodini studentNaGodini, EvaluacijaZnanja evaluacijaZnanja) {
         super();
         this.id = id;
-        this.student = student;
-        this.predmet = predmet;
+        this.studentNaGodini = studentNaGodini;
+        this.evaluacijaZnanja = evaluacijaZnanja;
     }
 
     public Long getId() {
@@ -40,19 +42,19 @@ public class PrijaviIspit extends LogickoBrisanje {
         this.id = id;
     }
 
-    public Student getStudent() {
-        return student;
+    public StudentNaGodini getStudentNaGodini() {
+        return studentNaGodini;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentNaGodini(StudentNaGodini studentNaGodini) {
+        this.studentNaGodini = studentNaGodini;
     }
 
-    public Predmet getPredmet() {
-        return predmet;
+    public EvaluacijaZnanja getEvaluacijaZnanja() {
+        return evaluacijaZnanja;
     }
 
-    public void setPredmet(Predmet predmet) {
-        this.predmet = predmet;
+    public void setEvaluacijaZnanja(EvaluacijaZnanja evaluacijaZnanja) {
+        this.evaluacijaZnanja = evaluacijaZnanja;
     }
 }
