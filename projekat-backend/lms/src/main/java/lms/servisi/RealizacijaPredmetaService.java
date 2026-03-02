@@ -1,6 +1,7 @@
 package lms.servisi;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +64,10 @@ public class RealizacijaPredmetaService extends AbstractCrusService<RealizacijaP
             dto.setPredmetId(entity.getPredmet().getId());
         }
 
-        if (entity.getNastavniMaterijal() != null) {
-            dto.setNastavniMaterijalId(entity.getNastavniMaterijal().getId());
+        if (entity.getNastavniMaterijali() != null) {
+            dto.setNastavniMaterijaliId(entity.getNastavniMaterijali().stream()
+            		.map(NastavniMaterijal::getId)
+            		.collect(Collectors.toSet()));
         }
 
         if (entity.getTermini() != null) {
@@ -107,10 +110,12 @@ public class RealizacijaPredmetaService extends AbstractCrusService<RealizacijaP
         }
 
        
-        if (dto.getNastavniMaterijalId() != null) {
-            NastavniMaterijal materijal = nastavniMaterijalRepository.findById(dto.getNastavniMaterijalId())
-                    .orElseThrow(() -> new EntityNotFoundException("Nastavni materijal nije pronađen"));
-            entity.setNastavniMaterijal(materijal);
+        if (dto.getNastavniMaterijaliId() != null) {
+            Set<NastavniMaterijal> materijali = dto.getNastavniMaterijaliId().stream()
+            		.map(id -> nastavniMaterijalRepository.findById(id)
+            			.orElseThrow(() -> new EntityNotFoundException("Nastavni materijal ID: " + id + " nije pronađen")))
+					.collect(Collectors.toSet());
+            entity.setNastavniMaterijali(materijali);
         }
 
       

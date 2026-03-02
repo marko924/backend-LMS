@@ -1,6 +1,6 @@
 package lms.servisi;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class StudijskiProgramService extends AbstractCrusService<StudijskiProgra
         if (entity.getPredmeti() != null) {
             dto.setPredmetiId(entity.getPredmeti().stream()
                     .map(Predmet::getId)
-                    .collect(Collectors.toList()));
+                    .collect(Collectors.toSet()));
         }
 
         return dto;
@@ -98,10 +98,10 @@ public class StudijskiProgramService extends AbstractCrusService<StudijskiProgra
 
        
         if (dto.getPredmetiId() != null) {
-            List<Predmet> predmeti = dto.getPredmetiId().stream()
+            Set<Predmet> predmeti = dto.getPredmetiId().stream()
                     .map(id -> predmetRepository.findById(id)
                             .orElseThrow(() -> new EntityNotFoundException("Predmet ID: " + id + " nije pronađen")))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
             entity.setPredmeti(predmeti);
         }
     }

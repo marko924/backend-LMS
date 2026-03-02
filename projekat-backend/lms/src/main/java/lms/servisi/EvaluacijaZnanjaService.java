@@ -19,7 +19,7 @@ import lms.repozitorijumi.RealizacijaPredmetaRepository;
 import lms.repozitorijumi.TipEvaluacijeRepository;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class EvaluacijaZnanjaService extends AbstractCrusService<EvaluacijaZnanjaDTO, EvaluacijaZnanja, Long>{
 	
 	@Autowired
@@ -58,6 +58,9 @@ public class EvaluacijaZnanjaService extends AbstractCrusService<EvaluacijaZnanj
 		if(entity.getInstrumentEvaluacije() != null) {
 			dto.setInstrumentEvaluacijeId(entity.getInstrumentEvaluacije().getId());
 		}
+		if(entity.getIspitniRok() != null) {
+			dto.setIspitniRokId(entity.getIspitniRok().getId());
+		}
 		return dto;
 	}
 
@@ -86,31 +89,37 @@ public class EvaluacijaZnanjaService extends AbstractCrusService<EvaluacijaZnanj
 		}
 		if(dto.getInstrumentEvaluacijeId() != null) {
 			InstrumentEvaluacije instrumentEvaluacije = instrumentEvaluacijeRepository.findById(dto.getInstrumentEvaluacijeId())
-					.orElseThrow(() -> new EntityNotFoundException("Instrument realizacije nije pronađen"));
+					.orElseThrow(() -> new EntityNotFoundException("Instrument evaluacije nije pronađen"));
 			entity.setInstrumentEvaluacije(instrumentEvaluacije);
 		}
-		
+		if(dto.getIspitniRokId() != null) {
+			IspitniRok ispitniRok = ispitniRokRepository.findById(dto.getIspitniRokId())
+					.orElseThrow(() -> new EntityNotFoundException("Ispitni rok nije pronađen"));
+			entity.setIspitniRok(ispitniRok);
+		}
 	}
 	
-	public EvaluacijaZnanja zakaziIspit(EvaluacijaZnanjaDTO dto) {
-		
-		TipEvaluacije tipEvaluacije = tipEvaluacijeRepository.findById(dto.getTipEvaluacijeId())
-				.orElseThrow(() -> new EntityNotFoundException("Tip evaluacije nije pronađeno"));
-		
-		if (!tipEvaluacije.getNaziv().toLowerCase().equals("ispit")) {
-			throw new IllegalArgumentException("Ova metoda služi isključivo za zakazivanje ISPITA!");
-		}
-		
-        IspitniRok rok = ispitniRokRepository.findById(dto.getIspitniRokId())
-            .orElseThrow(() -> new EntityNotFoundException("Ispitni rok ne postoji!"));
+	public EvaluacijaZnanjaDTO zakaziIspit(EvaluacijaZnanjaDTO dto) {
+	    
+	    TipEvaluacije tipEvaluacije = tipEvaluacijeRepository.findById(dto.getTipEvaluacijeId())
+	            .orElseThrow(() -> new EntityNotFoundException("Tip evaluacije nije pronađeno"));
+	    
+	    if (!tipEvaluacije.getNaziv().toLowerCase().equals("ispit")) {
+	        throw new IllegalArgumentException("Ova metoda služi isključivo za zakazivanje ISPITA!");
+	    }
+	    
+	    IspitniRok rok = ispitniRokRepository.findById(dto.getIspitniRokId())
+	        .orElseThrow(() -> new EntityNotFoundException("Ispitni rok ne postoji!"));
 
-        if (dto.getVremePocetka().isBefore(rok.getDatumPocetka()) || 
-            dto.getVremeZavrsetka().isAfter(rok.getDatumZavrsetka())) {
-            throw new IllegalArgumentException("Vreme ispita mora biti unutar datuma ispitnog roka!");
-        }
+	    if (dto.getVremePocetka().isBefore(rok.getDatumPocetka()) || 
+	        dto.getVremeZavrsetka().isAfter(rok.getDatumZavrsetka())) {
+	        throw new IllegalArgumentException("Vreme ispita mora biti unutar datuma ispitnog roka!");
+	    }
 
-        EvaluacijaZnanja novaEvaluacija = toEntity(dto);
-        return evaluacijaZnanjaRepository.save(novaEvaluacija);
-    }
+	    EvaluacijaZnanja novaEvaluacija = toEntity(dto);
+	    EvaluacijaZnanja sacuvana = evaluacijaZnanjaRepository.save(novaEvaluacija);
+
+	    return toDTO(sacuvana); 
+	}
 
 }

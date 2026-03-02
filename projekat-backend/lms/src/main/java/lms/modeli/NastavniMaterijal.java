@@ -1,7 +1,9 @@
 package lms.modeli;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -10,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -28,23 +31,23 @@ public class NastavniMaterijal extends LogickoBrisanje {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "nastavni_materijal_id")
     private List<Fajl> fajlovi = new ArrayList<>();
+    
+    @ManyToMany(mappedBy = "nastavniMaterijali")
+    private Set<RealizacijaPredmeta> realizacije = new HashSet<>();
 
     public NastavniMaterijal() {}
 
-    public NastavniMaterijal(Long id, String naziv, String opis) {
-        this.id = id;
-        this.naziv = naziv;
-        this.opis = opis;
-    }
+    public NastavniMaterijal(Long id, String naziv, String opis, List<Fajl> fajlovi,
+			Set<RealizacijaPredmeta> realizacije) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.opis = opis;
+		this.fajlovi = fajlovi;
+		this.realizacije = realizacije;
+	}
 
-    public NastavniMaterijal(Long id, String naziv, String opis, List<Fajl> fajlovi) {
-        this.id = id;
-        this.naziv = naziv;
-        this.opis = opis;
-        this.fajlovi = fajlovi;
-    }
-
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -75,4 +78,13 @@ public class NastavniMaterijal extends LogickoBrisanje {
     public void setFajlovi(List<Fajl> fajlovi) {
         this.fajlovi = fajlovi;
     }
+
+	public Set<RealizacijaPredmeta> getRealizacije() {
+		return realizacije;
+	}
+
+	public void setRealizacije(Set<RealizacijaPredmeta> realizacije) {
+		this.realizacije = realizacije;
+	}
+    
 }

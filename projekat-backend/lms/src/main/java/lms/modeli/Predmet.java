@@ -1,15 +1,17 @@
 package lms.modeli;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -28,23 +30,27 @@ public class Predmet extends LogickoBrisanje{
     @Column
     private Integer espb;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="studijski_program_id",nullable=false)
-    private StudijskiProgram studijskiProgram;
+    @ManyToMany
+    @JoinTable(
+        name = "predmet_studijski_program", // Naziv spojne tabele u bazi
+        joinColumns = @JoinColumn(name = "predmet_id"),
+        inverseJoinColumns = @JoinColumn(name = "studijski_program_id")
+    )
+    private Set<StudijskiProgram> studijskiProgrami = new HashSet<>();
 
     @OneToMany(mappedBy = "predmet")
     private List<RealizacijaPredmeta> realizacije;
     
     public Predmet() {}
 
-	public Predmet(Long id, String naziv,String opis, Integer espb, StudijskiProgram studijskiProgram,
+	public Predmet(Long id, String naziv, String opis, Integer espb, Set<StudijskiProgram> studijskiProgrami,
 			List<RealizacijaPredmeta> realizacije) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
-		this.opis= opis;
+		this.opis = opis;
 		this.espb = espb;
-		this.studijskiProgram = studijskiProgram;
+		this.studijskiProgrami = studijskiProgrami;
 		this.realizacije = realizacije;
 	}
 
@@ -81,12 +87,12 @@ public class Predmet extends LogickoBrisanje{
 		this.espb = espb;
 	}
 
-	public StudijskiProgram getStudijskiProgram() {
-		return studijskiProgram;
+	public Set<StudijskiProgram> getStudijskiProgrami() {
+		return studijskiProgrami;
 	}
 
-	public void setStudijskiProgram(StudijskiProgram studijskiProgram) {
-		this.studijskiProgram = studijskiProgram;
+	public void setStudijskiProgrami(Set<StudijskiProgram> studijskiProgrami) {
+		this.studijskiProgrami = studijskiProgrami;
 	}
 
 	public List<RealizacijaPredmeta> getRealizacije() {
