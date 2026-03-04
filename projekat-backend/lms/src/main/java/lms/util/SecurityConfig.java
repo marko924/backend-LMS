@@ -46,6 +46,11 @@ public class SecurityConfig {
                 .requestMatchers("/api/zahteviZaUpis/**").permitAll()
                 .requestMatchers("/api/evaluacijeZnanja/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/public/**").permitAll()
+                .requestMatchers("/api/adrese/**").permitAll()
+                .requestMatchers("/api/mesta/**").permitAll()
+                .requestMatchers("/api/drzave/**").permitAll()
+                .requestMatchers("/api/univerziteti/**").permitAll()
+                .requestMatchers("/api/nastavnici/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session

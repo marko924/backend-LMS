@@ -50,6 +50,7 @@ public class UniverzitetService extends AbstractCrusService<UniverzitetDTO, Univ
         dto.setNaziv(entity.getNaziv());
         dto.setDatumOsnivanja(entity.getDatumOsnivanja());
         dto.setOpis(entity.getOpis());
+        dto.setKontakt(entity.getKontakt());
         dto.setRektorId(entity.getRektor() != null ? entity.getRektor().getId() : null);
         dto.setFakultetId(entity.getFakulteti() != null
                 ? entity.getFakulteti().stream()
@@ -74,7 +75,7 @@ public class UniverzitetService extends AbstractCrusService<UniverzitetDTO, Univ
         entity.setNaziv(dto.getNaziv());
         entity.setDatumOsnivanja(dto.getDatumOsnivanja());
         entity.setOpis(dto.getOpis());
-
+        entity.setKontakt(dto.getKontakt());
        
         if (dto.getRektorId() != null) {
             Nastavnik rektor = nastavnikRepository.findById(dto.getRektorId())
