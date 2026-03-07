@@ -20,7 +20,6 @@ public class Polaganje extends LogickoBrisanje {
 
 	public Polaganje() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Polaganje(Long id, Double osvojeniBodovi, String napomena, EvaluacijaZnanja evaluacijaZnanja) {

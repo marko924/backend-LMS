@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/ispitniRokovi/**").permitAll()
                 .requestMatchers("/api/zahteviZaUpis/**").permitAll()
                 .requestMatchers("/api/evaluacijeZnanja/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/public/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                 .requestMatchers("/api/adrese/**").permitAll()
                 .requestMatchers("/api/mesta/**").permitAll()
                 .requestMatchers("/api/drzave/**").permitAll()
