@@ -34,35 +34,24 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable()) // Novi način pisanja (Lambda)
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 //.requestMatchers("/api/student/**").hasRole("STUDENT")
                 //.requestMatchers("/api/nastavnik/**").hasRole("NASTAVNIK")
                 //.requestMatchers("/api/sluzba/**").hasRole("SLUZBA")
-                .requestMatchers("/api/**").permitAll()
-                .requestMatchers("/api/ispitniRokovi/**").permitAll()
-                .requestMatchers("/api/zahteviZaUpis/**").permitAll()
-                .requestMatchers("/api/evaluacijeZnanja/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-                .requestMatchers("/api/adrese/**").permitAll()
-                .requestMatchers("/api/mesta/**").permitAll()
-                .requestMatchers("/api/drzave/**").permitAll()
-                .requestMatchers("/api/univerziteti/**").permitAll()
-                .requestMatchers("/api/nastavnici/**").permitAll()
+                .requestMatchers("/api/**").permitAll() //automatski propušta sve zahteve
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
-            // Dodajemo filter pre glavnog filtera
             .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-    // U Spring Boot 3, AuthenticationManager se dobija preko konfiguracije
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
