@@ -11,11 +11,13 @@ import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.StudentNaGodiniDTO;
 import lms.modeli.GodinaStudija;
 import lms.modeli.PohadjanjePredmeta;
+import lms.modeli.Polaganje;
 import lms.modeli.Student;
 import lms.modeli.StudentNaGodini;
 import lms.repozitorijumi.GodinaStudijaRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.PohadjanjePredmetaRepository;
+import lms.repozitorijumi.PolaganjeRepository;
 import lms.repozitorijumi.StudentNaGodiniRepository;
 import lms.repozitorijumi.StudentRepository;
 
@@ -36,7 +38,8 @@ public class StudentNaGodiniService
 	@Autowired
 	private PohadjanjePredmetaRepository pohadjanjeRepository;
 
-    
+    @Autowired
+    private PolaganjeRepository polaganjeRepository;
 
     @Override
     protected LogickoBrisanjeRepozitorijum<StudentNaGodini, Long> getRepository() {
@@ -64,6 +67,12 @@ public class StudentNaGodiniService
                     .map(PohadjanjePredmeta::getId)
                     .collect(Collectors.toList())
             );
+        }
+        
+        if (entity.getPolaganja() != null) {
+        	dto.setPolaganjaId(entity.getPolaganja().stream()
+        			.map(Polaganje::getId)
+        			.collect(Collectors.toList()));
         }
 
         return dto;
@@ -105,8 +114,15 @@ public class StudentNaGodiniService
                 .map(id -> pohadjanjeRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Pohadjanje ID: " + id + " nije pronađeno")))
                 .collect(Collectors.toList());
-
             entity.setPohadjanja(pohadjanja);
+        }
+        
+        if (dto.getPolaganjaId() != null) {
+        	List<Polaganje> polaganja = dto.getPolaganjaId().stream()
+        			.map(id -> polaganjeRepository.findById(id)
+        					.orElseThrow(() -> new EntityNotFoundException("Polaganje ID: " + id + " nije pronađeno")))
+                    .collect(Collectors.toList());
+        	entity.setPolaganja(polaganja);
         }
     }
 }

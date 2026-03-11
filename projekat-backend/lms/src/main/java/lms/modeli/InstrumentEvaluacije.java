@@ -1,17 +1,14 @@
 package lms.modeli;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -25,27 +22,21 @@ public class InstrumentEvaluacije extends LogickoBrisanje{
 
     @Column
     private String opis;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "evaluacija_id", nullable = true)
-    private EvaluacijaZnanja evaluacijaZnanja;
     
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "instrument_evaluacije_id") // Unidirekciona veza ka fajlovima
-    private List<Fajl> fajlovi = new ArrayList<>();
+    @JoinColumn(name = "instrument_evaluacije_id")
+    private List<Fajl> fajlovi;
 
 	public InstrumentEvaluacije() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public InstrumentEvaluacije(Long id, String naziv, String opis, EvaluacijaZnanja evaluacijaZnanja,
-			List<Fajl> fajlovi) {
+	public InstrumentEvaluacije(Long id, String naziv, String opis, List<Fajl> fajlovi) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
 		this.opis = opis;
-		this.evaluacijaZnanja = evaluacijaZnanja;
 		this.fajlovi = fajlovi;
 	}
 
@@ -71,14 +62,6 @@ public class InstrumentEvaluacije extends LogickoBrisanje{
 
 	public void setOpis(String opis) {
 		this.opis = opis;
-	}
-
-	public EvaluacijaZnanja getEvaluacijaZnanja() {
-		return evaluacijaZnanja;
-	}
-
-	public void setEvaluacijaZnanja(EvaluacijaZnanja evaluacijaZnanja) {
-		this.evaluacijaZnanja = evaluacijaZnanja;
 	}
 
 	public List<Fajl> getFajlovi() {

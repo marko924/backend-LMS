@@ -1,5 +1,8 @@
 package lms.servisi;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,13 +11,17 @@ import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.EvaluacijaZnanjaDTO;
 import lms.modeli.EvaluacijaZnanja;
 import lms.modeli.InstrumentEvaluacije;
+import lms.modeli.Ishod;
 import lms.modeli.IspitniRok;
+import lms.modeli.Polaganje;
 import lms.modeli.RealizacijaPredmeta;
 import lms.modeli.TipEvaluacije;
 import lms.repozitorijumi.EvaluacijaZnanjaRepository;
 import lms.repozitorijumi.InstrumentEvaluacijeRepository;
+import lms.repozitorijumi.IshodRepository;
 import lms.repozitorijumi.IspitniRokRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
+import lms.repozitorijumi.PolaganjeRepository;
 import lms.repozitorijumi.RealizacijaPredmetaRepository;
 import lms.repozitorijumi.TipEvaluacijeRepository;
 
@@ -36,6 +43,12 @@ public class EvaluacijaZnanjaService extends AbstractCrusService<EvaluacijaZnanj
 	
 	@Autowired
 	private IspitniRokRepository ispitniRokRepository;
+	
+	@Autowired
+	private PolaganjeRepository polaganjeRepository;
+	
+	@Autowired
+	private IshodRepository ishodRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<EvaluacijaZnanja, Long> getRepository() {
@@ -60,6 +73,16 @@ public class EvaluacijaZnanjaService extends AbstractCrusService<EvaluacijaZnanj
 		}
 		if(entity.getIspitniRok() != null) {
 			dto.setIspitniRokId(entity.getIspitniRok().getId());
+		}
+		if(entity.getPolaganja() != null) {
+			dto.setPolaganjaId(entity.getPolaganja().stream()
+					.map(Polaganje::getId)
+					.collect(Collectors.toList()));
+		}
+		if(entity.getIshodi() != null) {
+			dto.setIshodiId(entity.getIshodi().stream()
+					.map(Ishod::getId)
+					.collect(Collectors.toList()));
 		}
 		return dto;
 	}
@@ -96,6 +119,20 @@ public class EvaluacijaZnanjaService extends AbstractCrusService<EvaluacijaZnanj
 			IspitniRok ispitniRok = ispitniRokRepository.findById(dto.getIspitniRokId())
 					.orElseThrow(() -> new EntityNotFoundException("Ispitni rok nije pronađen"));
 			entity.setIspitniRok(ispitniRok);
+		}
+		if(dto.getPolaganjaId() != null) {
+			List<Polaganje> polaganja = dto.getPolaganjaId().stream()
+					.map(id -> polaganjeRepository.findById(id)
+							.orElseThrow(() -> new EntityNotFoundException("Polaganje ID: " + id + " nije pronađeno")))
+					.collect(Collectors.toList());
+			entity.setPolaganja(polaganja);
+		}
+		if(dto.getIshodiId() != null) {
+			List<Ishod> ishodi = dto.getIshodiId().stream()
+					.map(id -> ishodRepository.findById(id)
+							.orElseThrow(() -> new EntityNotFoundException("Ishod ID: " + id + " nije pronađen")))
+					.collect(Collectors.toList());
+			entity.setIshodi(ishodi);
 		}
 	}
 	

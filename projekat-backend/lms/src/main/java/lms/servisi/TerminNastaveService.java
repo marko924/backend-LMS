@@ -1,5 +1,8 @@
 package lms.servisi;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.TerminNastaveDTO;
 import lms.modeli.TerminNastave;
+import lms.modeli.Ishod;
 import lms.modeli.RealizacijaPredmeta;
 import lms.modeli.TipNastave;
+import lms.repozitorijumi.IshodRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.RealizacijaPredmetaRepository;
 import lms.repozitorijumi.TerminNastaveRepository;
@@ -27,7 +32,8 @@ public class TerminNastaveService extends AbstractCrusService<TerminNastaveDTO, 
 	@Autowired
 	private TipNastaveRepository tipNastaveRepository;
 
-    
+    @Autowired
+    private IshodRepository ishodRepository;
 
     @Override
     protected LogickoBrisanjeRepozitorijum<TerminNastave, Long> getRepository() {
@@ -47,6 +53,12 @@ public class TerminNastaveService extends AbstractCrusService<TerminNastaveDTO, 
 
         if (entity.getTipNastave() != null) {
             dto.setTipNastaveId(entity.getTipNastave().getId());
+        }
+        
+        if (entity.getIshodi() != null) {
+        	dto.setIshodiId(entity.getIshodi().stream()
+        			.map(Ishod::getId)
+        			.collect(Collectors.toList()));
         }
 
         return dto;
@@ -69,7 +81,7 @@ public class TerminNastaveService extends AbstractCrusService<TerminNastaveDTO, 
         if (dto.getRealizacijaId() != null) {
             RealizacijaPredmeta realizacija = realizacijaPredmetaRepository.findById(dto.getRealizacijaId())
                     .orElseThrow(() -> new EntityNotFoundException(
-                            "RealizacijaPredmeta ID: " + dto.getRealizacijaId() + " nije pronađena"));
+                            "Realizacija predmeta nije pronađena"));
             entity.setRealizacija(realizacija);
         }
 
@@ -77,8 +89,16 @@ public class TerminNastaveService extends AbstractCrusService<TerminNastaveDTO, 
         if (dto.getTipNastaveId() != null) {
             TipNastave tip = tipNastaveRepository.findById(dto.getTipNastaveId())
                     .orElseThrow(() -> new EntityNotFoundException(
-                            "TipNastave ID: " + dto.getTipNastaveId() + " nije pronađen"));
+                            "Tip nastave nije pronađen"));
             entity.setTipNastave(tip);
+        }
+        
+        if (dto.getIshodiId() != null) {
+        	List<Ishod> ishodi = dto.getIshodiId().stream()
+        			.map(id -> ishodRepository.findById(id)
+        					.orElseThrow(() -> new EntityNotFoundException("Ishod ID: " + id + " nije pronađen")))
+					.collect(Collectors.toList());
+        	entity.setIshodi(ishodi);
         }
     }
 }

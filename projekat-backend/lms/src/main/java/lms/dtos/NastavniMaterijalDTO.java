@@ -1,7 +1,6 @@
 package lms.dtos;
 
 import java.util.List;
-import java.util.Set;
 
 public class NastavniMaterijalDTO {
 
@@ -9,17 +8,15 @@ public class NastavniMaterijalDTO {
     private String naziv;
     private String opis;
     private List<Long> fajlId;
-    private Set<Long> realizacijeId;
 
     public NastavniMaterijalDTO() {}
 
-    public NastavniMaterijalDTO(Long id, String naziv, String opis, List<Long> fajlId, Set<Long> realizacijeId) {
+    public NastavniMaterijalDTO(Long id, String naziv, String opis, List<Long> fajlId) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
 		this.opis = opis;
 		this.fajlId = fajlId;
-		this.realizacijeId = realizacijeId;
 	}
 
 	public Long getId() {
@@ -53,14 +50,5 @@ public class NastavniMaterijalDTO {
     public void setFajlId(List<Long> fajlId) {
         this.fajlId = fajlId;
     }
-
-	public Set<Long> getRealizacijeId() {
-		return realizacijeId;
-	}
-
-	public void setRealizacijeId(Set<Long> realizacijeId) {
-		this.realizacijeId = realizacijeId;
-	}
-    
     
 }

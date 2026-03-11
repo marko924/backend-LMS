@@ -1,6 +1,6 @@
 package lms.dtos;
 
-import java.util.Set;
+import java.util.List;
 
 public class StudijskiProgramDTO {
 
@@ -9,20 +9,22 @@ public class StudijskiProgramDTO {
     private String opis;
     private Long fakultetId;       
     private Long rukovodilacId;    
-    private Set<Long> predmetiId; 
+    private List<Long> godineStudijaId;
 
     public StudijskiProgramDTO() {}
 
-    public StudijskiProgramDTO(Long id, String naziv,String opis, Long fakultetId, Long rukovodilacId, Set<Long> predmetiId) {
-        this.id = id;
-        this.naziv = naziv;
-        this.opis=opis;
-        this.fakultetId = fakultetId;
-        this.rukovodilacId = rukovodilacId;
-        this.predmetiId = predmetiId;
-    }
+    public StudijskiProgramDTO(Long id, String naziv, String opis, Long fakultetId, Long rukovodilacId,
+			List<Long> godineStudijaId) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.opis = opis;
+		this.fakultetId = fakultetId;
+		this.rukovodilacId = rukovodilacId;
+		this.godineStudijaId = godineStudijaId;
+	}
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -63,11 +65,12 @@ public class StudijskiProgramDTO {
         this.rukovodilacId = rukovodilacId;
     }
 
-    public Set<Long> getPredmetiId() {
-        return predmetiId;
-    }
+	public List<Long> getGodineStudijaId() {
+		return godineStudijaId;
+	}
 
-    public void setPredmetiId(Set<Long> predmetiId) {
-        this.predmetiId = predmetiId;
-    }
+	public void setGodineStudijaId(List<Long> godineStudijaId) {
+		this.godineStudijaId = godineStudijaId;
+	}
+
 }

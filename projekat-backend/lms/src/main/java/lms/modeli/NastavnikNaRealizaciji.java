@@ -1,5 +1,7 @@
 package lms.modeli;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -8,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class NastavnikNaRealizaciji extends LogickoBrisanje{
@@ -25,22 +28,26 @@ public class NastavnikNaRealizaciji extends LogickoBrisanje{
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="realizacija_predmeta_id",nullable=false)
-    private RealizacijaPredmeta realizacija;
+    private RealizacijaPredmeta realizacijaPredmeta;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="tip_nastave_id",nullable=false)
     private TipNastave tipNastave;
     
+    @OneToMany(mappedBy = "nastavnikNaRealizaciji")
+    private List<Obavestenje> obavestenja;
+    
     public NastavnikNaRealizaciji() {}
 
-	public NastavnikNaRealizaciji(Long id, Integer brojCasova, Nastavnik nastavnik, RealizacijaPredmeta realizacija,
-			TipNastave tipNastave) {
+	public NastavnikNaRealizaciji(Long id, Integer brojCasova, Nastavnik nastavnik,
+			RealizacijaPredmeta realizacijaPredmeta, TipNastave tipNastave, List<Obavestenje> obavestenja) {
 		super();
 		this.id = id;
 		this.brojCasova = brojCasova;
 		this.nastavnik = nastavnik;
-		this.realizacija = realizacija;
+		this.realizacijaPredmeta = realizacijaPredmeta;
 		this.tipNastave = tipNastave;
+		this.obavestenja = obavestenja;
 	}
 
 	public Long getId() {
@@ -68,11 +75,11 @@ public class NastavnikNaRealizaciji extends LogickoBrisanje{
 	}
 
 	public RealizacijaPredmeta getRealizacija() {
-		return realizacija;
+		return realizacijaPredmeta;
 	}
 
-	public void setRealizacija(RealizacijaPredmeta realizacija) {
-		this.realizacija = realizacija;
+	public void setRealizacija(RealizacijaPredmeta realizacijaPredmeta) {
+		this.realizacijaPredmeta = realizacijaPredmeta;
 	}
 
 	public TipNastave getTipNastave() {
@@ -81,6 +88,22 @@ public class NastavnikNaRealizaciji extends LogickoBrisanje{
 
 	public void setTipNastave(TipNastave tipNastave) {
 		this.tipNastave = tipNastave;
+	}
+
+	public RealizacijaPredmeta getRealizacijaPredmeta() {
+		return realizacijaPredmeta;
+	}
+
+	public void setRealizacijaPredmeta(RealizacijaPredmeta realizacijaPredmeta) {
+		this.realizacijaPredmeta = realizacijaPredmeta;
+	}
+
+	public List<Obavestenje> getObavestenja() {
+		return obavestenja;
+	}
+
+	public void setObavestenja(List<Obavestenje> obavestenja) {
+		this.obavestenja = obavestenja;
 	}
     
     

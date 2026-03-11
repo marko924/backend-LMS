@@ -12,13 +12,17 @@ import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.RealizacijaPredmetaDTO;
 import lms.modeli.Nastavnik;
 import lms.modeli.NastavnikNaRealizaciji;
+import lms.modeli.Obavestenje;
 import lms.modeli.Predmet;
 import lms.modeli.RealizacijaPredmeta;
+import lms.modeli.EvaluacijaZnanja;
 import lms.modeli.NastavniMaterijal;
 import lms.modeli.TerminNastave;
 import lms.modeli.PohadjanjePredmeta;
+import lms.repozitorijumi.EvaluacijaZnanjaRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.NastavnikRepository;
+import lms.repozitorijumi.ObavestenjeRepository;
 import lms.repozitorijumi.PredmetRepository;
 import lms.repozitorijumi.RealizacijaPredmetaRepository;
 import lms.repozitorijumi.NastavniMaterijalRepository;
@@ -44,11 +48,14 @@ public class RealizacijaPredmetaService extends AbstractCrusService<RealizacijaP
     @Autowired
     private NastavnikRepository nastavnikRepository;
     
-
     @Autowired
     private PohadjanjePredmetaRepository pohadjanjePredmetaRepository;
 
+    @Autowired
+    private EvaluacijaZnanjaRepository evaluacijaZnanjaRepository;
     
+    @Autowired
+    private ObavestenjeRepository obavestenjeRepository;
 
     @Override
     protected LogickoBrisanjeRepozitorijum<RealizacijaPredmeta, Long> getRepository() {
@@ -86,6 +93,18 @@ public class RealizacijaPredmetaService extends AbstractCrusService<RealizacijaP
             dto.setPohadjanjaId(entity.getPohadjanja().stream()
                     .map(PohadjanjePredmeta::getId)
                     .collect(Collectors.toList()));
+        }
+        
+        if (entity.getEvaluacije() != null) {
+        	dto.setEvaluacijeId(entity.getEvaluacije().stream()
+        			.map(EvaluacijaZnanja::getId)
+        			.collect(Collectors.toList()));
+        }
+        
+        if (entity.getObavestenja() != null) {
+        	dto.setObavestenjaId(entity.getObavestenja().stream()
+        			.map(Obavestenje::getId)
+        			.collect(Collectors.toList()));
         }
 
         return dto;
@@ -146,9 +165,25 @@ public class RealizacijaPredmetaService extends AbstractCrusService<RealizacijaP
         if (dto.getPohadjanjaId() != null) {
             List<PohadjanjePredmeta> pohadjanja = dto.getPohadjanjaId().stream()
                     .map(id -> pohadjanjePredmetaRepository.findById(id)
-                            .orElseThrow(() -> new EntityNotFoundException("PohadjanjePredmeta ID: " + id + " nije pronađen")))
+                            .orElseThrow(() -> new EntityNotFoundException("Pohadjanje predmeta ID: " + id + " nije pronađen")))
                     .collect(Collectors.toList());
             entity.setPohadjanja(pohadjanja);
+        }
+        
+        if (dto.getEvaluacijeId() != null) {
+        	List<EvaluacijaZnanja> evaluacijeZnanja = dto.getEvaluacijeId().stream()
+        			.map(id -> evaluacijaZnanjaRepository.findById(id)
+        					.orElseThrow(() -> new EntityNotFoundException("Evaluacija znanja ID: " + id + " nije pronađena")))
+                    .collect(Collectors.toList());
+        	entity.setEvaluacije(evaluacijeZnanja);
+        }
+        
+        if (dto.getObavestenjaId() != null) {
+        	List<Obavestenje> obavestenja = dto.getObavestenjaId().stream()
+        			.map(id -> obavestenjeRepository.findById(id)
+        					.orElseThrow(() -> new EntityNotFoundException("Obavestenje ID: " + id + " nije pronađeno")))
+                    .collect(Collectors.toList());
+        	entity.setObavestenja(obavestenja);
         }
     }
 }

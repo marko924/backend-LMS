@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.ObavestenjeDTO;
 import lms.modeli.Fajl;
-import lms.modeli.NastavniMaterijal;
+import lms.modeli.NastavnikNaRealizaciji;
 import lms.modeli.Obavestenje;
 import lms.modeli.RealizacijaPredmeta;
 import lms.repozitorijumi.FajlRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
-import lms.repozitorijumi.NastavniMaterijalRepository;
+import lms.repozitorijumi.NastavnikNaRealizacijiRepository;
 import lms.repozitorijumi.ObavestenjeRepository;
 import lms.repozitorijumi.RealizacijaPredmetaRepository;
 
@@ -33,7 +33,7 @@ public class ObavestenjeService extends AbstractCrusService<ObavestenjeDTO, Obav
 	private RealizacijaPredmetaRepository realizacijaPredmetaRepository;
 	
 	@Autowired
-	private NastavniMaterijalRepository nastavniMaterijalRepository;
+	private NastavnikNaRealizacijiRepository nastavnikNaRealizacijiRepository;
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<Obavestenje, Long> getRepository() {
@@ -55,8 +55,8 @@ public class ObavestenjeService extends AbstractCrusService<ObavestenjeDTO, Obav
 		if(entity.getRealizacijaPredmeta() != null) {
 			dto.setRealizacijaPredmetaId(entity.getRealizacijaPredmeta().getId());
 		}
-		if(entity.getRealizacijaPredmeta() != null) {
-			dto.setNastavniMaterijalId(entity.getNastavniMaterijal().getId());
+		if(entity.getNastavnikNaRealizaciji() != null) {
+			dto.setNastavnikNaRealizacijiId(entity.getNastavnikNaRealizaciji().getId());
 		}
 		return dto;
 	}
@@ -89,10 +89,10 @@ public class ObavestenjeService extends AbstractCrusService<ObavestenjeDTO, Obav
 			entity.setRealizacijaPredmeta(realizacijaPredmeta);
 		}
 		
-		if(dto.getNastavniMaterijalId() != null) {
-			NastavniMaterijal nastavniMaterijal = nastavniMaterijalRepository.findById(dto.getNastavniMaterijalId())
-					.orElseThrow(() -> new EntityNotFoundException("Nastavni materijal nije pronađen"));
-			entity.setNastavniMaterijal(nastavniMaterijal);
+		if(dto.getNastavnikNaRealizacijiId() != null) {
+			NastavnikNaRealizaciji nastavnikNaRealizaciji = nastavnikNaRealizacijiRepository.findById(dto.getNastavnikNaRealizacijiId())
+					.orElseThrow(() -> new EntityNotFoundException("Nastavnik na realizaciji nije pronađen"));
+			entity.setNastavnikNaRealizaciji(nastavnikNaRealizaciji);
 		}
 		
 	}

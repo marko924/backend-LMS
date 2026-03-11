@@ -1,11 +1,9 @@
 package lms.modeli;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -43,9 +41,8 @@ public class RegistrovaniKorisnik extends LogickoBrisanje{
     )
     private Set<Uloga> uloge = new HashSet<>();  //Koristio sam Set da mi se ne bi prikazivali duplikati kao kada koristim List
     
-    // Lista svih učešća ovog korisnika na različitim forumima
-    @OneToMany(mappedBy = "korisnik", cascade = CascadeType.ALL)
-    private List<KorisnikNaForumu> clanstvaNaForumima = new ArrayList<>();
+    @OneToMany(mappedBy = "korisnik")
+    private List<KorisnikNaForumu> clanstvaNaForumima;
 
 	public RegistrovaniKorisnik() {
 		super();

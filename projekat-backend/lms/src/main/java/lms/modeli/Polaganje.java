@@ -17,17 +17,23 @@ public class Polaganje extends LogickoBrisanje {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "evaluacija_id", nullable = false)
     private EvaluacijaZnanja evaluacijaZnanja;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_na_godini_id", nullable = false)
+    private StudentNaGodini studentNaGodini;
 
 	public Polaganje() {
 		super();
 	}
 
-	public Polaganje(Long id, Double osvojeniBodovi, String napomena, EvaluacijaZnanja evaluacijaZnanja) {
+	public Polaganje(Long id, Double osvojeniBodovi, String napomena, EvaluacijaZnanja evaluacijaZnanja,
+			StudentNaGodini studentNaGodini) {
 		super();
 		this.id = id;
 		this.osvojeniBodovi = osvojeniBodovi;
 		this.napomena = napomena;
 		this.evaluacijaZnanja = evaluacijaZnanja;
+		this.studentNaGodini = studentNaGodini;
 	}
 
 	public Long getId() {
@@ -60,6 +66,14 @@ public class Polaganje extends LogickoBrisanje {
 
 	public void setEvaluacijaZnanja(EvaluacijaZnanja evaluacijaZnanja) {
 		this.evaluacijaZnanja = evaluacijaZnanja;
+	}
+
+	public StudentNaGodini getStudentNaGodini() {
+		return studentNaGodini;
+	}
+
+	public void setStudentNaGodini(StudentNaGodini studentNaGodini) {
+		this.studentNaGodini = studentNaGodini;
 	}
 
     

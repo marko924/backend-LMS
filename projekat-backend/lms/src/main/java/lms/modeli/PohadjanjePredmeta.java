@@ -25,17 +25,17 @@ public class PohadjanjePredmeta extends LogickoBrisanje {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="realizacija_predmeta_id",nullable=false)
-    private RealizacijaPredmeta realizacija;
+    private RealizacijaPredmeta realizacijaPredmeta;
     
     public PohadjanjePredmeta() {}
 
 	public PohadjanjePredmeta(Long id, Integer konacnaOcena, StudentNaGodini studentNaGodini,
-			RealizacijaPredmeta realizacija) {
+			RealizacijaPredmeta realizacijaPredmeta) {
 		super();
 		this.id = id;
 		this.konacnaOcena = konacnaOcena;
 		this.studentNaGodini = studentNaGodini;
-		this.realizacija = realizacija;
+		this.realizacijaPredmeta = realizacijaPredmeta;
 	}
 
 	public Long getId() {
@@ -63,11 +63,11 @@ public class PohadjanjePredmeta extends LogickoBrisanje {
 	}
 
 	public RealizacijaPredmeta getRealizacija() {
-		return realizacija;
+		return realizacijaPredmeta;
 	}
 
 	public void setRealizacija(RealizacijaPredmeta realizacija) {
-		this.realizacija = realizacija;
+		this.realizacijaPredmeta = realizacija;
 	}
     
     

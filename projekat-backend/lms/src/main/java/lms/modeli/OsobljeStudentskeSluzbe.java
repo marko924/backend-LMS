@@ -12,10 +12,6 @@ public class OsobljeStudentskeSluzbe extends RegistrovaniKorisnik{
 
     @Column(nullable = false, length = 50)
     private String prezime;
-    
-  //Ovde trab napraviti vezu sa studentima i studenti na godini i jos nekim stvarima
-    
-    
 
 	public OsobljeStudentskeSluzbe() {
 		super();

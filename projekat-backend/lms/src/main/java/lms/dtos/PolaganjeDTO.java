@@ -6,20 +6,23 @@ public class PolaganjeDTO {
 	private Double osvojeniBodovi;
 	private String napomena;
 	private Long evaluacijaZnanjaId;
+	private Long studentNaGodiniId;
 	
 	public PolaganjeDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public PolaganjeDTO(Long id, Double osvojeniBodovi, String napomena, Long evaluacijaZnanjaId) {
+	public PolaganjeDTO(Long id, Double osvojeniBodovi, String napomena, Long evaluacijaZnanjaId,
+			Long studentNaGodiniId) {
 		super();
 		this.id = id;
 		this.osvojeniBodovi = osvojeniBodovi;
 		this.napomena = napomena;
 		this.evaluacijaZnanjaId = evaluacijaZnanjaId;
+		this.studentNaGodiniId = studentNaGodiniId;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -43,6 +46,14 @@ public class PolaganjeDTO {
 	}
 	public void setEvaluacijaZnanjaId(Long evaluacijaZnanjaId) {
 		this.evaluacijaZnanjaId = evaluacijaZnanjaId;
+	}
+
+	public Long getStudentNaGodiniId() {
+		return studentNaGodiniId;
+	}
+
+	public void setStudentNaGodiniId(Long studentNaGodiniId) {
+		this.studentNaGodiniId = studentNaGodiniId;
 	}
 	
 }

@@ -1,7 +1,6 @@
 package lms.servisi;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.PredmetDTO;
+import lms.modeli.Ishod;
 import lms.modeli.Predmet;
-import lms.modeli.StudijskiProgram;
 import lms.modeli.RealizacijaPredmeta;
+import lms.repozitorijumi.IshodRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.PredmetRepository;
-import lms.repozitorijumi.StudijskiProgramRepository;
 import lms.repozitorijumi.RealizacijaPredmetaRepository;
 
 @Service
@@ -26,11 +25,10 @@ public class PredmetService extends AbstractCrusService<PredmetDTO, Predmet, Lon
 	private PredmetRepository predmetRepository;
     
 	@Autowired
-	private StudijskiProgramRepository studijskiProgramRepository;
-    
-	@Autowired
 	private RealizacijaPredmetaRepository realizacijaPredmetaRepository;
 
+	@Autowired
+	private IshodRepository ishodRepository;
    
     @Override
     protected LogickoBrisanjeRepozitorijum<Predmet, Long> getRepository() {
@@ -45,19 +43,25 @@ public class PredmetService extends AbstractCrusService<PredmetDTO, Predmet, Lon
         dto.setNaziv(entity.getNaziv());
         dto.setOpis(entity.getOpis());
         dto.setEspb(entity.getEspb());
-
-        if (entity.getStudijskiProgrami() != null) {
-            dto.setStudijskiProgramiId(entity.getStudijskiProgrami().stream()
-            		.map(StudijskiProgram::getId)
-            		.collect(Collectors.toSet()));
+        dto.setObavezan(entity.isObavezan());
+        dto.setBrojPredavanja(entity.getBrojPredavanja());
+        dto.setBrojVezbi(entity.getBrojVezbi());
+        dto.setDrugiObliciNastave(entity.getDrugiObliciNastave());
+        dto.setIstrazivackiRad(entity.getIstrazivackiRad());
+        dto.setOstaliCasovi(entity.getOstaliCasovi());
+        if (entity.getPreduslov() != null) {
+        	dto.setPreduslovId(entity.getPreduslov().getId());
         }
-
         if (entity.getRealizacije() != null) {
             dto.setRealizacijeId(entity.getRealizacije().stream()
                     .map(RealizacijaPredmeta::getId)
                     .collect(Collectors.toList()));
         }
-
+        if (entity.getIshodi() != null) {
+        	dto.setIshodiId(entity.getIshodi().stream()
+        			.map(Ishod::getId)
+        			.collect(Collectors.toList()));
+        }
         return dto;
     }
 
@@ -76,23 +80,30 @@ public class PredmetService extends AbstractCrusService<PredmetDTO, Predmet, Lon
         entity.setNaziv(dto.getNaziv());
         entity.setOpis(dto.getOpis());
         entity.setEspb(dto.getEspb());
-
-       
-        if (dto.getStudijskiProgramiId() != null) {
-            Set<StudijskiProgram> programi = dto.getStudijskiProgramiId().stream()
-            		.map(id -> studijskiProgramRepository.findById(id)
-            				.orElseThrow(() -> new EntityNotFoundException("Studijski program ID: " + id + " nije pronađen")))
-            		.collect(Collectors.toSet());
-            entity.setStudijskiProgrami(programi);
+        entity.setObavezan(dto.isObavezan());
+        entity.setBrojPredavanja(dto.getBrojPredavanja());
+        entity.setBrojVezbi(dto.getBrojVezbi());
+        entity.setDrugiObliciNastave(dto.getDrugiObliciNastave());
+        entity.setIstrazivackiRad(dto.getIstrazivackiRad());
+        entity.setOstaliCasovi(dto.getOstaliCasovi());
+        if (dto.getPreduslovId() != null) {
+        	Predmet preduslov = predmetRepository.findById(dto.getPreduslovId())
+        			.orElseThrow(() -> new EntityNotFoundException("Preduslov za predmet nije pronađen"));
+        	entity.setPreduslov(preduslov);
         }
-
-       
         if (dto.getRealizacijeId() != null) {
             List<RealizacijaPredmeta> realizacije = dto.getRealizacijeId().stream()
                     .map(id -> realizacijaPredmetaRepository.findById(id)
                             .orElseThrow(() -> new EntityNotFoundException("Realizacija predmeta ID: " + id + " nije pronađena")))
                     .collect(Collectors.toList());
             entity.setRealizacije(realizacije);
+        }
+        if (dto.getIshodiId() != null) {
+        	List<Ishod> ishodi = dto.getIshodiId().stream()
+        			.map(id -> ishodRepository.findById(id)
+        					.orElseThrow(() -> new EntityNotFoundException("Ishod ID: " + id + " nije pronađen")))
+                    .collect(Collectors.toList());
+        	entity.setIshodi(ishodi);
         }
     }
 }

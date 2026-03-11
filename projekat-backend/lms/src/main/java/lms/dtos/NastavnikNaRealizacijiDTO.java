@@ -1,5 +1,6 @@
 package lms.dtos;
 
+import java.util.List;
 
 public class NastavnikNaRealizacijiDTO {
 
@@ -7,20 +8,23 @@ public class NastavnikNaRealizacijiDTO {
     private Integer brojCasova;
     private Long nastavnikId;       
     private Long realizacijaId;    
-    private Long tipNastaveId;      
+    private Long tipNastaveId;     
+    private List<Long> obavestenjaId;
 
     public NastavnikNaRealizacijiDTO() {}
 
-    public NastavnikNaRealizacijiDTO(Long id, Integer brojCasova,
-                                     Long nastavnikId, Long realizacijaId, Long tipNastaveId) {
-        this.id = id;
-        this.brojCasova = brojCasova;
-        this.nastavnikId = nastavnikId;
-        this.realizacijaId = realizacijaId;
-        this.tipNastaveId = tipNastaveId;
-    }
+    public NastavnikNaRealizacijiDTO(Long id, Integer brojCasova, Long nastavnikId, Long realizacijaId,
+			Long tipNastaveId, List<Long> obavestenjaId) {
+		super();
+		this.id = id;
+		this.brojCasova = brojCasova;
+		this.nastavnikId = nastavnikId;
+		this.realizacijaId = realizacijaId;
+		this.tipNastaveId = tipNastaveId;
+		this.obavestenjaId = obavestenjaId;
+	}
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -59,4 +63,13 @@ public class NastavnikNaRealizacijiDTO {
     public void setTipNastaveId(Long tipNastaveId) {
         this.tipNastaveId = tipNastaveId;
     }
+
+	public List<Long> getObavestenjaId() {
+		return obavestenjaId;
+	}
+
+	public void setObavestenjaId(List<Long> obavestenjaId) {
+		this.obavestenjaId = obavestenjaId;
+	}
+    
 }

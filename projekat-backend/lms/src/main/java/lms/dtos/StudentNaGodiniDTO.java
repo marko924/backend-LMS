@@ -11,20 +11,23 @@ public class StudentNaGodiniDTO {
     private Long studentId;          
     private Long godinaStudijaId;   
     private List<Long> pohadjanjaId; 
+    private List<Long> polaganjaId;
 
     public StudentNaGodiniDTO() {}
 
-    public StudentNaGodiniDTO(Long id, String brojIndeksa, LocalDate datumUpisa,
-                              Long studentId, Long godinaStudijaId, List<Long> pohadjanjaId) {
-        this.id = id;
-        this.brojIndeksa = brojIndeksa;
-        this.datumUpisa = datumUpisa;
-        this.studentId = studentId;
-        this.godinaStudijaId = godinaStudijaId;
-        this.pohadjanjaId = pohadjanjaId;
-    }
+    public StudentNaGodiniDTO(Long id, String brojIndeksa, LocalDate datumUpisa, Long studentId, Long godinaStudijaId,
+			List<Long> pohadjanjaId, List<Long> polaganjaId) {
+		super();
+		this.id = id;
+		this.brojIndeksa = brojIndeksa;
+		this.datumUpisa = datumUpisa;
+		this.studentId = studentId;
+		this.godinaStudijaId = godinaStudijaId;
+		this.pohadjanjaId = pohadjanjaId;
+		this.polaganjaId = polaganjaId;
+	}
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -71,4 +74,13 @@ public class StudentNaGodiniDTO {
     public void setPohadjanjaId(List<Long> pohadjanjaId) {
         this.pohadjanjaId = pohadjanjaId;
     }
+
+	public List<Long> getPolaganjaId() {
+		return polaganjaId;
+	}
+
+	public void setPolaganjaId(List<Long> polaganjaId) {
+		this.polaganjaId = polaganjaId;
+	}
+    
 }

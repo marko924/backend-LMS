@@ -1,7 +1,6 @@
 package lms.modeli;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -26,9 +25,9 @@ public class Objava extends LogickoBrisanje{
     @JoinColumn(name = "autor_id", nullable = false)
     private KorisnikNaForumu autor;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "objava_id") // Unidirekciona veza ka fajlovima
-    private List<Fajl> fajlovi = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "objava_id")
+    private List<Fajl> fajlovi;
 
 	public Objava() {
 		super();

@@ -1,7 +1,6 @@
 package lms.modeli;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -21,19 +20,17 @@ public class Obavestenje extends LogickoBrisanje {
     @Column(name = "datum_objave")
     private LocalDateTime datumObjave = LocalDateTime.now();
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "obavestenje_id") // Unidirekciona veza ka fajlovima
-    private List<Fajl> fajlovi = new ArrayList<>();
-
-    //Ovo uraditi za svaki entitte koji je povezan sa ovim
+    @OneToMany
+    @JoinColumn(name = "obavestenje_id")
+    private List<Fajl> fajlovi;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "realizacija_id", nullable = false)
+    @JoinColumn(name = "realizacija_id", nullable = true)
     private RealizacijaPredmeta realizacijaPredmeta;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "nastavni_materijal_id", nullable = false)
-    private NastavniMaterijal nastavniMaterijal;
+    @JoinColumn(name = "nastavnik_na_realizaciji_id", nullable = true)
+    private NastavnikNaRealizaciji nastavnikNaRealizaciji;
 
 	public Obavestenje() {
 		super();
@@ -41,7 +38,7 @@ public class Obavestenje extends LogickoBrisanje {
 	}
 
 	public Obavestenje(Long id, String naslov, String sadrzaj, LocalDateTime datumObjave, List<Fajl> fajlovi,
-			RealizacijaPredmeta realizacijaPredmeta, NastavniMaterijal nastavniMaterijal) {
+			RealizacijaPredmeta realizacijaPredmeta, NastavnikNaRealizaciji nastavnikNaRealizaciji) {
 		super();
 		this.id = id;
 		this.naslov = naslov;
@@ -49,7 +46,7 @@ public class Obavestenje extends LogickoBrisanje {
 		this.datumObjave = datumObjave;
 		this.fajlovi = fajlovi;
 		this.realizacijaPredmeta = realizacijaPredmeta;
-		this.nastavniMaterijal = nastavniMaterijal;
+		this.nastavnikNaRealizaciji = nastavnikNaRealizaciji;
 	}
 
 	public Long getId() {
@@ -100,13 +97,13 @@ public class Obavestenje extends LogickoBrisanje {
 		this.realizacijaPredmeta = realizacijaPredmeta;
 	}
 
-	public NastavniMaterijal getNastavniMaterijal() {
-		return nastavniMaterijal;
+	public NastavnikNaRealizaciji getNastavnikNaRealizaciji() {
+		return nastavnikNaRealizaciji;
 	}
 
-	public void setNastavniMaterijal(NastavniMaterijal nastavniMaterijal) {
-		this.nastavniMaterijal = nastavniMaterijal;
+	public void setNastavnikNaRealizaciji(NastavnikNaRealizaciji nastavnikNaRealizaciji) {
+		this.nastavnikNaRealizaciji = nastavnikNaRealizaciji;
 	}
-    
+
     
 }

@@ -1,10 +1,17 @@
 package lms.modeli;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class GodinaStudija extends LogickoBrisanje{
@@ -16,12 +23,31 @@ public class GodinaStudija extends LogickoBrisanje{
     @Column
     private Integer godina;
     
-    public GodinaStudija() {}
+    @Column
+    private LocalDate pocetak;
     
-    public GodinaStudija(Long id, Integer godina) {
+    @Column
+    private LocalDate kraj;
+    
+    @OneToMany()
+    @JoinColumn(name = "godina_id")
+    private List<Predmet> predmeti;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "program_id")
+    private StudijskiProgram studijskiProgram;
+    
+    public GodinaStudija() {}
+
+	public GodinaStudija(Long id, Integer godina, LocalDate pocetak, LocalDate kraj, List<Predmet> predmeti,
+			StudijskiProgram studijskiProgram) {
 		super();
 		this.id = id;
 		this.godina = godina;
+		this.pocetak = pocetak;
+		this.kraj = kraj;
+		this.predmeti = predmeti;
+		this.studijskiProgram = studijskiProgram;
 	}
 
 	public Long getId() {
@@ -40,6 +66,37 @@ public class GodinaStudija extends LogickoBrisanje{
 		this.godina = godina;
 	}
 
-	
+	public LocalDate getPocetak() {
+		return pocetak;
+	}
+
+	public void setPocetak(LocalDate pocetak) {
+		this.pocetak = pocetak;
+	}
+
+	public LocalDate getKraj() {
+		return kraj;
+	}
+
+	public void setKraj(LocalDate kraj) {
+		this.kraj = kraj;
+	}
+
+	public List<Predmet> getPredmeti() {
+		return predmeti;
+	}
+
+	public void setPredmeti(List<Predmet> predmeti) {
+		this.predmeti = predmeti;
+	}
+
+	public StudijskiProgram getStudijskiProgram() {
+		return studijskiProgram;
+	}
+
+	public void setStudijskiProgram(StudijskiProgram studijskiProgram) {
+		this.studijskiProgram = studijskiProgram;
+	}
+
 }
 
