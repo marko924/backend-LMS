@@ -1,6 +1,6 @@
 package lms.servisi;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,32 +10,30 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.StudijskiProgramDTO;
 import lms.modeli.Fakultet;
+import lms.modeli.GodinaStudija;
 import lms.modeli.Nastavnik;
-import lms.modeli.Predmet;
 import lms.modeli.StudijskiProgram;
 import lms.repozitorijumi.FakultetRepository;
+import lms.repozitorijumi.GodinaStudijaRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.NastavnikRepository;
-import lms.repozitorijumi.PredmetRepository;
 import lms.repozitorijumi.StudijskiProgramRepository;
 
 @Service
 @Transactional(readOnly = true)
 public class StudijskiProgramService extends AbstractCrusService<StudijskiProgramDTO, StudijskiProgram, Long> {
 	
-	 @Autowired
-	 private StudijskiProgramRepository studijskiProgramRepository;
+	@Autowired
+	private StudijskiProgramRepository studijskiProgramRepository;
      
-	 @Autowired
-	 private FakultetRepository fakultetRepository;
+	@Autowired
+	private FakultetRepository fakultetRepository;
      
-	 @Autowired
-	 private NastavnikRepository nastavnikRepository;
+	@Autowired
+	private NastavnikRepository nastavnikRepository;
      
-	 @Autowired
-	 private PredmetRepository predmetRepository;
-
-    
+	@Autowired
+	private GodinaStudijaRepository godinaStudijaRepository;
 
     @Override
     protected LogickoBrisanjeRepozitorijum<StudijskiProgram, Long> getRepository() {
@@ -58,10 +56,10 @@ public class StudijskiProgramService extends AbstractCrusService<StudijskiProgra
             dto.setRukovodilacId(entity.getRukovodilac().getId());
         }
 
-        if (entity.getPredmeti() != null) {
-            dto.setPredmetiId(entity.getPredmeti().stream()
-                    .map(Predmet::getId)
-                    .collect(Collectors.toSet()));
+        if (entity.getGodineStudija() != null) {
+        	dto.setGodineStudijaId(entity.getGodineStudija().stream()
+        			.map(GodinaStudija::getId)
+        			.collect(Collectors.toList()));
         }
 
         return dto;
@@ -92,17 +90,17 @@ public class StudijskiProgramService extends AbstractCrusService<StudijskiProgra
         
         if (dto.getRukovodilacId() != null) {
             Nastavnik rukovodilac = nastavnikRepository.findById(dto.getRukovodilacId())
-                    .orElseThrow(() -> new EntityNotFoundException("Rukovodilac (nastavnik) nije pronađen"));
+                    .orElseThrow(() -> new EntityNotFoundException("Rukovodilac nije pronađen"));
             entity.setRukovodilac(rukovodilac);
         }
 
        
-        if (dto.getPredmetiId() != null) {
-            Set<Predmet> predmeti = dto.getPredmetiId().stream()
-                    .map(id -> predmetRepository.findById(id)
-                            .orElseThrow(() -> new EntityNotFoundException("Predmet ID: " + id + " nije pronađen")))
-                    .collect(Collectors.toSet());
-            entity.setPredmeti(predmeti);
+        if (dto.getGodineStudijaId() != null) {
+        	List<GodinaStudija> godineStudija = dto.getGodineStudijaId().stream()
+        			.map(id -> godinaStudijaRepository.findById(id)
+        					.orElseThrow(() -> new EntityNotFoundException("Godina studija ID: " + id + " nije pronađen")))
+					.collect(Collectors.toList());
+        	entity.setGodineStudija(godineStudija);
         }
     }
 }

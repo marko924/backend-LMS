@@ -37,16 +37,23 @@ public class RealizacijaPredmeta extends LogickoBrisanje{
     @OneToMany(mappedBy = "realizacija")
     private List<TerminNastave> termini;
 
-    @OneToMany(mappedBy = "realizacija")
+    @OneToMany(mappedBy = "realizacijaPredmeta")
     private List<NastavnikNaRealizaciji> nastavnici;
 
-    @OneToMany(mappedBy = "realizacija")
+    @OneToMany(mappedBy = "realizacijaPredmeta")
     private List<PohadjanjePredmeta> pohadjanja;
+    
+    @OneToMany(mappedBy = "realizacijaPredmeta")
+    private List<EvaluacijaZnanja> evaluacije;
+    
+    @OneToMany(mappedBy = "realizacijaPredmeta")
+    private List<Obavestenje> obavestenja;
     
     public RealizacijaPredmeta() {}
 
 	public RealizacijaPredmeta(Long id, Predmet predmet, Set<NastavniMaterijal> nastavniMaterijali,
-			List<TerminNastave> termini, List<NastavnikNaRealizaciji> nastavnici, List<PohadjanjePredmeta> pohadjanja) {
+			List<TerminNastave> termini, List<NastavnikNaRealizaciji> nastavnici, List<PohadjanjePredmeta> pohadjanja,
+			List<EvaluacijaZnanja> evaluacije, List<Obavestenje> obavestenja) {
 		super();
 		this.id = id;
 		this.predmet = predmet;
@@ -54,6 +61,8 @@ public class RealizacijaPredmeta extends LogickoBrisanje{
 		this.termini = termini;
 		this.nastavnici = nastavnici;
 		this.pohadjanja = pohadjanja;
+		this.evaluacije = evaluacije;
+		this.obavestenja = obavestenja;
 	}
 
 	public Long getId() {
@@ -102,6 +111,22 @@ public class RealizacijaPredmeta extends LogickoBrisanje{
 
 	public void setPohadjanja(List<PohadjanjePredmeta> pohadjanja) {
 		this.pohadjanja = pohadjanja;
+	}
+
+	public List<EvaluacijaZnanja> getEvaluacije() {
+		return evaluacije;
+	}
+
+	public void setEvaluacije(List<EvaluacijaZnanja> evaluacije) {
+		this.evaluacije = evaluacije;
+	}
+
+	public List<Obavestenje> getObavestenja() {
+		return obavestenja;
+	}
+
+	public void setObavestenja(List<Obavestenje> obavestenja) {
+		this.obavestenja = obavestenja;
 	}
     
     

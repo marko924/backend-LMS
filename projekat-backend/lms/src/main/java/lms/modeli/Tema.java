@@ -1,7 +1,6 @@
 package lms.modeli;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -24,10 +23,10 @@ public class Tema extends LogickoBrisanje{
 
     @ManyToOne
     @JoinColumn(name = "autor_id")
-    private KorisnikNaForumu autor; // Primećujete da je autor zapravo KorisnikNaForumu
+    private KorisnikNaForumu autor;
 
-    @OneToMany(mappedBy = "tema", cascade = CascadeType.ALL)
-    private List<Objava> objave = new ArrayList<>();
+    @OneToMany(mappedBy = "tema", cascade = CascadeType.ALL) //zbog kompozicije
+    private List<Objava> objave;
 
 	public Tema() {
 		super();

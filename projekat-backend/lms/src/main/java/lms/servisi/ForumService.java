@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.ForumDTO;
 import lms.modeli.Forum;
+import lms.modeli.KorisnikNaForumu;
 import lms.modeli.Tema;
 import lms.repozitorijumi.ForumRepository;
+import lms.repozitorijumi.KorisnikNaForumuRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.TemaRepository;
 
@@ -24,6 +26,9 @@ public class ForumService extends AbstractCrusService<ForumDTO, Forum, Long>{
 	
 	@Autowired
 	private TemaRepository temaRepository;
+	
+	@Autowired
+	private KorisnikNaForumuRepository korisnikNaForumuRepository;
 
 	public ForumService(ForumRepository forumRepository, TemaRepository temaRepository) {
 		this.forumRepository = forumRepository;
@@ -43,6 +48,11 @@ public class ForumService extends AbstractCrusService<ForumDTO, Forum, Long>{
 		if(entity.getTeme() != null) {
 			dto.setTemeId(entity.getTeme().stream()
 					.map(Tema::getId)
+					.collect(Collectors.toList()));
+		}
+		if(entity.getClanovi() != null) {
+			dto.setClanoviId(entity.getClanovi().stream()
+					.map(KorisnikNaForumu::getId)
 					.collect(Collectors.toList()));
 		}
 		return dto;
@@ -65,6 +75,13 @@ public class ForumService extends AbstractCrusService<ForumDTO, Forum, Long>{
 							.orElseThrow(() -> new EntityNotFoundException("Tema ID: " + id + " nije pronađen")))
 					.collect(Collectors.toList());
 			entity.setTeme(teme);
+		}
+		if(dto.getClanoviId() != null) {
+			List<KorisnikNaForumu> clanovi = dto.getClanoviId().stream()
+					.map(id -> korisnikNaForumuRepository.findById(id)
+							.orElseThrow(() -> new EntityNotFoundException("Clan ID: " + id + " nije pronađen")))
+					.collect(Collectors.toList());
+			entity.setClanovi(clanovi);
 		}
 		
 	}

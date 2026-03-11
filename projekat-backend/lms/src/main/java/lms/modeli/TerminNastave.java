@@ -1,6 +1,7 @@
 package lms.modeli;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class TerminNastave extends LogickoBrisanje{
@@ -32,16 +34,20 @@ public class TerminNastave extends LogickoBrisanje{
     @JoinColumn(name="tip_nastave_id",nullable=false)
     private TipNastave tipNastave;
     
+    @OneToMany(mappedBy = "terminNastave")
+    private List<Ishod> ishodi;
+    
     public TerminNastave() {}
 
 	public TerminNastave(Long id, LocalDateTime vremePocetka, LocalDateTime vremeZavrsetka,
-			RealizacijaPredmeta realizacija, TipNastave tipNastave) {
+			RealizacijaPredmeta realizacija, TipNastave tipNastave, List<Ishod> ishodi) {
 		super();
 		this.id = id;
 		this.vremePocetka = vremePocetka;
 		this.vremeZavrsetka = vremeZavrsetka;
 		this.realizacija = realizacija;
 		this.tipNastave = tipNastave;
+		this.ishodi = ishodi;
 	}
 
 	public Long getId() {
@@ -83,6 +89,13 @@ public class TerminNastave extends LogickoBrisanje{
 	public void setTipNastave(TipNastave tipNastave) {
 		this.tipNastave = tipNastave;
 	}
-    
+
+	public List<Ishod> getIshodi() {
+		return ishodi;
+	}
+
+	public void setIshodi(List<Ishod> ishodi) {
+		this.ishodi = ishodi;
+	}
     
 }

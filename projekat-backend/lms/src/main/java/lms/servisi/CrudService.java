@@ -7,9 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CrudService<T, ID> {
-	/**
-     * Čuva novi zapis ili ažurira postojeći.
-     */
+	//Čuva novi zapis ili ažurira postojeći.
     T save(T dto);
 
     /**
@@ -18,10 +16,7 @@ public interface CrudService<T, ID> {
      */
     T findById(ID id);
 
-    /**
-     * Vraća listu svih objekata koji nisu logički obrisani.
-     * Koristiti sa oprezom kod velikih tabela.
-     */
+    //Vraća listu svih objekata koji nisu logički obrisani.
     List<T> findAll();
 
     /**
@@ -30,13 +25,9 @@ public interface CrudService<T, ID> {
      */
     Page<T> findAll(Pageable pageable);
 
-    /**
-     * Ažurira postojeći objekat na osnovu ID-a i podataka iz DTO-a.
-     */
+    //Ažurira postojeći objekat na osnovu ID-a i podataka iz DTO-a.
     T update(ID id, T dto);
 
-    /**
-     * Logički briše objekat postavljanje polja 'deleted' na true.
-     */
+    //Logički briše objekat postavljanje polja 'deleted' na true.
     void delete(ID id);
 }

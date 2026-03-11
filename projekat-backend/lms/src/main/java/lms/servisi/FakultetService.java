@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.FakultetDTO;
+import lms.dtos.FakultetDetaljiDTO;
 import lms.modeli.Adresa;
 import lms.modeli.Fakultet;
 import lms.modeli.Nastavnik;
@@ -108,5 +109,37 @@ public class FakultetService extends AbstractCrusService<FakultetDTO, Fakultet, 
                     .orElseThrow(() -> new EntityNotFoundException("Adresa nije pronađena"));
             entity.setAdresa(adresa);
         }
+    }
+    
+    public FakultetDetaljiDTO getDetaljiFakulteta(Long id) {
+        Fakultet fakultet = fakultetRepository.findByIdWithDetails(id)
+                .orElseThrow(() -> new EntityNotFoundException("Fakultet sa ID: " + id + " nije pronađen"));
+
+        FakultetDetaljiDTO dto = new FakultetDetaljiDTO();
+        dto.setId(fakultet.getId());
+        dto.setNaziv(fakultet.getNaziv());
+        dto.setOpis(fakultet.getOpis());
+
+        if (fakultet.getUniverzitet() != null) {
+            dto.setUniverzitetId(fakultet.getUniverzitet().getId());
+            dto.setUniverzitetNaziv(fakultet.getUniverzitet().getNaziv());
+        }
+
+        if (fakultet.getDekan() != null) {
+            dto.setDekanIme(fakultet.getDekan().getIme());
+            dto.setDekanPrezime(fakultet.getDekan().getPrezime());
+            dto.setDekanEmail(fakultet.getDekan().getEmail());
+        }
+
+        if (fakultet.getAdresa() != null) {
+            dto.setUlica(fakultet.getAdresa().getUlica());
+            dto.setBroj(fakultet.getAdresa().getBroj());
+            
+            if (fakultet.getAdresa().getMesto() != null) {
+                dto.setMestoNaziv(fakultet.getAdresa().getMesto().getNaziv());
+            }
+        }
+
+        return dto;
     }
 }

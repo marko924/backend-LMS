@@ -1,7 +1,6 @@
 package lms.servisi;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.NastavniMaterijalDTO;
 import lms.modeli.NastavniMaterijal;
-import lms.modeli.RealizacijaPredmeta;
 import lms.modeli.Fajl;
 import lms.repozitorijumi.FajlRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.NastavniMaterijalRepository;
-import lms.repozitorijumi.RealizacijaPredmetaRepository;
 
 @Service
 @Transactional(readOnly = true)
@@ -27,9 +24,6 @@ public class NastavniMaterijalService extends AbstractCrusService<NastavniMateri
     
     @Autowired
     private FajlRepository fajlRepository;
-
-    @Autowired
-    private RealizacijaPredmetaRepository realizacijaPredmetaRepository;
 
     @Override
     protected LogickoBrisanjeRepozitorijum<NastavniMaterijal, Long> getRepository() {
@@ -48,12 +42,6 @@ public class NastavniMaterijalService extends AbstractCrusService<NastavniMateri
             dto.setFajlId(entity.getFajlovi().stream()
                     .map(Fajl::getId)
                     .collect(Collectors.toList()));
-        }
-        
-        if(entity.getRealizacije() != null) {
-        	dto.setRealizacijeId(entity.getRealizacije().stream()
-        			.map(RealizacijaPredmeta::getId)
-        			.collect(Collectors.toSet()));
         }
 
         return dto;
@@ -80,14 +68,6 @@ public class NastavniMaterijalService extends AbstractCrusService<NastavniMateri
                             .orElseThrow(() -> new EntityNotFoundException("Fajl ID: " + id + " nije pronađen")))
                     .collect(Collectors.toList());
             entity.setFajlovi(fajlovi);
-        }
-        
-        if(dto.getRealizacijeId() != null) {
-        	Set<RealizacijaPredmeta> realizacije = dto.getRealizacijeId().stream()
-        			.map(id -> realizacijaPredmetaRepository.findById(id)
-        					.orElseThrow(() -> new EntityNotFoundException("Realizacija predmeta ID: " + id + " nije pronađena")))
-                    .collect(Collectors.toSet());
-        	entity.setRealizacije(realizacije);
         }
     }
 }

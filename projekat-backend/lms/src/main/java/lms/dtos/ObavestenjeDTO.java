@@ -11,7 +11,7 @@ public class ObavestenjeDTO {
 	private LocalDateTime datumObjave = LocalDateTime.now();
 	private List<Long> fajloviId;
 	private Long realizacijaPredmetaId;
-	private Long nastavniMaterijalId;
+	private Long nastavnikNaRealizacijiId;
 	
 	public ObavestenjeDTO() {
 		super();
@@ -19,7 +19,7 @@ public class ObavestenjeDTO {
 	}
 	
 	public ObavestenjeDTO(Long id, String naslov, String sadrzaj, LocalDateTime datumObjave, List<Long> fajloviId,
-			Long realizacijaPredmetaId, Long nastavniMaterijalId) {
+			Long realizacijaPredmetaId, Long nastavnikNaRealizacijiId) {
 		super();
 		this.id = id;
 		this.naslov = naslov;
@@ -27,7 +27,7 @@ public class ObavestenjeDTO {
 		this.datumObjave = datumObjave;
 		this.fajloviId = fajloviId;
 		this.realizacijaPredmetaId = realizacijaPredmetaId;
-		this.nastavniMaterijalId = nastavniMaterijalId;
+		this.nastavnikNaRealizacijiId = nastavnikNaRealizacijiId;
 	}
 	
 	public Long getId() {
@@ -66,11 +66,14 @@ public class ObavestenjeDTO {
 	public void setRealizacijaPredmetaId(Long realizacijaPredmetaId) {
 		this.realizacijaPredmetaId = realizacijaPredmetaId;
 	}
-	public Long getNastavniMaterijalId() {
-		return nastavniMaterijalId;
+
+	public Long getNastavnikNaRealizacijiId() {
+		return nastavnikNaRealizacijiId;
 	}
-	public void setNastavniMaterijalId(Long nastavniMaterijalId) {
-		this.nastavniMaterijalId = nastavniMaterijalId;
+
+	public void setNastavnikNaRealizacijiId(Long nastavnikNaRealizacijiId) {
+		this.nastavnikNaRealizacijiId = nastavnikNaRealizacijiId;
 	}
+	
 	
 }

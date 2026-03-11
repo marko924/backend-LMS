@@ -43,13 +43,11 @@ public class ZahtevZaUpis extends LogickoBrisanje {
     @Column(name = "vreme_podnosenja")
     private LocalDateTime vremePodnosenja = LocalDateTime.now();
 
-    // Opciono: Možeš dodati polje za napomenu ukoliko studentska služba odbije zahtev
     @Column
     private String napomena;
 
 	public ZahtevZaUpis() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public ZahtevZaUpis(Long id, Fakultet fakultet, Student student,StudijskiProgram studijskiProgram, GodinaStudija godinaStudija, StatusZahteva status,

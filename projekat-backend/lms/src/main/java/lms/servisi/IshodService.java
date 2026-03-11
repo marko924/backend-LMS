@@ -1,5 +1,6 @@
 package lms.servisi;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -9,13 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.IshodDTO;
+import lms.modeli.EvaluacijaZnanja;
 import lms.modeli.Ishod;
+import lms.modeli.NastavniMaterijal;
 import lms.modeli.ObrazovniCilj;
 import lms.modeli.Predmet;
+import lms.modeli.TerminNastave;
+import lms.repozitorijumi.EvaluacijaZnanjaRepository;
 import lms.repozitorijumi.IshodRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
+import lms.repozitorijumi.NastavniMaterijalRepository;
 import lms.repozitorijumi.ObrazovniCiljRepository;
 import lms.repozitorijumi.PredmetRepository;
+import lms.repozitorijumi.TerminNastaveRepository;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,6 +33,15 @@ public class IshodService extends AbstractCrusService<IshodDTO, Ishod, Long>{
 	
 	@Autowired
     private PredmetRepository predmetRepository;
+	
+	@Autowired
+	private EvaluacijaZnanjaRepository evaluacijaZnanjaRepository;
+	
+	@Autowired
+	private TerminNastaveRepository terminNastaveRepository;
+	
+	@Autowired
+	private NastavniMaterijalRepository nastavniMaterijalRepository;
 
 	@Autowired
     private ObrazovniCiljRepository obrazovniCiljRepository;
@@ -42,7 +58,21 @@ public class IshodService extends AbstractCrusService<IshodDTO, Ishod, Long>{
     	dto.setOpis(entity.getOpis());
     	
     	if(entity.getPredmet() != null) {
-    		dto.setPredmetId(entity.getId());
+    		dto.setPredmetId(entity.getPredmet().getId());
+    	}
+    	
+    	if(entity.getEvaluacija() != null) {
+    		dto.setEvaluacijaId(entity.getEvaluacija().getId());
+    	}
+    	
+    	if(entity.getTerminNastave() != null) {
+    		dto.setTerminNastaveId(entity.getTerminNastave().getId());
+    	}
+    	
+    	if(entity.getNastavniMaterijali() != null) {
+    		dto.setNastavniMaterijaliId(entity.getNastavniMaterijali().stream()
+    				.map(NastavniMaterijal::getId)
+    				.collect(Collectors.toList()));
     	}
     	
         if(entity.getObrazovniCiljevi() != null) {
@@ -66,22 +96,37 @@ public class IshodService extends AbstractCrusService<IshodDTO, Ishod, Long>{
 		entity.setId(dto.getId());
 		entity.setOpis(dto.getOpis());
 
-        // 1. Mapiranje ManyToOne (Predmet)
         if (dto.getPredmetId() != null) {
             Predmet predmet = predmetRepository.findById(dto.getPredmetId())
                     .orElseThrow(() -> new EntityNotFoundException("Predmet nije pronađen"));
             entity.setPredmet(predmet);
         }
+        
+        if (dto.getEvaluacijaId() != null) {
+        	EvaluacijaZnanja evaluacijaZnanja = evaluacijaZnanjaRepository.findById(dto.getEvaluacijaId())
+        			.orElseThrow(() -> new EntityNotFoundException("Evaluacija znanja nije pronađena"));
+        	entity.setEvaluacija(evaluacijaZnanja);
+        }
+        
+        if (dto.getTerminNastaveId() != null) {
+        	TerminNastave terminNastave = terminNastaveRepository.findById(dto.getTerminNastaveId())
+        			.orElseThrow(() -> new EntityNotFoundException("Termin nastave nije pronađen"));
+        	entity.setTerminNastave(terminNastave);
+        }
+        
+        if (dto.getNastavniMaterijaliId() != null) {
+        	List<NastavniMaterijal> nastavniMaterijali = dto.getNastavniMaterijaliId().stream()
+        			.map(id -> nastavniMaterijalRepository.findById(id)
+        					.orElseThrow(() -> new EntityNotFoundException("Nastavni materijal ID: " + id + " nije pronađen")))
+                    .collect(Collectors.toList());
+        	entity.setNastavniMaterijali(nastavniMaterijali);
+        }
 
-        // 2. Mapiranje ManyToMany (Obrazovni Ciljevi)
         if (dto.getObrazovniCiljeviId() != null) {
-            // Pronalazimo sve ciljeve iz baze na osnovu set-a ID-eva
             Set<ObrazovniCilj> ciljevi = dto.getObrazovniCiljeviId().stream()
                     .map(id -> obrazovniCiljRepository.findById(id)
                             .orElseThrow(() -> new EntityNotFoundException("Obrazovni cilj ID: " + id + " nije pronađen")))
                     .collect(Collectors.toSet());
-            
-            // Osvežavamo kolekciju u entitetu
             entity.setObrazovniCiljevi(ciljevi);
         }
 	}

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.UniverzitetDTO;
+import lms.dtos.UniverzitetDetaljiDTO;
 import lms.modeli.Adresa;
 import lms.modeli.Fakultet;
 import lms.modeli.Nastavnik;
@@ -50,6 +51,7 @@ public class UniverzitetService extends AbstractCrusService<UniverzitetDTO, Univ
         dto.setNaziv(entity.getNaziv());
         dto.setDatumOsnivanja(entity.getDatumOsnivanja());
         dto.setOpis(entity.getOpis());
+        dto.setKontakt(entity.getKontakt());
         dto.setRektorId(entity.getRektor() != null ? entity.getRektor().getId() : null);
         dto.setFakultetId(entity.getFakulteti() != null
                 ? entity.getFakulteti().stream()
@@ -74,7 +76,7 @@ public class UniverzitetService extends AbstractCrusService<UniverzitetDTO, Univ
         entity.setNaziv(dto.getNaziv());
         entity.setDatumOsnivanja(dto.getDatumOsnivanja());
         entity.setOpis(dto.getOpis());
-
+        entity.setKontakt(dto.getKontakt());
        
         if (dto.getRektorId() != null) {
             Nastavnik rektor = nastavnikRepository.findById(dto.getRektorId())
@@ -96,5 +98,37 @@ public class UniverzitetService extends AbstractCrusService<UniverzitetDTO, Univ
                     .orElseThrow(() -> new EntityNotFoundException("Adresa nije pronađena"));
             entity.setAdresa(adresa);
         }
+    }
+    
+    public UniverzitetDetaljiDTO getDetaljiUniverziteta(Long id) {
+        
+        Univerzitet univerzitet = univerzitetRepository.findByIdWithDetails(id)
+                .orElseThrow(() -> new EntityNotFoundException("Univerzitet sa ID: " + id + " nije pronađen"));
+
+        UniverzitetDetaljiDTO dto = new UniverzitetDetaljiDTO();
+        
+        dto.setId(univerzitet.getId());
+        dto.setNaziv(univerzitet.getNaziv());
+        dto.setDatumOsnivanja(univerzitet.getDatumOsnivanja());
+        dto.setOpis(univerzitet.getOpis());
+        dto.setKontakt(univerzitet.getKontakt());
+
+        if (univerzitet.getAdresa() != null) {
+            dto.setUlica(univerzitet.getAdresa().getUlica());
+            dto.setBroj(univerzitet.getAdresa().getBroj());
+            
+            if (univerzitet.getAdresa().getMesto() != null) {
+                dto.setMestoNaziv(univerzitet.getAdresa().getMesto().getNaziv());
+            }
+        }
+
+        if (univerzitet.getRektor() != null) {
+            dto.setRektorIme(univerzitet.getRektor().getIme());
+            dto.setRektorPrezime(univerzitet.getRektor().getPrezime());
+            dto.setRektorEmail(univerzitet.getRektor().getEmail());
+            dto.setRektorBiografija(univerzitet.getRektor().getBiografija());
+        }
+
+        return dto;
     }
 }

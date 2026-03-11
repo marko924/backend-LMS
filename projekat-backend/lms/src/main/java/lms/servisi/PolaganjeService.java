@@ -8,11 +8,10 @@ import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.PolaganjeDTO;
 import lms.modeli.EvaluacijaZnanja;
 import lms.modeli.Polaganje;
-import lms.modeli.StudentNaGodini;
 import lms.repozitorijumi.EvaluacijaZnanjaRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.PolaganjeRepository;
-import lms.repozitorijumi.StudentNaGodiniRepository; // DODATO
+
 
 @Service
 @Transactional(readOnly = true)
@@ -23,9 +22,7 @@ public class PolaganjeService extends AbstractCrusService<PolaganjeDTO, Polaganj
 	
 	@Autowired
 	private EvaluacijaZnanjaRepository evaluacijaZnanjaRepository;
-
-	@Autowired
-	private StudentNaGodiniRepository studentNaGodiniRepository; // DODATO
+	
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<Polaganje, Long> getRepository() {
@@ -42,12 +39,6 @@ public class PolaganjeService extends AbstractCrusService<PolaganjeDTO, Polaganj
 		if(entity.getEvaluacijaZnanja() != null) {
 			dto.setEvaluacijaZnanjaId(entity.getEvaluacijaZnanja().getId());
 		}
-		
-	
-		if(entity.getStudentNaGodini() != null) {
-			dto.setStudentNaGodiniId(entity.getStudentNaGodini().getId());
-		}
-		
 		return dto;
 	}
 
@@ -71,12 +62,5 @@ public class PolaganjeService extends AbstractCrusService<PolaganjeDTO, Polaganj
 					.orElseThrow(() -> new EntityNotFoundException("Evaluacija znanja nije pronađena"));
 			entity.setEvaluacijaZnanja(evaluacijaZnanja);
 		}
-
-		
-		if(dto.getStudentNaGodiniId() != null) {
-			StudentNaGodini sng = studentNaGodiniRepository.findById(dto.getStudentNaGodiniId())
-					.orElseThrow(() -> new EntityNotFoundException("Student na godini nije pronađen"));
-			entity.setStudentNaGodini(sng);
-		}
-	}
 }
+	}

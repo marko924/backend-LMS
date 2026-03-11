@@ -11,20 +11,25 @@ public class RealizacijaPredmetaDTO {
     private List<Long> terminiId;
     private List<Long> nastavniciId;
     private List<Long> pohadjanjaId;
+    private List<Long> evaluacijeId;
+    private List<Long> obavestenjaId;
 
     public RealizacijaPredmetaDTO() {}
 
-    public RealizacijaPredmetaDTO(Long id, Long predmetId, Set<Long> nastavniMaterijaliId,
-                                  List<Long> terminiId, List<Long> nastavniciId, List<Long> pohadjanjaId) {
-        this.id = id;
-        this.predmetId = predmetId;
-        this.nastavniMaterijaliId = nastavniMaterijaliId;
-        this.terminiId = terminiId;
-        this.nastavniciId = nastavniciId;
-        this.pohadjanjaId = pohadjanjaId;
-    }
+    public RealizacijaPredmetaDTO(Long id, Long predmetId, Set<Long> nastavniMaterijaliId, List<Long> terminiId,
+			List<Long> nastavniciId, List<Long> pohadjanjaId, List<Long> evaluacijeId, List<Long> obavestenjaId) {
+		super();
+		this.id = id;
+		this.predmetId = predmetId;
+		this.nastavniMaterijaliId = nastavniMaterijaliId;
+		this.terminiId = terminiId;
+		this.nastavniciId = nastavniciId;
+		this.pohadjanjaId = pohadjanjaId;
+		this.evaluacijeId = evaluacijeId;
+		this.obavestenjaId = obavestenjaId;
+	}
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -71,4 +76,21 @@ public class RealizacijaPredmetaDTO {
     public void setPohadjanjaId(List<Long> pohadjanjaId) {
         this.pohadjanjaId = pohadjanjaId;
     }
+
+	public List<Long> getEvaluacijeId() {
+		return evaluacijeId;
+	}
+
+	public void setEvaluacijeId(List<Long> evaluacijeId) {
+		this.evaluacijeId = evaluacijeId;
+	}
+
+	public List<Long> getObavestenjaId() {
+		return obavestenjaId;
+	}
+
+	public void setObavestenjaId(List<Long> obavestenjaId) {
+		this.obavestenjaId = obavestenjaId;
+	}
+    
 }

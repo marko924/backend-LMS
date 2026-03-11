@@ -1,6 +1,7 @@
 package lms.modeli;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -13,14 +14,23 @@ public class Ishod extends LogickoBrisanje {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String opis;
-
-    //Ovo uraditi za svaki entitet koji je povezan sa ovim
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "predmet_id", nullable = false)
     private Predmet predmet;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "evaluacija_id", nullable = false)
+    private EvaluacijaZnanja evaluacija;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "termin_nastave_id", nullable = false)
+    private TerminNastave terminNastave;
+    
+    @OneToMany
+    @JoinColumn(name = "ishod_id")
+    private List<NastavniMaterijal> nastavniMaterijali;
 
-    // Many-to-Many relacija mapirana ovde
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "Ishod_ObrazovniCilj",
@@ -34,11 +44,15 @@ public class Ishod extends LogickoBrisanje {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Ishod(Long id, String opis, Predmet predmet, Set<ObrazovniCilj> obrazovniCiljevi) {
+	public Ishod(Long id, String opis, Predmet predmet, EvaluacijaZnanja evaluacija, TerminNastave terminNastave,
+			List<NastavniMaterijal> nastavniMaterijali, Set<ObrazovniCilj> obrazovniCiljevi) {
 		super();
 		this.id = id;
 		this.opis = opis;
 		this.predmet = predmet;
+		this.evaluacija = evaluacija;
+		this.terminNastave = terminNastave;
+		this.nastavniMaterijali = nastavniMaterijali;
 		this.obrazovniCiljevi = obrazovniCiljevi;
 	}
 
@@ -73,6 +87,29 @@ public class Ishod extends LogickoBrisanje {
 	public void setObrazovniCiljevi(Set<ObrazovniCilj> obrazovniCiljevi) {
 		this.obrazovniCiljevi = obrazovniCiljevi;
 	}
-    
+
+	public EvaluacijaZnanja getEvaluacija() {
+		return evaluacija;
+	}
+
+	public void setEvaluacija(EvaluacijaZnanja evaluacija) {
+		this.evaluacija = evaluacija;
+	}
+
+	public TerminNastave getTerminNastave() {
+		return terminNastave;
+	}
+
+	public void setTerminNastave(TerminNastave terminNastave) {
+		this.terminNastave = terminNastave;
+	}
+
+	public List<NastavniMaterijal> getNastavniMaterijali() {
+		return nastavniMaterijali;
+	}
+
+	public void setNastavniMaterijali(List<NastavniMaterijal> nastavniMaterijali) {
+		this.nastavniMaterijali = nastavniMaterijali;
+	}
     
 }

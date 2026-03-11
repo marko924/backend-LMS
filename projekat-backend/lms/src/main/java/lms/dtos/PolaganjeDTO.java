@@ -1,25 +1,26 @@
 package lms.dtos;
 
 public class PolaganjeDTO {
+
     
     private Long id;
     private Double osvojeniBodovi;
     private String napomena;
     private Long evaluacijaZnanjaId;
-    private Long studentNaGodiniId;
+
 
     public PolaganjeDTO() {
         super();
     }
 
-    // Ažuriran konstruktor sa studentNaGodiniId
-    public PolaganjeDTO(Long id, Double osvojeniBodovi, String napomena, Long evaluacijaZnanjaId, Long studentNaGodiniId) {
+    
+    public PolaganjeDTO(Long id, Double osvojeniBodovi, String napomena, Long evaluacijaZnanjaId) {
         super();
         this.id = id;
         this.osvojeniBodovi = osvojeniBodovi;
         this.napomena = napomena;
         this.evaluacijaZnanjaId = evaluacijaZnanjaId;
-        this.studentNaGodiniId = studentNaGodiniId;
+        
     }
 
     public Long getId() {
@@ -46,12 +47,7 @@ public class PolaganjeDTO {
     public void setEvaluacijaZnanjaId(Long evaluacijaZnanjaId) {
         this.evaluacijaZnanjaId = evaluacijaZnanjaId;
     }
-
-    // DODATI GETER I SETER ZA NOVO POLJE
-    public Long getStudentNaGodiniId() {
-        return studentNaGodiniId;
-    }
-    public void setStudentNaGodiniId(Long studentNaGodiniId) {
-        this.studentNaGodiniId = studentNaGodiniId;
-    }
+    
 }
+
+    

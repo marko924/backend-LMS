@@ -1,5 +1,8 @@
 package lms.servisi;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,11 +11,13 @@ import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.NastavnikNaRealizacijiDTO;
 import lms.modeli.Nastavnik;
 import lms.modeli.NastavnikNaRealizaciji;
+import lms.modeli.Obavestenje;
 import lms.modeli.RealizacijaPredmeta;
 import lms.modeli.TipNastave;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.NastavnikNaRealizacijiRepository;
 import lms.repozitorijumi.NastavnikRepository;
+import lms.repozitorijumi.ObavestenjeRepository;
 import lms.repozitorijumi.RealizacijaPredmetaRepository;
 import lms.repozitorijumi.TipNastaveRepository;
 
@@ -32,6 +37,9 @@ public class NastavnikNaRealizacijiService
      
 	 @Autowired
 	 private TipNastaveRepository tipNastaveRepository;
+	 
+	 @Autowired
+	 private ObavestenjeRepository obavestenjeRepository;
 
     
 
@@ -56,6 +64,12 @@ public class NastavnikNaRealizacijiService
 
         if (entity.getTipNastave() != null)
             dto.setTipNastaveId(entity.getTipNastave().getId());
+        
+        if (entity.getObavestenja() != null) {
+        	dto.setObavestenjaId(entity.getObavestenja().stream()
+        			.map(Obavestenje::getId)
+        			.collect(Collectors.toList()));
+        }
 
         return dto;
     }
@@ -79,19 +93,25 @@ public class NastavnikNaRealizacijiService
                 .orElseThrow(() -> new EntityNotFoundException("Nastavnik nije pronađen"));
             entity.setNastavnik(nastavnik);
         }
-
-        
+       
         if (dto.getRealizacijaId() != null) {
             RealizacijaPredmeta realizacija = realizacijaRepository.findById(dto.getRealizacijaId())
                 .orElseThrow(() -> new EntityNotFoundException("Realizacija predmeta nije pronađena"));
             entity.setRealizacija(realizacija);
         }
-
         
         if (dto.getTipNastaveId() != null) {
             TipNastave tip = tipNastaveRepository.findById(dto.getTipNastaveId())
                 .orElseThrow(() -> new EntityNotFoundException("Tip nastave nije pronađen"));
             entity.setTipNastave(tip);
+        }
+        
+        if (dto.getObavestenjaId() != null) {
+        	List<Obavestenje> obavestenje = dto.getObavestenjaId().stream()
+        			.map(id -> obavestenjeRepository.findById(id)
+        					.orElseThrow(() -> new EntityNotFoundException("Obavestenje ID: " + id + " nije pronađeno")))
+                    .collect(Collectors.toList());
+        	entity.setObavestenja(obavestenje);
         }
     }
 }

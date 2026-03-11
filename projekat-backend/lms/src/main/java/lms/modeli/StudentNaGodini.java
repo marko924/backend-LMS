@@ -37,10 +37,13 @@ public class StudentNaGodini extends LogickoBrisanje{
     @OneToMany(mappedBy = "studentNaGodini")
     private List<PohadjanjePredmeta> pohadjanja;
     
+    @OneToMany(mappedBy = "studentNaGodini")
+    private List<Polaganje> polaganja;
+    
     public StudentNaGodini() {}
 
 	public StudentNaGodini(Long id, String brojIndeksa, LocalDate datumUpisa, Student student,
-			GodinaStudija godinaStudija, List<PohadjanjePredmeta> pohadjanja) {
+			GodinaStudija godinaStudija, List<PohadjanjePredmeta> pohadjanja, List<Polaganje> polaganja) {
 		super();
 		this.id = id;
 		this.brojIndeksa = brojIndeksa;
@@ -48,6 +51,7 @@ public class StudentNaGodini extends LogickoBrisanje{
 		this.student = student;
 		this.godinaStudija = godinaStudija;
 		this.pohadjanja = pohadjanja;
+		this.polaganja = polaganja;
 	}
 
 	public Long getId() {
@@ -97,8 +101,14 @@ public class StudentNaGodini extends LogickoBrisanje{
 	public void setPohadjanja(List<PohadjanjePredmeta> pohadjanja) {
 		this.pohadjanja = pohadjanja;
 	}
-    
-	
+
+	public List<Polaganje> getPolaganja() {
+		return polaganja;
+	}
+
+	public void setPolaganja(List<Polaganje> polaganja) {
+		this.polaganja = polaganja;
+	}
     
 }
 

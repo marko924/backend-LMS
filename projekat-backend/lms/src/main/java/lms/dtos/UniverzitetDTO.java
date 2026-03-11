@@ -9,23 +9,28 @@ public class UniverzitetDTO {
     private String naziv;
     private LocalDate datumOsnivanja;
     private String opis;
+    private String kontakt;
     private Long rektorId;
     private List<Long> fakultetId;
     private Long adresaId;
+    
 
     public UniverzitetDTO() {}
 
-    public UniverzitetDTO(Long id, String naziv, LocalDate datumOsnivanja,String opis, Long rektorId, List<Long> fakultetId, Long adresaId) {
-        this.id = id;
-        this.naziv = naziv;
-        this.datumOsnivanja = datumOsnivanja;
-        this.opis=opis;
-        this.rektorId = rektorId;
-        this.fakultetId = fakultetId;
-        this.adresaId = adresaId;
-    }
+    public UniverzitetDTO(Long id, String naziv, LocalDate datumOsnivanja, String opis, String kontakt, Long rektorId,
+			List<Long> fakultetId, Long adresaId) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.datumOsnivanja = datumOsnivanja;
+		this.opis = opis;
+		this.kontakt = kontakt;
+		this.rektorId = rektorId;
+		this.fakultetId = fakultetId;
+		this.adresaId = adresaId;
+	}
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -81,4 +86,13 @@ public class UniverzitetDTO {
     public void setAdresaId(Long adresaId) {
         this.adresaId = adresaId;
     }
+
+	public String getKontakt() {
+		return kontakt;
+	}
+
+	public void setKontakt(String kontakt) {
+		this.kontakt = kontakt;
+	}
+    
 }
