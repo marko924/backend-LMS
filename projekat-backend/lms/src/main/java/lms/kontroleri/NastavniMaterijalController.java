@@ -9,7 +9,7 @@ import lms.servisi.CrudService;
 import lms.servisi.NastavniMaterijalService;
 
 @RestController
-@RequestMapping("/api/nastavni-materijali")
+@RequestMapping("/api/nastavniMaterijali")
 public class NastavniMaterijalController extends AbstractCrudController<NastavniMaterijalDTO, Long> {
 
 	@Autowired

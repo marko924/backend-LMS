@@ -9,7 +9,7 @@ import lms.servisi.CrudService;
 import lms.servisi.GodinaStudijaService;
 
 @RestController
-@RequestMapping("/api/godine-studija")
+@RequestMapping("/api/godineStudija")
 public class GodinaStudijaController extends AbstractCrudController<GodinaStudijaDTO, Long> {
 
 	@Autowired

@@ -9,7 +9,7 @@ import lms.servisi.CrudService;
 import lms.servisi.NaucnaOblastService;
 
 @RestController
-@RequestMapping("/api/naucne-oblasti")
+@RequestMapping("/api/naucneOblasti")
 public class NaucnaOblastController extends AbstractCrudController<NaucnaOblastDTO, Long> {
 
     @Autowired

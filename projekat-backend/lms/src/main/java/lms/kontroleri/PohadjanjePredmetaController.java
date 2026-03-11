@@ -9,7 +9,7 @@ import lms.servisi.CrudService;
 import lms.servisi.PohadjanjePredmetaService;
 
 @RestController
-@RequestMapping("/api/pohadjanja-predmeta")
+@RequestMapping("/api/pohadjanjaPredmeta")
 public class PohadjanjePredmetaController extends AbstractCrudController<PohadjanjePredmetaDTO, Long> {
 
 	@Autowired

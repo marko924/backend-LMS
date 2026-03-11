@@ -8,9 +8,11 @@ import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.PolaganjeDTO;
 import lms.modeli.EvaluacijaZnanja;
 import lms.modeli.Polaganje;
+import lms.modeli.StudentNaGodini;
 import lms.repozitorijumi.EvaluacijaZnanjaRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.PolaganjeRepository;
+import lms.repozitorijumi.StudentNaGodiniRepository; // DODATO
 
 @Service
 @Transactional(readOnly = true)
@@ -21,6 +23,9 @@ public class PolaganjeService extends AbstractCrusService<PolaganjeDTO, Polaganj
 	
 	@Autowired
 	private EvaluacijaZnanjaRepository evaluacijaZnanjaRepository;
+
+	@Autowired
+	private StudentNaGodiniRepository studentNaGodiniRepository; // DODATO
 
 	@Override
 	protected LogickoBrisanjeRepozitorijum<Polaganje, Long> getRepository() {
@@ -33,9 +38,16 @@ public class PolaganjeService extends AbstractCrusService<PolaganjeDTO, Polaganj
 		dto.setId(entity.getId());
 		dto.setNapomena(entity.getNapomena());
 		dto.setOsvojeniBodovi(entity.getOsvojeniBodovi());
+		
 		if(entity.getEvaluacijaZnanja() != null) {
 			dto.setEvaluacijaZnanjaId(entity.getEvaluacijaZnanja().getId());
 		}
+		
+	
+		if(entity.getStudentNaGodini() != null) {
+			dto.setStudentNaGodiniId(entity.getStudentNaGodini().getId());
+		}
+		
 		return dto;
 	}
 
@@ -47,16 +59,24 @@ public class PolaganjeService extends AbstractCrusService<PolaganjeDTO, Polaganj
 	}
 
 	@Override
+	@Transactional 
 	protected void updateEntity(Polaganje entity, PolaganjeDTO dto) {
 		entity.setId(dto.getId());
 		entity.setNapomena(dto.getNapomena());
 		entity.setOsvojeniBodovi(dto.getOsvojeniBodovi());
+		
+		
 		if(dto.getEvaluacijaZnanjaId() != null) {
 			EvaluacijaZnanja evaluacijaZnanja = evaluacijaZnanjaRepository.findById(dto.getEvaluacijaZnanjaId())
 					.orElseThrow(() -> new EntityNotFoundException("Evaluacija znanja nije pronađena"));
 			entity.setEvaluacijaZnanja(evaluacijaZnanja);
 		}
-		
-	}
 
+		
+		if(dto.getStudentNaGodiniId() != null) {
+			StudentNaGodini sng = studentNaGodiniRepository.findById(dto.getStudentNaGodiniId())
+					.orElseThrow(() -> new EntityNotFoundException("Student na godini nije pronađen"));
+			entity.setStudentNaGodini(sng);
+		}
+	}
 }

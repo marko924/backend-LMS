@@ -9,7 +9,7 @@ import lms.servisi.CrudService;
 import lms.servisi.StudijskiProgramService;
 
 @RestController
-@RequestMapping("/api/studijski-programi")
+@RequestMapping("/api/studijskiProgrami")
 public class StudijskiProgramController extends AbstractCrudController<StudijskiProgramDTO, Long> {
 
 	@Autowired
