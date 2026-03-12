@@ -9,7 +9,7 @@ import lms.servisi.CrudService;
 import lms.servisi.TipNastaveService;
 
 @RestController
-@RequestMapping("/api/tipovi-nastave")
+@RequestMapping("/api/tipoviNastave")
 public class TipNastaveController extends AbstractCrudController<TipNastaveDTO, Long> {
 
 	@Autowired

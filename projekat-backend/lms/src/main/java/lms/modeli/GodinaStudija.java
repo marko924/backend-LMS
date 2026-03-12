@@ -1,7 +1,7 @@
 package lms.modeli;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,7 +31,7 @@ public class GodinaStudija extends LogickoBrisanje{
     
     @OneToMany()
     @JoinColumn(name = "godina_id")
-    private List<Predmet> predmeti;
+    private Set<Predmet> predmeti;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_id")
@@ -39,7 +39,7 @@ public class GodinaStudija extends LogickoBrisanje{
     
     public GodinaStudija() {}
 
-	public GodinaStudija(Long id, Integer godina, LocalDate pocetak, LocalDate kraj, List<Predmet> predmeti,
+	public GodinaStudija(Long id, Integer godina, LocalDate pocetak, LocalDate kraj, Set<Predmet> predmeti,
 			StudijskiProgram studijskiProgram) {
 		super();
 		this.id = id;
@@ -82,11 +82,11 @@ public class GodinaStudija extends LogickoBrisanje{
 		this.kraj = kraj;
 	}
 
-	public List<Predmet> getPredmeti() {
+	public Set<Predmet> getPredmeti() {
 		return predmeti;
 	}
 
-	public void setPredmeti(List<Predmet> predmeti) {
+	public void setPredmeti(Set<Predmet> predmeti) {
 		this.predmeti = predmeti;
 	}
 

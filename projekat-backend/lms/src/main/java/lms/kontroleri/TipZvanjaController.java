@@ -9,7 +9,7 @@ import lms.servisi.CrudService;
 import lms.servisi.TipZvanjaService;
 
 @RestController
-@RequestMapping("/api/tipovi-zvanja")
+@RequestMapping("/api/tipoviZvanja")
 public class TipZvanjaController extends AbstractCrudController<TipZvanjaDTO, Long> {
 
 	@Autowired

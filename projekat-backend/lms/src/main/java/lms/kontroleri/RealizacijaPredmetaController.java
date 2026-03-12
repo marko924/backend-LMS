@@ -9,7 +9,7 @@ import lms.servisi.CrudService;
 import lms.servisi.RealizacijaPredmetaService;
 
 @RestController
-@RequestMapping("/api/realizacije-predmeta")
+@RequestMapping("/api/realizacijePredmeta")
 public class RealizacijaPredmetaController extends AbstractCrudController<RealizacijaPredmetaDTO, Long> {
 
 	@Autowired

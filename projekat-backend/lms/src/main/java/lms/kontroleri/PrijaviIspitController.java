@@ -12,7 +12,7 @@ import lms.servisi.PrijaviIspitService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/prijave-ispita")
+@RequestMapping("/api/prijaveIspita")
 public class PrijaviIspitController extends AbstractCrudController<PrijaviIspitDTO, Long> {
 
     @Autowired

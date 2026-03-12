@@ -1,6 +1,6 @@
 package lms.servisi;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,10 +75,10 @@ public class GodinaStudijaService extends AbstractCrusService<GodinaStudijaDTO, 
         	entity.setStudijskiProgram(studijskiProgram);
         }
         if(dto.getPredmetiId() != null) {
-        	List<Predmet> predmeti = dto.getPredmetiId().stream()
+        	Set<Predmet> predmeti = dto.getPredmetiId().stream()
         			.map(id -> predmetRepository.findById(id)
         					.orElseThrow(() -> new EntityNotFoundException("Predmet ID: " + id + " nije pronađen")))
-					.collect(Collectors.toList());
+					.collect(Collectors.toSet());
         	entity.setPredmeti(predmeti);
         }
     }

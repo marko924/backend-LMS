@@ -9,7 +9,7 @@ import lms.servisi.CrudService;
 import lms.servisi.TerminNastaveService;
 
 @RestController
-@RequestMapping("/api/termini-nastave")
+@RequestMapping("/api/terminiNastave")
 public class TerminNastaveController extends AbstractCrudController<TerminNastaveDTO, Long> {
 
 	@Autowired

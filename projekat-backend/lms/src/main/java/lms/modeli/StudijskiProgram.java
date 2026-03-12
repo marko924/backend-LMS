@@ -1,6 +1,7 @@
 package lms.modeli;
 
-import java.util.List;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,12 +35,12 @@ public class StudijskiProgram extends LogickoBrisanje{
     private Nastavnik rukovodilac;
     
     @OneToMany(mappedBy = "studijskiProgram")
-    private List<GodinaStudija> godineStudija;
+    private Set<GodinaStudija> godineStudija;
     
     public StudijskiProgram() {}
 
 	public StudijskiProgram(Long id, String naziv, String opis, Fakultet fakultet, Nastavnik rukovodilac,
-			List<GodinaStudija> godineStudija) {
+			Set<GodinaStudija> godineStudija) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -90,11 +91,11 @@ public class StudijskiProgram extends LogickoBrisanje{
 		this.rukovodilac = rukovodilac;
 	}
 
-	public List<GodinaStudija> getGodineStudija() {
+	public Set<GodinaStudija> getGodineStudija() {
 		return godineStudija;
 	}
 
-	public void setGodineStudija(List<GodinaStudija> godineStudija) {
+	public void setGodineStudija(Set<GodinaStudija> godineStudija) {
 		this.godineStudija = godineStudija;
 	}
     

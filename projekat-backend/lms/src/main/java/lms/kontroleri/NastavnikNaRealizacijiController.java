@@ -9,7 +9,7 @@ import lms.servisi.CrudService;
 import lms.servisi.NastavnikNaRealizacijiService;
 
 @RestController
-@RequestMapping("/api/nastavnici-na-realizaciji")
+@RequestMapping("/api/nastavniciNaRealizaciji")
 public class NastavnikNaRealizacijiController extends AbstractCrudController<NastavnikNaRealizacijiDTO, Long> {
 
     @Autowired
