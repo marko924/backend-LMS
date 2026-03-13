@@ -2,8 +2,12 @@ package lms.kontroleri;
 
 import lms.dtos.OdobravanjeZahtevaDTO;
 import lms.dtos.ZahtevZaUpisDTO;
+import lms.dtos.ZahtevZaUpisDetaljiDTO;
 import lms.servisi.CrudService;
 import lms.servisi.ZahtevZaUpisService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +34,11 @@ public class ZahtevZaUpisController extends AbstractCrudController<ZahtevZaUpisD
     public ResponseEntity<Void> odbij(@PathVariable Long id, @RequestBody String napomena) {
     	service.odbijZahtev(id, napomena);
         return ResponseEntity.ok().build();
+    }
+    
+    @GetMapping("/naCekanju")
+    public ResponseEntity<List<ZahtevZaUpisDetaljiDTO>> getNaCekanju() {
+        List<ZahtevZaUpisDetaljiDTO> zahtevi = service.getSviNaCekanjuDetalji();
+        return ResponseEntity.ok(zahtevi);
     }
 }

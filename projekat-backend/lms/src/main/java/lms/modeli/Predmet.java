@@ -48,6 +48,10 @@ public class Predmet extends LogickoBrisanje{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "preduslov_id", nullable = true)
     private Predmet preduslov;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "godina_id")
+    private GodinaStudija godinaStudija;
 
     @OneToMany(mappedBy = "predmet")
     private List<RealizacijaPredmeta> realizacije;
@@ -60,7 +64,7 @@ public class Predmet extends LogickoBrisanje{
 
 	public Predmet(Long id, String naziv, String opis, Integer espb, boolean obavezan, Integer brojPredavanja,
 			Integer brojVezbi, Integer drugiObliciNastave, Integer istrazivackiRad, Integer ostaliCasovi,
-			Predmet preduslov, List<RealizacijaPredmeta> realizacije, List<Ishod> ishodi) {
+			Predmet preduslov, GodinaStudija godinaStudija, List<RealizacijaPredmeta> realizacije, List<Ishod> ishodi) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -73,6 +77,7 @@ public class Predmet extends LogickoBrisanje{
 		this.istrazivackiRad = istrazivackiRad;
 		this.ostaliCasovi = ostaliCasovi;
 		this.preduslov = preduslov;
+		this.godinaStudija = godinaStudija;
 		this.realizacije = realizacije;
 		this.ishodi = ishodi;
 	}
@@ -167,6 +172,14 @@ public class Predmet extends LogickoBrisanje{
 
 	public Predmet getPreduslov() {
 		return preduslov;
+	}
+
+	public GodinaStudija getGodinaStudija() {
+		return godinaStudija;
+	}
+
+	public void setGodinaStudija(GodinaStudija godinaStudija) {
+		this.godinaStudija = godinaStudija;
 	}
 
 	public void setPreduslov(Predmet preduslov) {

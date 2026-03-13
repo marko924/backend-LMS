@@ -2,6 +2,8 @@ package lms.servisi;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.ZahtevZaUpisDTO;
+import lms.dtos.ZahtevZaUpisDetaljiDTO;
 import lms.modeli.Fakultet;
 import lms.modeli.GodinaStudija;
 import lms.modeli.StatusZahteva;
@@ -57,7 +60,6 @@ public class ZahtevZaUpisService extends AbstractCrusService<ZahtevZaUpisDTO, Za
         dto.setId(entity.getId());
         
         if (entity.getFakultet() != null) {
-            // ISPRAVKA: Ovde je u tvom kodu bilo entity.getId(), treba entity.getFakultet().getId()
             dto.setFakultetId(entity.getFakultet().getId());
         }
         if (entity.getStudent() != null) {
@@ -67,7 +69,6 @@ public class ZahtevZaUpisService extends AbstractCrusService<ZahtevZaUpisDTO, Za
             dto.setGodinaStudijaId(entity.getGodinaStudija().getId());
         }
         
-        // NOVO: Mapiranje studijskog programa u DTO
         if (entity.getStudijskiProgram() != null) {
             dto.setStudijskiProgramId(entity.getStudijskiProgram().getId());
         }
@@ -107,7 +108,6 @@ public class ZahtevZaUpisService extends AbstractCrusService<ZahtevZaUpisDTO, Za
             entity.setGodinaStudija(godina);
         }
 
-        // NOVO: Mapiranje studijskog programa iz DTO-a u Entity
         if (dto.getStudijskiProgramId() != null) {
             StudijskiProgram sp = studijskiProgramRepository.findById(dto.getStudijskiProgramId())
                     .orElseThrow(() -> new EntityNotFoundException("Smer nije pronađen"));
@@ -132,14 +132,9 @@ public class ZahtevZaUpisService extends AbstractCrusService<ZahtevZaUpisDTO, Za
         zahtev.setStatus(StatusZahteva.ODOBREN);
         zahtevRepository.save(zahtev);
 
-        // Kreiramo instancu StudentNaGodini
         StudentNaGodini studentNaGodini = new StudentNaGodini();
         studentNaGodini.setStudent(zahtev.getStudent());
         studentNaGodini.setGodinaStudija(zahtev.getGodinaStudija());
-        
-        // NOVO: Ako StudentNaGodini entitet ima polje studijskiProgram, postavi ga i tu
-        // studentNaGodini.setStudijskiProgram(zahtev.getStudijskiProgram());
-        
         studentNaGodini.setDatumUpisa(LocalDate.now());
         studentNaGodini.setBrojIndeksa(brojIndeksa);
         studentNaGodini.setObrisan(false);
@@ -160,5 +155,34 @@ public class ZahtevZaUpisService extends AbstractCrusService<ZahtevZaUpisDTO, Za
         zahtev.setStatus(StatusZahteva.ODBIJEN);
         zahtev.setNapomena(napomena);
         zahtevRepository.save(zahtev);
+    }
+    
+    public List<ZahtevZaUpisDetaljiDTO> getSviNaCekanjuDetalji() {
+        
+        List<ZahtevZaUpis> zahtevi = zahtevRepository.findAllByStatusWithDetails(StatusZahteva.NA_CEKANJU);
+
+        return zahtevi.stream().map(z -> {
+            ZahtevZaUpisDetaljiDTO dto = new ZahtevZaUpisDetaljiDTO();
+            dto.setId(z.getId());
+            dto.setStatus(z.getStatus());
+            dto.setVremePodnosenja(z.getVremePodnosenja());
+            dto.setNapomena(z.getNapomena());
+
+            if (z.getStudent() != null) {
+                dto.setStudentImePrezime(z.getStudent().getIme() + " " + z.getStudent().getPrezime());
+                dto.setStudentEmail(z.getStudent().getEmail());
+            }
+
+            if (z.getFakultet() != null) 
+            	dto.setFakultetNaziv(z.getFakultet().getNaziv());
+            
+            if (z.getStudijskiProgram() != null) 
+            	dto.setStudijskiProgramNaziv(z.getStudijskiProgram().getNaziv());
+            
+            if (z.getGodinaStudija() != null) 
+            	dto.setGodinaStudijaBroj(z.getGodinaStudija().getGodina());
+
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

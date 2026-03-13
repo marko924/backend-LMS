@@ -11,7 +11,9 @@ import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.NastavniMaterijalDTO;
 import lms.modeli.NastavniMaterijal;
 import lms.modeli.Fajl;
+import lms.modeli.Ishod;
 import lms.repozitorijumi.FajlRepository;
+import lms.repozitorijumi.IshodRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.NastavniMaterijalRepository;
 
@@ -21,6 +23,9 @@ public class NastavniMaterijalService extends AbstractCrusService<NastavniMateri
 
     @Autowired
     private NastavniMaterijalRepository nastavniMaterijalRepository;
+    
+    @Autowired
+    private IshodRepository ishodRepository;
     
     @Autowired
     private FajlRepository fajlRepository;
@@ -37,7 +42,9 @@ public class NastavniMaterijalService extends AbstractCrusService<NastavniMateri
         dto.setId(entity.getId());
         dto.setNaziv(entity.getNaziv());
         dto.setOpis(entity.getOpis());
-
+        if(entity.getIshod() != null) {
+        	dto.setIshodId(entity.getIshod().getId());
+        }
         if(entity.getFajlovi() != null) {
             dto.setFajlId(entity.getFajlovi().stream()
                     .map(Fajl::getId)
@@ -61,7 +68,11 @@ public class NastavniMaterijalService extends AbstractCrusService<NastavniMateri
         entity.setId(dto.getId());
         entity.setNaziv(dto.getNaziv());
         entity.setOpis(dto.getOpis());
-
+        if(dto.getIshodId() != null) {
+        	Ishod ishod = ishodRepository.findById(dto.getIshodId())
+        			.orElseThrow(() -> new EntityNotFoundException("Ishod za nastavni materijal nije pronađen"));
+        	entity.setIshod(ishod);
+        }
         if(dto.getFajlId() != null) {
             List<Fajl> fajlovi = dto.getFajlId().stream()
                     .map(id -> fajlRepository.findById(id)

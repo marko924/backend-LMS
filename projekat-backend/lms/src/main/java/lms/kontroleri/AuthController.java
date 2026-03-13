@@ -64,17 +64,14 @@ public class AuthController {
             return ResponseEntity.status(500).body("Došlo je do serverske greške");
         }
 
-        // 1. Učitavamo UserDetails (potrebno za JwtUtil i uloge)
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
 
-        // 2. KLJUČNI KORAK: Pronalazimo entitet korisnika u bazi da izvučemo ID
         RegistrovaniKorisnik korisnik = korisnikService.findByKorisnickoIme(authRequest.getUsername());
 
         if (korisnik == null) {
             return ResponseEntity.status(404).body("Korisnik nije pronađen u bazi podataka.");
         }
 
-        // 3. Generišemo token sa UserDetails i ID-em korisnika
         final String jwt = jwtUtil.generateToken(userDetails, korisnik.getId());
 
         return ResponseEntity.ok(new AuthResponse(jwt));

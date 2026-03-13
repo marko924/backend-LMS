@@ -1,7 +1,6 @@
 package lms.servisi;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.IshodDTO;
 import lms.modeli.EvaluacijaZnanja;
 import lms.modeli.Ishod;
+import lms.modeli.IshodObrazovniCilj;
 import lms.modeli.NastavniMaterijal;
 import lms.modeli.ObrazovniCilj;
 import lms.modeli.Predmet;
@@ -75,11 +75,12 @@ public class IshodService extends AbstractCrusService<IshodDTO, Ishod, Long>{
     				.collect(Collectors.toList()));
     	}
     	
-        if(entity.getObrazovniCiljevi() != null) {
-        	dto.setObrazovniCiljeviId(entity.getObrazovniCiljevi().stream()
-                    .map(ObrazovniCilj::getId)
+    	if(entity.getCiljeviVeze() != null) {
+    		dto.setObrazovniCiljeviId(entity.getCiljeviVeze().stream()
+    				.filter(veza -> !veza.isObrisan())
+    				.map(veza -> veza.getObrazovniCilj().getId())
                     .collect(Collectors.toSet()));
-        }
+    	}
 
         return dto;
     }
@@ -122,12 +123,20 @@ public class IshodService extends AbstractCrusService<IshodDTO, Ishod, Long>{
         	entity.setNastavniMaterijali(nastavniMaterijali);
         }
 
+        entity.getCiljeviVeze().clear();
         if (dto.getObrazovniCiljeviId() != null) {
-            Set<ObrazovniCilj> ciljevi = dto.getObrazovniCiljeviId().stream()
-                    .map(id -> obrazovniCiljRepository.findById(id)
-                            .orElseThrow(() -> new EntityNotFoundException("Obrazovni cilj ID: " + id + " nije pronađen")))
-                    .collect(Collectors.toSet());
-            entity.setObrazovniCiljevi(ciljevi);
+            for (Long ciljId : dto.getObrazovniCiljeviId()) {
+                ObrazovniCilj cilj = obrazovniCiljRepository.findById(ciljId)
+                        .filter(c -> !c.isObrisan())
+                        .orElseThrow(() -> new EntityNotFoundException("Cilj nije pronađen: " + ciljId));
+                
+                IshodObrazovniCilj novaVeza = new IshodObrazovniCilj();
+                novaVeza.setIshod(entity);
+                novaVeza.setObrazovniCilj(cilj);
+                novaVeza.setObrisan(false);
+                
+                entity.getCiljeviVeze().add(novaVeza);
+            }
         }
 	}
 

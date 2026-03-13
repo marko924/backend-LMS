@@ -21,8 +21,8 @@ public class Tema extends LogickoBrisanje{
     @JoinColumn(name = "forum_id", nullable = false)
     private Forum forum;
 
-    @ManyToOne
-    @JoinColumn(name = "autor_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "autor_id", nullable = true)
     private KorisnikNaForumu autor;
 
     @OneToMany(mappedBy = "tema", cascade = CascadeType.ALL) //zbog kompozicije

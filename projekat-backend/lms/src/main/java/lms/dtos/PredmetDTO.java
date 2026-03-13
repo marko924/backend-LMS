@@ -15,6 +15,7 @@ public class PredmetDTO {
     private Integer istrazivackiRad;
     private Integer ostaliCasovi;
     private Long preduslovId;
+    private Long godinaStudijaId;
     private List<Long> realizacijeId;
     private List<Long> ishodiId;
     
@@ -22,7 +23,7 @@ public class PredmetDTO {
 
 	public PredmetDTO(Long id, String naziv, String opis, Integer espb, boolean obavezan, Integer brojPredavanja,
 			Integer brojVezbi, Integer drugiObliciNastave, Integer istrazivackiRad, Integer ostaliCasovi,
-			Long preduslovId, List<Long> realizacijeId, List<Long> ishodiId) {
+			Long preduslovId, Long godinaStudijaId, List<Long> realizacijeId, List<Long> ishodiId) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -35,6 +36,7 @@ public class PredmetDTO {
 		this.istrazivackiRad = istrazivackiRad;
 		this.ostaliCasovi = ostaliCasovi;
 		this.preduslovId = preduslovId;
+		this.godinaStudijaId = godinaStudijaId;
 		this.realizacijeId = realizacijeId;
 		this.ishodiId = ishodiId;
 	}
@@ -134,6 +136,14 @@ public class PredmetDTO {
 
 	public void setPreduslovId(Long preduslovId) {
 		this.preduslovId = preduslovId;
+	}
+
+	public Long getGodinaStudijaId() {
+		return godinaStudijaId;
+	}
+
+	public void setGodinaStudijaId(Long godinaStudijaId) {
+		this.godinaStudijaId = godinaStudijaId;
 	}
 
 	public List<Long> getIshodiId() {

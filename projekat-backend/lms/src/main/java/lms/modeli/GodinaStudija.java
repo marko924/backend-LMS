@@ -29,8 +29,7 @@ public class GodinaStudija extends LogickoBrisanje{
     @Column
     private LocalDate kraj;
     
-    @OneToMany()
-    @JoinColumn(name = "godina_id")
+    @OneToMany(mappedBy = "godinaStudija")
     private Set<Predmet> predmeti;
     
     @ManyToOne(fetch = FetchType.LAZY)

@@ -7,15 +7,17 @@ public class NastavniMaterijalDTO {
     private Long id;
     private String naziv;
     private String opis;
+    private Long ishodId;
     private List<Long> fajlId;
 
     public NastavniMaterijalDTO() {}
 
-    public NastavniMaterijalDTO(Long id, String naziv, String opis, List<Long> fajlId) {
+	public NastavniMaterijalDTO(Long id, String naziv, String opis, Long ishodId, List<Long> fajlId) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
 		this.opis = opis;
+		this.ishodId = ishodId;
 		this.fajlId = fajlId;
 	}
 
@@ -43,7 +45,15 @@ public class NastavniMaterijalDTO {
         this.opis = opis;
     }
 
-    public List<Long> getFajlId() {
+    public Long getIshodId() {
+		return ishodId;
+	}
+
+	public void setIshodId(Long ishodId) {
+		this.ishodId = ishodId;
+	}
+
+	public List<Long> getFajlId() {
         return fajlId;
     }
 

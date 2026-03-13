@@ -14,19 +14,19 @@ public class ObrazovniCilj extends LogickoBrisanje {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String opis;
     
-    @ManyToMany(mappedBy = "obrazovniCiljevi", fetch = FetchType.LAZY)
-    private Set<Ishod> ishodi = new HashSet<>();
+    @OneToMany(mappedBy = "obrazovniCilj", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<IshodObrazovniCilj> ishodiVeze = new HashSet<>();
 
 	public ObrazovniCilj() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ObrazovniCilj(Long id, String opis, Set<Ishod> ishodi) {
+	public ObrazovniCilj(Long id, String opis, Set<IshodObrazovniCilj> ishodiVeze) {
 		super();
 		this.id = id;
 		this.opis = opis;
-		this.ishodi = ishodi;
+		this.ishodiVeze = ishodiVeze;
 	}
 
 	public Long getId() {
@@ -45,13 +45,12 @@ public class ObrazovniCilj extends LogickoBrisanje {
 		this.opis = opis;
 	}
 
-	public Set<Ishod> getIshodi() {
-		return ishodi;
+	public Set<IshodObrazovniCilj> getIshodiVeze() {
+		return ishodiVeze;
 	}
 
-	public void setIshodi(Set<Ishod> ishodi) {
-		this.ishodi = ishodi;
+	public void setIshodiVeze(Set<IshodObrazovniCilj> ishodiVeze) {
+		this.ishodiVeze = ishodiVeze;
 	}
-
-    
+	
 }

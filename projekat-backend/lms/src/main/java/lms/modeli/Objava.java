@@ -21,12 +21,11 @@ public class Objava extends LogickoBrisanje{
     @JoinColumn(name = "tema_id", nullable = false)
     private Tema tema;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "autor_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "autor_id", nullable = true)
     private KorisnikNaForumu autor;
     
-    @OneToMany
-    @JoinColumn(name = "objava_id")
+    @OneToMany(mappedBy="objava")
     private List<Fajl> fajlovi;
 
 	public Objava() {

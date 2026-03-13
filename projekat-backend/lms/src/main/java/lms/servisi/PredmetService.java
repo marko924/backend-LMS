@@ -9,9 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.PredmetDTO;
+import lms.modeli.GodinaStudija;
 import lms.modeli.Ishod;
 import lms.modeli.Predmet;
 import lms.modeli.RealizacijaPredmeta;
+import lms.repozitorijumi.GodinaStudijaRepository;
 import lms.repozitorijumi.IshodRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.PredmetRepository;
@@ -23,6 +25,9 @@ public class PredmetService extends AbstractCrusService<PredmetDTO, Predmet, Lon
 
 	@Autowired
 	private PredmetRepository predmetRepository;
+	
+	@Autowired
+	private GodinaStudijaRepository godinaStudijaRepository;
     
 	@Autowired
 	private RealizacijaPredmetaRepository realizacijaPredmetaRepository;
@@ -51,6 +56,9 @@ public class PredmetService extends AbstractCrusService<PredmetDTO, Predmet, Lon
         dto.setOstaliCasovi(entity.getOstaliCasovi());
         if (entity.getPreduslov() != null) {
         	dto.setPreduslovId(entity.getPreduslov().getId());
+        }
+        if (entity.getGodinaStudija() != null) {
+        	dto.setGodinaStudijaId(entity.getGodinaStudija().getId());
         }
         if (entity.getRealizacije() != null) {
             dto.setRealizacijeId(entity.getRealizacije().stream()
@@ -90,6 +98,11 @@ public class PredmetService extends AbstractCrusService<PredmetDTO, Predmet, Lon
         	Predmet preduslov = predmetRepository.findById(dto.getPreduslovId())
         			.orElseThrow(() -> new EntityNotFoundException("Preduslov za predmet nije pronađen"));
         	entity.setPreduslov(preduslov);
+        }
+        if (dto.getGodinaStudijaId() != null) {
+        	GodinaStudija godinaStudija = godinaStudijaRepository.findById(dto.getGodinaStudijaId())
+        			.orElseThrow(() -> new EntityNotFoundException("Godina studija za predmet nije pronađen"));
+        	entity.setGodinaStudija(godinaStudija);
         }
         if (dto.getRealizacijeId() != null) {
             List<RealizacijaPredmeta> realizacije = dto.getRealizacijeId().stream()

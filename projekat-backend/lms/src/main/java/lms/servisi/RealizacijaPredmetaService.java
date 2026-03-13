@@ -1,7 +1,6 @@
 package lms.servisi;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import lms.modeli.Obavestenje;
 import lms.modeli.Predmet;
 import lms.modeli.RealizacijaPredmeta;
 import lms.modeli.EvaluacijaZnanja;
-import lms.modeli.NastavniMaterijal;
 import lms.modeli.TerminNastave;
 import lms.modeli.PohadjanjePredmeta;
 import lms.repozitorijumi.EvaluacijaZnanjaRepository;
@@ -25,7 +23,6 @@ import lms.repozitorijumi.NastavnikRepository;
 import lms.repozitorijumi.ObavestenjeRepository;
 import lms.repozitorijumi.PredmetRepository;
 import lms.repozitorijumi.RealizacijaPredmetaRepository;
-import lms.repozitorijumi.NastavniMaterijalRepository;
 import lms.repozitorijumi.TerminNastaveRepository;
 import lms.repozitorijumi.PohadjanjePredmetaRepository;
 
@@ -38,9 +35,6 @@ public class RealizacijaPredmetaService extends AbstractCrusService<RealizacijaP
     
     @Autowired
     private PredmetRepository predmetRepository;
-    
-    @Autowired
-    private NastavniMaterijalRepository nastavniMaterijalRepository;
     
     @Autowired
     private TerminNastaveRepository terminNastaveRepository;
@@ -69,12 +63,6 @@ public class RealizacijaPredmetaService extends AbstractCrusService<RealizacijaP
 
         if (entity.getPredmet() != null) {
             dto.setPredmetId(entity.getPredmet().getId());
-        }
-
-        if (entity.getNastavniMaterijali() != null) {
-            dto.setNastavniMaterijaliId(entity.getNastavniMaterijali().stream()
-            		.map(NastavniMaterijal::getId)
-            		.collect(Collectors.toSet()));
         }
 
         if (entity.getTermini() != null) {
@@ -127,16 +115,6 @@ public class RealizacijaPredmetaService extends AbstractCrusService<RealizacijaP
                     .orElseThrow(() -> new EntityNotFoundException("Predmet nije pronađen"));
             entity.setPredmet(predmet);
         }
-
-       
-        if (dto.getNastavniMaterijaliId() != null) {
-            Set<NastavniMaterijal> materijali = dto.getNastavniMaterijaliId().stream()
-            		.map(id -> nastavniMaterijalRepository.findById(id)
-            			.orElseThrow(() -> new EntityNotFoundException("Nastavni materijal ID: " + id + " nije pronađen")))
-					.collect(Collectors.toSet());
-            entity.setNastavniMaterijali(materijali);
-        }
-
       
         if (dto.getTerminiId() != null) {
             List<TerminNastave> termini = dto.getTerminiId().stream()

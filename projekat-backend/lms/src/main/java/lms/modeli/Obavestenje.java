@@ -20,8 +20,7 @@ public class Obavestenje extends LogickoBrisanje {
     @Column(name = "datum_objave")
     private LocalDateTime datumObjave = LocalDateTime.now();
     
-    @OneToMany
-    @JoinColumn(name = "obavestenje_id")
+    @OneToMany(mappedBy="obavestenje")
     private List<Fajl> fajlovi;
 
     @ManyToOne(fetch = FetchType.LAZY)

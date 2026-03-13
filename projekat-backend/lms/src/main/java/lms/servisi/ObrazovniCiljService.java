@@ -1,6 +1,5 @@
 package lms.servisi;
 
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.ObrazovniCiljDTO;
 import lms.modeli.Ishod;
+import lms.modeli.IshodObrazovniCilj;
 import lms.modeli.ObrazovniCilj;
 import lms.repozitorijumi.IshodRepository;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
@@ -35,11 +35,12 @@ public class ObrazovniCiljService extends AbstractCrusService<ObrazovniCiljDTO, 
 		ObrazovniCiljDTO dto = new ObrazovniCiljDTO();
 		dto.setId(entity.getId());
 		dto.setOpis(entity.getOpis());
-		if(entity.getIshodi() != null) {
-			dto.setIshodiId(entity.getIshodi().stream()
-					.map(Ishod::getId)
-					.collect(Collectors.toSet()));
-		}
+		if(entity.getIshodiVeze() != null) {
+    		dto.setIshodiId(entity.getIshodiVeze().stream()
+    				.filter(veza -> !veza.isObrisan())
+    				.map(veza -> veza.getIshod().getId())
+                    .collect(Collectors.toSet()));
+    	}
 		return dto;
 	}
 
@@ -54,13 +55,21 @@ public class ObrazovniCiljService extends AbstractCrusService<ObrazovniCiljDTO, 
 	protected void updateEntity(ObrazovniCilj entity, ObrazovniCiljDTO dto) {
 		entity.setId(dto.getId());
 		entity.setOpis(dto.getOpis());
-		if(dto.getIshodiId() != null) {
-			Set<Ishod> ishodi = dto.getIshodiId().stream()
-					.map(id -> ishodRepository.findById(id)
-							.orElseThrow(() -> new EntityNotFoundException("Nastavni materijal ID: " + id + " nije pronađen")))
-                    .collect(Collectors.toSet());
-			entity.setIshodi(ishodi);
-		}
+		entity.getIshodiVeze().clear();
+        if (dto.getIshodiId() != null) {
+            for (Long ishodId : dto.getIshodiId()) {
+                Ishod ishod = ishodRepository.findById(ishodId)
+                        .filter(i -> !i.isObrisan())
+                        .orElseThrow(() -> new EntityNotFoundException("Ishod nije pronađen: " + ishodId));
+                
+                IshodObrazovniCilj novaVeza = new IshodObrazovniCilj();
+                novaVeza.setIshod(ishod);
+                novaVeza.setObrazovniCilj(entity);
+                novaVeza.setObrisan(false);
+                
+                entity.getIshodiVeze().add(novaVeza);
+            }
+        }
 	}
 
 }

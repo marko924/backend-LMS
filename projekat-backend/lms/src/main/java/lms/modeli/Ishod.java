@@ -27,17 +27,11 @@ public class Ishod extends LogickoBrisanje {
     @JoinColumn(name = "termin_nastave_id", nullable = false)
     private TerminNastave terminNastave;
     
-    @OneToMany
-    @JoinColumn(name = "ishod_id")
+    @OneToMany(mappedBy = "ishod")
     private List<NastavniMaterijal> nastavniMaterijali;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "Ishod_ObrazovniCilj",
-        joinColumns = @JoinColumn(name = "ishod_id"),
-        inverseJoinColumns = @JoinColumn(name = "obrazovni_cilj_id")
-    )
-    private Set<ObrazovniCilj> obrazovniCiljevi = new HashSet<>();
+    
+    @OneToMany(mappedBy = "ishod", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<IshodObrazovniCilj> ciljeviVeze = new HashSet<>();
 
 	public Ishod() {
 		super();
@@ -45,7 +39,7 @@ public class Ishod extends LogickoBrisanje {
 	}
 
 	public Ishod(Long id, String opis, Predmet predmet, EvaluacijaZnanja evaluacija, TerminNastave terminNastave,
-			List<NastavniMaterijal> nastavniMaterijali, Set<ObrazovniCilj> obrazovniCiljevi) {
+			List<NastavniMaterijal> nastavniMaterijali, Set<IshodObrazovniCilj> ciljeviVeze) {
 		super();
 		this.id = id;
 		this.opis = opis;
@@ -53,7 +47,7 @@ public class Ishod extends LogickoBrisanje {
 		this.evaluacija = evaluacija;
 		this.terminNastave = terminNastave;
 		this.nastavniMaterijali = nastavniMaterijali;
-		this.obrazovniCiljevi = obrazovniCiljevi;
+		this.ciljeviVeze = ciljeviVeze;
 	}
 
 	public Long getId() {
@@ -80,12 +74,12 @@ public class Ishod extends LogickoBrisanje {
 		this.predmet = predmet;
 	}
 
-	public Set<ObrazovniCilj> getObrazovniCiljevi() {
-		return obrazovniCiljevi;
+	public Set<IshodObrazovniCilj> getCiljeviVeze() {
+		return ciljeviVeze;
 	}
 
-	public void setObrazovniCiljevi(Set<ObrazovniCilj> obrazovniCiljevi) {
-		this.obrazovniCiljevi = obrazovniCiljevi;
+	public void setCiljeviVeze(Set<IshodObrazovniCilj> ciljeviVeze) {
+		this.ciljeviVeze = ciljeviVeze;
 	}
 
 	public EvaluacijaZnanja getEvaluacija() {

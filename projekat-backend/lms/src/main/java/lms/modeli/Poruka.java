@@ -28,8 +28,7 @@ public class Poruka extends LogickoBrisanje {
     @JoinColumn(name = "primalac_id", nullable = false)
     private RegistrovaniKorisnik primalac;
     
-    @OneToMany
-    @JoinColumn(name = "poruka_id")
+    @OneToMany(mappedBy="poruka")
     private List<Fajl> fajlovi;
 
 	public Poruka() {
