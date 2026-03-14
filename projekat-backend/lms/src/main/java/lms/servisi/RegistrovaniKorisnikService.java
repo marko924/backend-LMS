@@ -101,8 +101,12 @@ public class RegistrovaniKorisnikService extends AbstractCrusService<Registrovan
 	    return toDTO(korisnik);
 	}
 	
-	public boolean proveriPostojanje(String korisnickoIme) {
+	public boolean proveriPostojanjePoImenu(String korisnickoIme) {
 	    return registrovaniKorisnikRepository.existsByKorisnickoImeAndObrisanFalse(korisnickoIme);
+	}
+	
+	public boolean proveriPostojanjePoEmailu(String email) {
+	    return registrovaniKorisnikRepository.existsByEmailAndObrisanFalse(email);
 	}
 
 }

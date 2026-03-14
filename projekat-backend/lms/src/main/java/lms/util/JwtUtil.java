@@ -45,16 +45,13 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    // IZMENJENA METODA: Sada prima i userId
     public String generateToken(UserDetails userDetails, Long userId) {
         Map<String, Object> claims = new HashMap<>();
         
-        // Dodajemo uloge
         claims.put("roles", userDetails.getAuthorities().stream()
                 .map(auth -> auth.getAuthority())
                 .collect(Collectors.toList()));
         
-        // KLJUČNI DODATAK: Dodajemo ID korisnika u token
         claims.put("userId", userId);
 
         return createToken(claims, userDetails.getUsername());

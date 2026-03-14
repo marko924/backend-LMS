@@ -80,8 +80,12 @@ public class AuthController {
     @PostMapping("/register")
     @Transactional
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
-        if (korisnikService.proveriPostojanje(request.getKorisnickoIme())) {
+        if (korisnikService.proveriPostojanjePoImenu(request.getKorisnickoIme())) {
             return ResponseEntity.badRequest().body("Greška: Korisničko ime je zauzeto!");
+        }
+        
+        if (korisnikService.proveriPostojanjePoEmailu(request.getEmail())) {
+            return ResponseEntity.badRequest().body("Greška: Korisnik sa tim email-om već postoji!");
         }
 
         RegistrovaniKorisnik korisnik;

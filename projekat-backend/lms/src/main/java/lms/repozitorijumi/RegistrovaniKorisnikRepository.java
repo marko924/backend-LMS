@@ -12,4 +12,6 @@ public interface RegistrovaniKorisnikRepository extends LogickoBrisanjeRepozitor
 	Optional<RegistrovaniKorisnik> findByKorisnickoImeAndObrisanFalse(String korisnickoIme);
 	
 	boolean existsByKorisnickoImeAndObrisanFalse(String korisnickoIme);
+	
+	boolean existsByEmailAndObrisanFalse(String email);
 }
