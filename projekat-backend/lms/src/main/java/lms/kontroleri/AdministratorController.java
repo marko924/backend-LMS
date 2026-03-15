@@ -9,7 +9,7 @@ import lms.servisi.AdministartorService;
 import lms.servisi.CrudService;
 
 @RestController
-@RequestMapping("/api/adminisratori")
+@RequestMapping("/api/administratori")
 public class AdministratorController extends AbstractCrudController<AdministratorDTO, Long>{
 	
 	@Autowired
