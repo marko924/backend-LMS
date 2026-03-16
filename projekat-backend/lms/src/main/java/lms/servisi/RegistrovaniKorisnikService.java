@@ -1,7 +1,6 @@
 package lms.servisi;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 import lms.dtos.RegistrovaniKorisnikDTO;
 import lms.modeli.KorisnikNaForumu;
+import lms.modeli.KorisnikUloga;
 import lms.modeli.RegistrovaniKorisnik;
 import lms.modeli.Uloga;
 import lms.repozitorijumi.KorisnikNaForumuRepository;
@@ -51,10 +51,11 @@ public class RegistrovaniKorisnikService extends AbstractCrusService<Registrovan
 		}
 		
 		if (entity.getUloge() != null) {
-			dto.setUlogeId(entity.getUloge().stream()
-					.map(Uloga::getId)
-					.collect(Collectors.toSet()));
-		}
+	        dto.setUlogeId(entity.getUloge().stream()
+	                .filter(veza -> !veza.isObrisan())
+	                .map(veza -> veza.getUloga().getId())
+	                .collect(Collectors.toSet()));
+	    }
 		
 		return dto;
 	}
@@ -81,13 +82,22 @@ public class RegistrovaniKorisnikService extends AbstractCrusService<Registrovan
 			entity.setClanstvaNaForumima(korisnikNaForumima);
 		}
 		
-		if (dto.getUlogeId() != null) {
-			Set<Uloga> uloge = dto.getUlogeId().stream()
-					.map(id -> ulogaRepository.findById(id)
-							.orElseThrow(() -> new EntityNotFoundException("Uloga ID: " + id + " nije pronađen")))
-					.collect(Collectors.toSet());
-			entity.setUloge(uloge);
-		}
+		entity.getUloge().clear();
+	    
+	    if (dto.getUlogeId() != null) {
+	        for (Long ulogaId : dto.getUlogeId()) {
+	            Uloga uloga = ulogaRepository.findById(ulogaId)
+	                    .filter(u -> !u.isObrisan())
+	                    .orElseThrow(() -> new EntityNotFoundException("Uloga ID: " + ulogaId + " nije pronađena"));
+	            
+	            KorisnikUloga novaVeza = new KorisnikUloga();
+	            novaVeza.setKorisnik(entity);
+	            novaVeza.setUloga(uloga);
+	            novaVeza.setObrisan(false);
+	            
+	            entity.getUloge().add(novaVeza);
+	        }
+	    }
 		
 	}
 	

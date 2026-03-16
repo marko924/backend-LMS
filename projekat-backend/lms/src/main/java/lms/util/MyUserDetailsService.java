@@ -27,8 +27,9 @@ public class MyUserDetailsService implements UserDetailsService {
             RegistrovaniKorisnik korisnik = korisnikService.findByKorisnickoIme(username);
             
             List<SimpleGrantedAuthority> authorities = korisnik.getUloge().stream()
-                .map(uloga -> new SimpleGrantedAuthority(uloga.getNaziv()))
-                .collect(Collectors.toList());
+                    .filter(veza -> !veza.isObrisan())
+                    .map(veza -> new SimpleGrantedAuthority(veza.getUloga().getNaziv()))
+                    .collect(Collectors.toList());
 
             return new org.springframework.security.core.userdetails.User(
                 korisnik.getKorisnickoIme(), 

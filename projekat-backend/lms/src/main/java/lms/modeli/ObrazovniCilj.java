@@ -14,7 +14,7 @@ public class ObrazovniCilj extends LogickoBrisanje {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String opis;
     
-    @OneToMany(mappedBy = "obrazovniCilj", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "obrazovniCilj")
     private Set<IshodObrazovniCilj> ishodiVeze = new HashSet<>();
 
 	public ObrazovniCilj() {

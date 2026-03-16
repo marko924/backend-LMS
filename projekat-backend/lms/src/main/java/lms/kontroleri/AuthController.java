@@ -20,6 +20,7 @@ import lms.dtos.AuthRequest;
 import lms.dtos.AuthResponse;
 import lms.dtos.RegisterRequest;
 import lms.modeli.Administartor;
+import lms.modeli.KorisnikUloga;
 import lms.modeli.Nastavnik;
 import lms.modeli.OsobljeStudentskeSluzbe;
 import lms.modeli.RegistrovaniKorisnik;
@@ -133,8 +134,14 @@ public class AuthController {
         korisnik.setLozinka(passwordEncoder.encode(request.getLozinka()));
 
         Uloga uloga = ulogaService.findByNaziv(nazivUloge);
-        Set<Uloga> uloge = new HashSet<>();
-        uloge.add(uloga);
+
+        KorisnikUloga novaVeza = new KorisnikUloga();
+        novaVeza.setKorisnik(korisnik);
+        novaVeza.setUloga(uloga);
+        novaVeza.setObrisan(false);
+
+        Set<KorisnikUloga> uloge = new HashSet<>();
+        uloge.add(novaVeza);
         korisnik.setUloge(uloge);
 
         korisnikService.saveEntity(korisnik);

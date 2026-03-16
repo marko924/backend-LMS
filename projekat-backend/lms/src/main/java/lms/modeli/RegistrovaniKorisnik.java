@@ -4,17 +4,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -33,13 +30,8 @@ public class RegistrovaniKorisnik extends LogickoBrisanje{
     @Column(unique = true, nullable = false)
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)  //Ovde je fatchType Eagre zbog toga sto u procesu registracije mi treba odmah sve uloge
-    @JoinTable( //A ovo smo uradili zato sto ovaj entitet to jest tabela nema ni jedan drugi atribut sem referenci na korisnika i ulogu pa mozemo da napravimo ovo ali ako ima jos neki atribut ona bih morao da napravim odvojeni entitet
-        name = "Korisnik_Uloga",
-        joinColumns = @JoinColumn(name = "korisnik_id"),
-        inverseJoinColumns = @JoinColumn(name = "uloga_id")
-    )
-    private Set<Uloga> uloge = new HashSet<>();  //Koristio sam Set da mi se ne bi prikazivali duplikati kao kada koristim List
+    @OneToMany(mappedBy = "korisnik", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<KorisnikUloga> uloge = new HashSet<>();  //Koristio sam Set da mi se ne bi prikazivali duplikati kao kada koristim List
     
     @OneToMany(mappedBy = "korisnik")
     private List<KorisnikNaForumu> clanstvaNaForumima;
@@ -49,7 +41,7 @@ public class RegistrovaniKorisnik extends LogickoBrisanje{
 		// TODO Auto-generated constructor stub
 	}
 
-	public RegistrovaniKorisnik(Long id, String korisnickoIme, String lozinka, String email, Set<Uloga> uloge,
+	public RegistrovaniKorisnik(Long id, String korisnickoIme, String lozinka, String email, Set<KorisnikUloga> uloge,
 			List<KorisnikNaForumu> clanstvaNaForumima) {
 		super();
 		this.id = id;
@@ -92,11 +84,11 @@ public class RegistrovaniKorisnik extends LogickoBrisanje{
 		this.email = email;
 	}
 
-	public Set<Uloga> getUloge() {
+	public Set<KorisnikUloga> getUloge() {
 		return uloge;
 	}
 
-	public void setUloge(Set<Uloga> uloge) {
+	public void setUloge(Set<KorisnikUloga> uloge) {
 		this.uloge = uloge;
 	}
 

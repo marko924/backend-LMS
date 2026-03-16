@@ -1,10 +1,15 @@
 package lms.modeli;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Uloga extends LogickoBrisanje{
@@ -14,6 +19,9 @@ public class Uloga extends LogickoBrisanje{
 
     @Column(nullable = false)
     private String naziv;     //'ROLE_STUDENT', 'ROLE_NASTAVNIK', 'ROLE_ADMIN', 'ROLE_SLUZBA'
+    
+    @OneToMany(mappedBy = "uloga", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<KorisnikUloga> korisnici = new HashSet<>();
 
 	public Uloga() {
 		super();
@@ -41,6 +49,13 @@ public class Uloga extends LogickoBrisanje{
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
-    
+
+	public Set<KorisnikUloga> getKorisnici() {
+		return korisnici;
+	}
+
+	public void setKorisnici(Set<KorisnikUloga> korisnici) {
+		this.korisnici = korisnici;
+	}
     
 }
