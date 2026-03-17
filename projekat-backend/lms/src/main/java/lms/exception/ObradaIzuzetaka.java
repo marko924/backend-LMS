@@ -36,7 +36,7 @@ public class ObradaIzuzetaka {
     // 3. Hvatanje svih ostalih neočekivanih grešaka (500 Internal Server Error)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<OdgovrNaGresku> handleGlobalException(Exception ex) {
-        // Logovanje stvarne greške u konzoli servera da bi ti mogao da je popraviš
+        // Logovanje stvarne greške u konzoli servera
         ex.printStackTrace(); 
         
         OdgovrNaGresku error = new OdgovrNaGresku(

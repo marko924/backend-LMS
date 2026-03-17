@@ -30,7 +30,7 @@ public class Ishod extends LogickoBrisanje {
     @OneToMany(mappedBy = "ishod")
     private List<NastavniMaterijal> nastavniMaterijali;
     
-    @OneToMany(mappedBy = "ishod")
+    @OneToMany(mappedBy = "ishod", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<IshodObrazovniCilj> ciljeviVeze = new HashSet<>();
 
 	public Ishod() {
