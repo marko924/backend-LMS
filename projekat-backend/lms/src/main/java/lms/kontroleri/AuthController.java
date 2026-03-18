@@ -33,8 +33,8 @@ import lms.util.MyUserDetailsService;
 
 //Ovo je glavni kontroler za obradu registracije i prijave
 
-@RestController
-@RequestMapping("/api/auth")
+@RestController //ova anotacija govori springu da sluzi za rukovanje http zahtevima i da rezultate odmah pretvori u json format
+@RequestMapping("/api/auth")  //definise osnovnu putanju (url) za sve metode u tom kontroleru
 public class AuthController {
     
     @Autowired
