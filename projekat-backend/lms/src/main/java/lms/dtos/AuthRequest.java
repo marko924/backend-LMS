@@ -1,5 +1,7 @@
 package lms.dtos;
 
+//Ovaj dto sluzi klijentu (angularu) da posalje username i password serveru tokom pokusaja prijave
+
 public class AuthRequest {
 	
 	private String username;

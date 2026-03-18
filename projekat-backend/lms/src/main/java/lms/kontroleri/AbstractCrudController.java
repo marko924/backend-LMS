@@ -12,14 +12,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+//Sa ovim generickim kontrolerom uveo sam standardizaciju gde ce svaki entitet u sistemu imati iste url rute i ponasati se na identican nacin
+
 public abstract class AbstractCrudController<DTO, ID> {
 
-    protected abstract CrudService<DTO, ID> getService();
-
+    protected abstract CrudService<DTO, ID> getService(); //ovu metodu ce implementirati samo kontroler koji ga nasledi kako bi mogao da mu 
+                                                          //dostavi odgovarajuci servis
     
     @GetMapping("/{id}")
-    public ResponseEntity<DTO> getOne(@PathVariable ID id) {
-        return ResponseEntity.ok(getService().findById(id));
+    public ResponseEntity<DTO> getOne(@PathVariable ID id) {   //@PathVariable uzima vrednost iz url-a i prosledjuje ka parametar metodi
+        return ResponseEntity.ok(getService().findById(id));  //Svaka metoda ce vratiti response zbog mog ObradjivacaIzuzetaka
     }
 
     
@@ -36,7 +38,7 @@ public abstract class AbstractCrudController<DTO, ID> {
 
     
     @PostMapping
-    public ResponseEntity<DTO> create(@Valid @RequestBody DTO dto) {
+    public ResponseEntity<DTO> create(@Valid @RequestBody DTO dto) {  //ova metoda validira pristigle json podatke iz zahteva i pretvara ih u dto objekat
         DTO saved = getService().save(dto);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }

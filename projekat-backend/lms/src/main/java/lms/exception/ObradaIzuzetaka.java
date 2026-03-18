@@ -7,7 +7,10 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice
+//Ova klasa mi pomaze da na klijentu nikada ne stignu podaci koji nisu citljivi kao odgovor vec da mi se posalju
+//lepo napisani json odgovori
+
+@ControllerAdvice  //sa ovom anotacijom sam rekao da je ovo kontroler koji osluskuje ostale kontrolere
 public class ObradaIzuzetaka {
 	
 	// 1. Hvatanje greške kada entitet nije pronađen (404 Not Found)

@@ -9,8 +9,8 @@ public class RegistrovaniKorisnikDTO {
 	private String korisnickoIme;
 	private String lozinka;
 	private String email;
-	private Set<Long> ulogeId;
-	private List<Long> clanstvaNaForumimaId;
+	private Set<Long> ulogeId;                   //u svakom dto-u sam koristio id za reference zato sto nisam hteo da imam problem sa beskonacnom petljom
+	private List<Long> clanstvaNaForumimaId;     //pri dobavljanju podataka i zbog toga sto je jednostavnije za izmenu i brisanje
 	
 	public RegistrovaniKorisnikDTO() {
 		super();

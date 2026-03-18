@@ -11,7 +11,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@PrimaryKeyJoinColumn(name="id")
+@PrimaryKeyJoinColumn(name="id") //ovo govori da je primarni kljuc ujedno i strani kljuc koji pokazuje na id u roditeljskoj tabeli
 public class Student extends RegistrovaniKorisnik{
 	
 	
@@ -27,8 +27,11 @@ public class Student extends RegistrovaniKorisnik{
     @OneToMany(mappedBy = "student")
     private List<StudentNaGodini> upisi;
     
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "adresa_id", nullable = true)
+    //Ovo znaci da vise korisnika moze ziveti na jednoj adresi
+    //A sa FetchType.LAZY znaci da se podaci nece vuci iz baze sve dok se ne zatraze (stedi memoriju)
+    //A sa optional = true to znaci da ovaj podatak nije obavezan
+    @ManyToOne(fetch = FetchType.LAZY, optional = true) 
+    @JoinColumn(name = "adresa_id", nullable = true) //odredjuje naziv kolone stranog kljuca u bazi
     private Adresa adresa;
     
     public Student() {}

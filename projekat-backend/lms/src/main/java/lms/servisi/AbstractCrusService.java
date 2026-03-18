@@ -12,16 +12,26 @@ import lms.modeli.LogickoBrisanje;
 import lms.repozitorijumi.LogickoBrisanjeRepozitorijum;
 import lms.repozitorijumi.LogickoBrisanjeSpecifikacija;
 
-@Transactional(readOnly = true)
-public abstract class AbstractCrusService <DTO, Entity extends LogickoBrisanje, ID> implements CrudService<DTO, ID>{
+//Uvodjenje ove anotacije ja sam rekao da se svaki put proveri transakciju (metodu) pre nego sto je izvrsi
+//da se ne bi poslali nedovrseni podaci na backend i da bi smo mogli da ispratimo ako se desila neka greska
+
+@Transactional(readOnly = true) //ovde sam stavio trasakciju tipa readOnly (samo citaj nista se ne menja) zbog svih get metoda u mom generickom servisu
+public abstract class AbstractCrusService <DTO, Entity extends LogickoBrisanje, ID> implements CrudService<DTO, ID>{ 
 	
-	protected abstract LogickoBrisanjeRepozitorijum<Entity, ID> getRepository();
+	//Ovaj genericki servis ce moci samo da naslede oni entiteti koji nasledjuju klasu LogickoBrisanje
+	//On implementira CrudService kako bi mogao de definise svaku metodu iz njega
+	
+	//Ja sam ovde doda par protected abstract metoda zato sto sam hteo da napravim da samo oni servisi koji mogu da naslede ovaj 
+	//genericki servis mogu da implementiraju ove metode zbog toga sto mi konkretno ne znamo koji cemo repozitorijum da uvezemo
+	//ili kako ce se mapirati entiteti u dto i obrnuto
+	
+	protected abstract LogickoBrisanjeRepozitorijum<Entity, ID> getRepository(); //sa ovim dobavljam repozitorijum koji mi je potreban za rad servisa
 
-	protected abstract DTO toDTO(Entity entity);
+	protected abstract DTO toDTO(Entity entity);  //mapiranje entiteta u dto
 
-	protected abstract Entity toEntity(DTO dto);
+	protected abstract Entity toEntity(DTO dto);  //mapiranje dto u entitet
 
-	protected abstract void updateEntity(Entity entity, DTO dto);
+	protected abstract void updateEntity(Entity entity, DTO dto);  //posebna metoda gde se vrsi logika mapiranja dto-a u entitet
 	
 	@Override
 	public DTO findById(ID id) {
@@ -33,7 +43,7 @@ public abstract class AbstractCrusService <DTO, Entity extends LogickoBrisanje, 
 	@Override
 	public List<DTO> findAll() {
 	    return getRepository().findAll(LogickoBrisanjeSpecifikacija.notDeleted()).stream()
-	        .map(this::toDTO)
+	        .map(this::toDTO) 
 	        .collect(Collectors.toList());
 	}
 	
@@ -48,7 +58,7 @@ public abstract class AbstractCrusService <DTO, Entity extends LogickoBrisanje, 
 	    return entitiesPage.map(this::toDTO); 
 	}
 
-	@Transactional
+	@Transactional //Sa ovim sa pregazio klasni @Transactional da mi se ni bi podaci samo citali vec da bi se mogli izmeniti, obrisati ili dodati
     @Override
     public DTO save(DTO dto) {
         Entity entity = toEntity(dto);

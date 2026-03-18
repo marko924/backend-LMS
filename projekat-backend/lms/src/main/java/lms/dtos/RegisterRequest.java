@@ -1,19 +1,18 @@
 package lms.dtos;
 
+//Ovaj dto sluzi za obradu registracije na sistem za sva 4 tipa korisnika u mom sistemu 
+
 public class RegisterRequest {
 	
 	private String korisnickoIme;
     private String lozinka;
     private String email;
     private String uloga;
-
     // Specifična polja (biće null ako se ne pošalju):
-    
-    private String jmbg; // Za studenta
+    private String jmbg;
     private String ime;
     private String prezime;
-    
-    private String biografija;      // Za nastavnika
+    private String biografija; 
 
     public RegisterRequest() {}
 

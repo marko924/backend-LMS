@@ -22,7 +22,7 @@ import lms.repozitorijumi.UlogaRepository;
 @Transactional(readOnly = true)
 public class RegistrovaniKorisnikService extends AbstractCrusService<RegistrovaniKorisnikDTO, RegistrovaniKorisnik, Long>{
 	
-	@Autowired
+	@Autowired //pomocu ovoga uvlacim zavisnosti u deo koda umesto da tu zavisnost instanciram sa new
 	private RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
 	
 	@Autowired

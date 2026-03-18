@@ -2,7 +2,7 @@ package lms.exception;
 
 import java.time.LocalDateTime;
 
-public class OdgovrNaGresku {
+public class OdgovrNaGresku {  //ovo je samo klasa koja sluzi kao dto za obradu gresaka
 
 	private LocalDateTime vreme;
     private int status;

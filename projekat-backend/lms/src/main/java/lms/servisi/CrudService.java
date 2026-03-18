@@ -6,7 +6,11 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+//Ja sam napravio ovaj interfejs kako bi naveo koje metode ce imati moj AbstractCrudService
+//Dodao sam ga da bi mogao u njemu da definisem metode za logicko brisanje i paginaciju
+
 public interface CrudService<T, ID> {
+	
 	//Čuva novi zapis ili ažurira postojeći.
     T save(T dto);
 

@@ -14,11 +14,11 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Entity  //oznacav tabelu u bazi
+@Inheritance(strategy = InheritanceType.JOINED) //ovo znaci da ce svaka tabela koja nasledi ovu klasu imati sva njena polja i da ce deliti id
 public class RegistrovaniKorisnik extends LogickoBrisanje{
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id //oznaka primarnog kljuca
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //sa ovim govorim da se on sam treba generisati
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -30,6 +30,9 @@ public class RegistrovaniKorisnik extends LogickoBrisanje{
     @Column(unique = true, nullable = false)
     private String email;
 
+    //Sa ovim smo rekli da je druga strana vlasnik veze
+    //A sa CascadeType.ALL sam rekao da ako obrisem ili sacuvam korisnika, automatski se te operacije prenose i na njegove uloge
+    //A sa orphanRemoval ako se ukloni uloga iz liste automatski se brise i iz baze (ne dozvoljava da ostane siroce)
     @OneToMany(mappedBy = "korisnik", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<KorisnikUloga> uloge = new HashSet<>();  //Koristio sam Set da mi se ne bi prikazivali duplikati kao kada koristim List
     
